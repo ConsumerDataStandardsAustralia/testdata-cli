@@ -1,0 +1,30 @@
+# API keys and secrets
+.env
+
+# Dependency directory
+node_modules
+bower_components
+
+# Working files
+working
+
+# Editors
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Ignore built ts files
+dist
+build
+
+# ignore yarn.lock
+yarn.lock
+
+# ignore yarn.lock
+working
+
+samples/output
+samples/sample-commands.md
