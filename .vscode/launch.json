@@ -7,6 +7,23 @@
         {
             "type": "pwa-node",
             "request": "launch",
+            "name": "Debug Simple Full",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/dist/cli.js",
+            "args": [
+                "generate",
+                "${workspaceFolder}/samples/options/simple-full.json",
+                "${workspaceFolder}/samples/output/simple-full.json",
+            ],
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
             "name": "Debug Create Customer Data",
             "skipFiles": [
                 "<node_internals>/**"

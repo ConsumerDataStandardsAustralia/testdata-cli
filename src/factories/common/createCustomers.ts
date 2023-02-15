@@ -5,6 +5,7 @@ import { faker } from '@faker-js/faker';
 import { CommonEmailAddress, CommonOrganisationDetailV2, CommonPAFAddress, CommonPersonDetailV2, CommonPhoneNumber, CommonPhysicalAddressWithPurpose } from 'consumer-data-standards/common';
 import { AddressPurpose, generateRandomDecimalInRangeFormatted, OrganisationType, PostalDeliveryType, RandomCommon } from '../../random-generators';
 import  Utils from './utils';
+import { randomUUID } from 'crypto';
 
 const factoryId: string = "create-customers";
 
@@ -48,7 +49,7 @@ The names, addresses, and person details are randomised but realistic values.
         cust.organisation = details;
       }
       let cw : CustomerWrapper = {
-         customerId: Helper.randomId(),
+         customerId: randomUUID(),
          customer: cust
        }  
        return cw;

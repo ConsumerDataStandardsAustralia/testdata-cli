@@ -4,11 +4,11 @@ import { Factory } from '../logic/factoryService'
 export const factories: any = {}
 
 // General loading factories
-import { LoadStatic } from './loadStatic';
+import { LoadStatic } from './static-factories/loadStatic';
 factories[LoadStatic.id] = (options: any): Factory => { return new LoadStatic(options) }
 
 // Simple factories
-import { SimpleFull } from './simpleFull';
+import { SimpleFull } from './static-factories/simpleFull';
 factories[SimpleFull.id] = (options: any): Factory => { return new SimpleFull(options) }
 
 // Create data holder
@@ -16,16 +16,12 @@ import { CreateHolder } from './createHolder';
 factories[CreateHolder.id] = (options: any): Factory => { return new CreateHolder(options) }
 
 // create banking products
-import { CreateProducts} from './createProducts';
+import { CreateProducts} from './banking/createProducts';
 factories[CreateProducts.id] = (options: any): Factory => { return new CreateProducts(options) }
 
 // create banking products
 import { CreateCustomers} from './common/createCustomers';
 factories[CreateCustomers.id] = (options: any): Factory => { return new CreateCustomers(options) }
-
-// create energy plans
-import { CreatePlans} from './createPlans';
-factories[CreatePlans.id] = (options: any): Factory => { return new CreatePlans(options) }
 
 // create energy plans
 import { CreateEnergyAccountData} from './energy/createEnergyAccountData';

@@ -1,8 +1,8 @@
 import { BankingProductV4 } from 'consumer-data-standards/banking';
 
 import { HolderWrapper } from 'src/logic/schema/cdr-test-data-schema';
-import { RandomBanking } from '../random-generators/random-banking';
-import { Factory, FactoryOptions, Helper } from '../logic/factoryService'
+import { RandomBanking } from '../../random-generators/random-banking';
+import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 
 const factoryId: string = "create-products";
 
