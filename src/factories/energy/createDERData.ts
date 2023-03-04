@@ -15,12 +15,28 @@ export class CreateDerData extends Factory {
         return "Create some Der data for a service point";
     }
     public get detailedDescription(): string {
-        return "Create a bunch of plans";
+        let st = `
+This library will accept the following options
+        
+hasCentralProtectionControl:   This should be true or false
+                               If absent it is false
+equipmentType:                 INVERTER or OTHER
+                               If no value is provided it will default to OTHER
+
+Key values randomly allocated:
+    The number of plans for each account:  between 1 and 3`;
+        return st;
     }
     public static id: string = factoryId;
 
+    private hasCentralProtectionControl: boolean;
+    private equipmentType: AcEquipmentType;
+
     constructor(options: FactoryOptions) {
         super(options, factoryId);
+        this.hasCentralProtectionControl = options?.options?.hasCentralProtectionControl ? options?.options?.hasCentralProtectionControl as boolean: false;
+        this.equipmentType = options?.options?.equipmentType ? options?.options?.equipmentType as AcEquipmentType : AcEquipmentType.OTHER;
+
     }
 
     public canCreateEnergyDER(): boolean { return true; };
@@ -37,8 +53,7 @@ export class CreateDerData extends Factory {
             servicePointId: servicePoint.servicePoint.servicePointId
         }
 
-        let hasCentralProtectionControl = Math.random() > 0.25;
-        if (Math.random() > 0.25) der.hasCentralProtectionControl = hasCentralProtectionControl;
+        if (Math.random() > 0.25) der.hasCentralProtectionControl = this.hasCentralProtectionControl;
         if (der?.hasCentralProtectionControl == true) {
             der.protectionMode = {
                 exportLimitKva: Helper.generateRandomIntegerInRange(10, 500),
@@ -58,7 +73,7 @@ export class CreateDerData extends Factory {
                 interTripScheme: 'from local substation'
             }
         }
-        let equipmentType: AcEquipmentType = RandomEnergy.AcEquipmentType();
+        //let equipmentType: AcEquipmentType = RandomEnergy.AcEquipmentType();
         let acConnections: any[] = [];
         let cnt = Helper.generateRandomIntegerInRange(1, 5);
         for (let i = 0; i < cnt; i++) {
@@ -70,13 +85,13 @@ export class CreateDerData extends Factory {
                 derDevices: [],
                 status: RandomEnergy.AcInverterStatus()
             }
-            ac.equipmentType = equipmentType;
-            if (equipmentType == AcEquipmentType.INVERTER) ac.manufacturerName = faker.company.name();
-            if (equipmentType == AcEquipmentType.INVERTER) ac.series = faker.lorem.slug();
-            if (equipmentType == AcEquipmentType.INVERTER) ac.inverterModelNumber = faker.random.alphaNumeric(10);
-            if (equipmentType == AcEquipmentType.INVERTER) ac.inverterSeries = faker.random.alphaNumeric(5);
-            if (equipmentType == AcEquipmentType.INVERTER) ac.status = RandomEnergy.AcInverterStatus();
-            if (equipmentType == AcEquipmentType.INVERTER) ac.inverterDeviceCapacity = Helper.generateRandomIntegerInRange(100, 10000);
+            ac.equipmentType = this.equipmentType;
+            if (this.equipmentType == AcEquipmentType.INVERTER) ac.manufacturerName = faker.company.name();
+            if (this.equipmentType == AcEquipmentType.INVERTER) ac.series = faker.lorem.slug();
+            if (this.equipmentType == AcEquipmentType.INVERTER) ac.inverterModelNumber = faker.random.alphaNumeric(10);
+            if (this.equipmentType == AcEquipmentType.INVERTER) ac.inverterSeries = faker.random.alphaNumeric(5);
+            if (this.equipmentType == AcEquipmentType.INVERTER) ac.status = RandomEnergy.AcInverterStatus();
+            if (this.equipmentType == AcEquipmentType.INVERTER) ac.inverterDeviceCapacity = Helper.generateRandomIntegerInRange(100, 10000);
             let derDeviceType = RandomEnergy.DerDeviceType();
             let derDeviceCnt = Helper.generateRandomIntegerInRange(1, 5);
             let derDevices: any[] = []
