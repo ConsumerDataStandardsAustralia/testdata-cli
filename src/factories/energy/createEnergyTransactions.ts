@@ -24,7 +24,9 @@ export class CreateEnergyTransaction extends Factory {
     }
     public get detailedDescription(): string {
         let st =`
-This library will accept the following options:
+This factory will create some EnergyBillingTransactions.
+
+The factory will accept the following options:
 
         count:             The number of transactions to be issued for each account
         transactionUType:  Should be 'usage', 'demand', 'onceOff', 'payment', or 'other'.

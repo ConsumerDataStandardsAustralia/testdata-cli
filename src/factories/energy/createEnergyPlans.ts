@@ -23,19 +23,20 @@ export class CreateEnergyPlanData extends Factory {
     public static id: string = factoryId;
 
     public get briefDescription(): string {
-        throw new Error("Method not implemented.");
+        return "Create a number of number of energy plans.";
     }
     public get detailedDescription(): string {
         let st = `
-This library will accept the following options
+Create a number of number of energy plans.
+
+This factory will accept the following options
         
     fuelType:         This should be ELECTRICITY,GAS or DUAL (Default: DUAL)
     planType:         The type of plan: STANDING, MARKET, or REGULATED (Default randomly assigned)
     customerType:     RESIDENTIAL or BUSINESS (Default randomly assigned)
-                If no value is provided it will default to DUAL
 
 Key values randomly allocated:
-    The number of plans for each account:  between 1 and 3`;
+    Dates, numeric values, and other enumerated types`;
         return st;
     } 
 

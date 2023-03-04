@@ -16,7 +16,9 @@ export class CreateDerData extends Factory {
     }
     public get detailedDescription(): string {
         let st = `
-This library will accept the following options
+This factory will create some Der data for a service points.
+
+The factory will accept the following options
         
 hasCentralProtectionControl:   This should be true or false
                                If absent it is false
@@ -24,7 +26,8 @@ equipmentType:                 INVERTER or OTHER
                                If no value is provided it will default to OTHER
 
 Key values randomly allocated:
-    The number of plans for each account:  between 1 and 3`;
+    The number of available and installed phases:  between 0 and 3
+    Protection voltages and delays`;
         return st;
     }
     public static id: string = factoryId;

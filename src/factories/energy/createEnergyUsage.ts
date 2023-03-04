@@ -13,7 +13,9 @@ export class CreateEnergyUsage extends Factory {
     }
     public get detailedDescription(): string {
         let st = `
-This library will accept the following options
+Create some Usage for a service point.
+
+This factory will accept the following options
         
     readUType:              This should be intervalRead OR basicRead (Default random selection)
     intervalReadCount:      An integer value for the number of interval reads (Default to 5)

@@ -23,20 +23,22 @@ export class CreateEnergyPaymentSchedules extends Factory {
     private calculationType: ScheduleCalculationType;
 
     public get briefDescription(): string {
-        let st = "This library will create some EnergyPaymentSchedule structures";
+        let st = "Create some EnergyPaymentSchedule structures";
         return st;
     }
 
     public get detailedDescription(): string {
       let st = `
-This library will accept the following options
+This factory will create some EnergyPaymentSchedule structures.
+
+The factory will accept the following options
         
     paymentScheduleUType:   cardDebit, directDebit, manualPayment, digitalWallet
     cardScheme:             VISA, MASTERCARD,AMEX,DINERS,OTHER,UNKOWN
     calculationType:        STATIC,BALANCE, CALCULATED
 
 Key values randomly allocated:
-    digitalWallet provide and type
+    digitalWallet provider and type
 `;
               return st;
     } 

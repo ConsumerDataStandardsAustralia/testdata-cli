@@ -21,7 +21,9 @@ export class CreateEnergyInvoiceData extends Factory {
     }
     public get detailedDescription(): string {
         let st = `
-This library will accept the following options:
+Create a number of energy invoices for each energy account.
+
+This factory will accept the following options:
 
         count:             The number of invoices to be issued for each account
         minInvoiceAmount:  The minimum amount for each invoice (default: 10)

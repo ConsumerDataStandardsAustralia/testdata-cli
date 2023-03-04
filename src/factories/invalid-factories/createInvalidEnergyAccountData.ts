@@ -16,7 +16,7 @@ export class CreateInvalidEnergyAccountData extends Factory {
     }
     public get detailedDescription(): string {
         return `Generates energy account data NOT compliant with the technical standard
-        This factory does noit have any options`
+        This factory does not have any options`
     }
     public canCreateEnergyAccounts(): boolean { return true; };
     public canCreateEnergyAccount(): boolean { return true; };

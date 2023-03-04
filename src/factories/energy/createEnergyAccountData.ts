@@ -26,7 +26,9 @@ export class CreateEnergyAccountData extends Factory {
     }
     public get detailedDescription(): string {
         let st = `
-This library will accept the following options
+Create a number of energy accounts for each customer of a data holders.
+
+This factory will accept the following options
         
     fuelType:   This should be ELECTRICITY,GAS or DUAL
     status:     OPEN or CLOSED (Default randomly assigned)

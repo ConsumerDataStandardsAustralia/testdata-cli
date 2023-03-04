@@ -33,6 +33,8 @@ export class CreateEnergyServicePoints extends Factory {
     }
     public get detailedDescription(): string {
         let st = `
+Create a detailed service point.
+
 This library will cerate a number of service point data structures
 It  will accept the following options
         
