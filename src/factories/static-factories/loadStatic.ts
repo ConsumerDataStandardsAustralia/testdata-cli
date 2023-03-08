@@ -13,15 +13,17 @@ export class LoadStatic extends Factory {
   public static id: string = factoryId;
 
   public get briefDescription(): string {
-    return "Load data from a static file";
+    return "Load json data from a static file";
   }
 
   public get detailedDescription(): string {
-    return `
-    This is
-    the detailed
-    description
-    `;
+    let st = `
+    This factory will read in an existing json data file.
+    
+    The factory will accept the following options:\n
+            source: The absolute file path of the sorce file to be read
+    `
+            return st;
   }
 
   public canCreateFullData(): boolean { return true; };
