@@ -1,0 +1,66 @@
+{
+
+	"factories": {
+		"allDataFactory": {
+			"id": "general-load-static",
+			"options": {
+			  "source": "/Users/tomasschier/code/data-folder/input/uc4-input.json"
+			}
+		},
+		"holders": [
+			{
+				"holderFactory": {
+					"id": "create-holder"
+				},
+				"authenticated": {
+					"customers": [
+						{
+							"count": 5,
+							"customerFactory": {
+								"id": "create-customers",
+								"options": {
+									"type": "organisation"
+								}
+							}
+						},
+						{
+							"count": 5,
+							"customerFactory": {
+								"id": "create-customers",
+								"options": {
+									"type": "person"
+								}
+							}
+						}
+					]
+				},
+				"unauthenticated": {
+					"energy": {
+						"plansFactory": {
+							"sequence": [
+								{
+									"id": "create-energy-plan-data",
+									"options": {
+										"count": 3,
+										"fuelType": "ELECTRICITY",
+										"planType": "MARKET",
+										"customerType": "RESIDENTIAL"
+									}
+								},
+								{
+									"id": "create-energy-plan-data",
+									"options": {
+										"count": 3,
+										"fuelType": "GAS",
+										"planType": "STANDING",
+										"customerType": "BUSINESS"
+									}
+								}
+							]
+						} 
+					}
+				}
+			}
+		]
+	}
+}
