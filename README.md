@@ -234,6 +234,8 @@ The `allDataFactory` implementation will simply use whatever input file is speci
 
 # Examples
 
+The repository contains a number of example options files for each factory in the the `src/factories` folder. Additionally, below are some typical use cases for this cli and the associated options files required to achieve this.
+
 For each of these example naviate to the root of this repository
 
 ## Use Case 1 (UC1)
@@ -254,17 +256,17 @@ Generate a single residential customer with a single energy account.
 `testdata generate ./options/uc3.json ./output/u3-output.json`
 
 ## Use Case 4 (UC4)
-Generate a single residential customer with a single energy account with detailed transactions, billing and usage data.
+Augment an existing holder structure and add some customers.
 
 `testdata generate ./options/uc4.json ./output/u4-output.json`
 
 ## Use Case 5 (UC5)
-Generate a single residential customer with a single energy account with detailed transactions, billing and usage data.
+Augment an existing data file by adding additional holders. Exsiting data rermains as per input file
 
 `testdata generate ./options/uc5.json ./output/u5-output.json`
 
 ## Use Case 6 (UC6)
-Generate a single residential customer with a single energy account with detailed transactions, billing and usage data.
+Create a mix of valid and invalid customer data
 
 `testdata generate ./options/uc6.json ./output/u6-output.json`
 
