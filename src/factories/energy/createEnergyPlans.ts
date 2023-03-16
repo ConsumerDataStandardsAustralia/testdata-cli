@@ -64,7 +64,7 @@ Key values randomly allocated:
             plan.customerType = this.customerType;
             let additionalInfo : any = {};
             if (Math.random() > 0.5) additionalInfo.overviewUri = faker.internet.url();
-            if (Math.random() > 0.5) additionalInfo.termsUro = faker.internet.url();
+            if (Math.random() > 0.5) additionalInfo.termsUri = faker.internet.url();
             if (Math.random() > 0.5) additionalInfo.eligibilityUri = faker.internet.url();
             if (Math.random() > 0.5) additionalInfo.pricingUri = faker.internet.url();
             if (Math.random() > 0.5) additionalInfo.bundleUri = faker.internet.url();
