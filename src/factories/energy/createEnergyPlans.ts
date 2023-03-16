@@ -66,7 +66,7 @@ Key values randomly allocated:
             if (Math.random() > 0.5) additionalInfo.overviewUri = faker.internet.url();
             if (Math.random() > 0.5) additionalInfo.termsUro = faker.internet.url();
             if (Math.random() > 0.5) additionalInfo.eligibilityUri = faker.internet.url();
-            if (Math.random() > 0.5) additionalInfo.pricintUri = faker.internet.url();
+            if (Math.random() > 0.5) additionalInfo.pricingUri = faker.internet.url();
             if (Math.random() > 0.5) additionalInfo.bundleUri = faker.internet.url();
             if (Math.random() > 0.5) plan.additionalInformation = additionalInfo;
 
