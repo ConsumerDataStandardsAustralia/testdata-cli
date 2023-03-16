@@ -25,7 +25,7 @@
                   "customerType": "RESIDENTIAL",
                   "additionalInformation": {
                     "eligibilityUri": "https://far-flung-skiing.com",
-                    "pricintUri": "http://flimsy-appeal.info"
+                    "pricingUri": "http://flimsy-appeal.info"
                   },
                   "geography": {
                     "excludedPostcodes": [
