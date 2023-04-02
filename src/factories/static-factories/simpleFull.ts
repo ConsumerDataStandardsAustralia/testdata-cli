@@ -354,6 +354,7 @@ This factory supports the follow option fields:
     return {
       account: {
         accountId: Helper.randomId(),
+        accountOwnership: "TWO_PARTY",
         creationDate: Helper.randomDateTimeInThePast(),
         displayName: "Display name",
         nickname: "Nick name",
