@@ -60,7 +60,7 @@ Key values randomly allocated:
                 usage.basicRead = {
                     value: parseFloat(Helper.generateRandomDecimalInRange(-10, 100)),              
                 };
-                if (Math.random() > 0.5) usage.basicRead.quality = RandomEnergy.ReadQuality();
+                if (Math.random() > 0.5) usage.basicRead.quality = RandomEnergy.BasicReadQuality();
             }
             if (this.readType == ReadUTYpe.intervalRead){
                 let aggregateValue: number = 0;
@@ -81,7 +81,7 @@ Key values randomly allocated:
                 let end = Helper.generateRandomIntegerInRange(101, 200);
                 let readQualities: any[] = [];
                 let  readQuality: any = {
-                    startInterval: start, endInterval: end, quality: RandomEnergy.ReadQuality()
+                    startInterval: start, endInterval: end, quality: RandomEnergy.IntervalReadQuality()
                 };
                 readQualities.push(readQuality);              
                 usage.intervalRead.readQualities = readQualities;

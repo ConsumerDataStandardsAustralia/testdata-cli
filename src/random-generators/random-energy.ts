@@ -275,8 +275,12 @@ export  enum ReadUTYpe {
     basicRead = "basicRead", intervalRead = "intervalRead"
 }
 
-export enum ReadQuality {
+export enum BasicReadQuality {
     ACTUAL = "ACTUAL", SUBSTITUTE = "SUBSTITUTE", FINAL_SUBSTITUTE = "FINAL_SUBSTITUTE"
+}
+
+export enum IntervalReadQuality {
+    SUBSTITUTE = "SUBSTITUTE", FINAL_SUBSTITUTE = "FINAL_SUBSTITUTE"
 }
 
 export enum OtherUsageChargesType {
@@ -540,8 +544,12 @@ export class RandomEnergy {
         return this.GetRandomValue(DerDeviceType)
     } 
     
-    public static ReadQuality(): any {
-        return this.GetRandomValue(ReadQuality)
+    public static BasicReadQuality(): any {
+        return this.GetRandomValue(BasicReadQuality)
+    } 
+
+    public static IntervalReadQuality(): any {
+        return this.GetRandomValue(IntervalReadQuality)
     } 
     
     public static ReadUTYpe(): any {
