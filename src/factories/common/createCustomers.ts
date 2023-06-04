@@ -1,5 +1,5 @@
 import { CommonSimpleAddress } from 'consumer-data-standards/banking';
-import { Customer, CustomerWrapper,  HolderWrapper } from 'src/logic/schema/cdr-test-data-schema';
+import { Customer, CustomerWrapper,  HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { faker } from '@faker-js/faker';
 import { CommonEmailAddress, CommonOrganisationDetailV2, CommonPAFAddress, CommonPersonDetailV2, CommonPhoneNumber, CommonPhysicalAddressWithPurpose } from 'consumer-data-standards/common';

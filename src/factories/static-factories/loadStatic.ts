@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { ConsumerDataRightTestDataJSONSchema } from 'src/logic/schema/cdr-test-data-schema';
+import { ConsumerDataRightTestDataJSONSchema } from '../../logic/schema/cdr-test-data-schema';
 import { Factory, FactoryOptions } from '../../logic/factoryService'
 
 const factoryId: string = "general-load-static";

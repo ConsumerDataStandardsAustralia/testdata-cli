@@ -4,7 +4,7 @@ import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { randomUUID } from "crypto";
 import { faker } from "@faker-js/faker";
 import { generateContract } from "./utils";
-import { Customer } from "src/logic/schema/cdr-test-data-schema";
+import { Customer } from "../../logic/schema/cdr-test-data-schema";
 
 const factoryId: string = "create-energy-plan-data";
 

@@ -1,5 +1,5 @@
 import { EnergyAccountDetailV2, EnergyPlanContract,  EnergyPlanControlledLoad, EnergyPlanDiscounts, EnergyPlanEligibility, EnergyPlanFees, EnergyPlanGreenPowerCharges, EnergyPlanIncentives, EnergyPlanSolarFeedInTariff, EnergyPlanTariffPeriod } from 'consumer-data-standards/energy';
-import { CustomerWrapper, EnergyAccountWrapper } from 'src/logic/schema/cdr-test-data-schema';
+import { CustomerWrapper, EnergyAccountWrapper } from '../../logic/schema/cdr-test-data-schema';
 import { Days,  EnergyDiscountType, EnergyOpenStatus, FeeTerm, FuelType, generateRandomDecimalInRangeFormatted, generateRandomNumericInRangeFormatted, MethodUType, OpenStatus,PowerChargeType,PricingModel, RandomEnergy, RateBlockUTypeControlledLoad, RateBlockUTypeForTariff, SolarFeedDays, SolarTariffUType } from '../../random-generators';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { v4 as uuidv4 } from 'uuid';

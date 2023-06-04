@@ -1,5 +1,5 @@
 import { Factory, Helper, FactoryOptions } from '../../logic/factoryService'
-import { AdminOutage, AdminStatus, BankAccountWrapper, Client, CustomerWrapper, EnergyAccountWrapper, EnergyServicePointWrapper, HolderWrapper } from 'src/logic/schema/cdr-test-data-schema';
+import { AdminOutage, AdminStatus, BankAccountWrapper, Client, CustomerWrapper, EnergyAccountWrapper, EnergyServicePointWrapper, HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
 
 const factoryId: string = "simple-full";
 
