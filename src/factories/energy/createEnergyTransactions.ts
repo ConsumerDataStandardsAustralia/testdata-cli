@@ -1,4 +1,4 @@
-import { EnergyBillingDemandTransaction, EnergyBillingOnceOffTransaction, EnergyBillingOtherTransaction, EnergyBillingPaymentTransaction, EnergyBillingTransaction, EnergyBillingUsageTransaction, EnergyPlan, EnergyPlanDetail} from "consumer-data-standards/energy";
+import { EnergyBillingDemandTransaction, EnergyBillingOnceOffTransaction, EnergyBillingOtherTransaction, EnergyBillingPaymentTransaction, EnergyBillingTransaction, EnergyBillingUsageTransaction, EnergyPlan, EnergyPlanDetailV2} from "consumer-data-standards/energy";
 import { EnergyAccountBalance, EnergyAccountWrapper, EnergyServicePointWrapper } from "../../logic/schema/cdr-test-data-schema";
 import { TransactionUType } from "../../random-generators";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";

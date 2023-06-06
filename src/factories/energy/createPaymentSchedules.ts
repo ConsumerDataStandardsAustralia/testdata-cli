@@ -1,4 +1,4 @@
-import { EnergyPaymentSchedule, EnergyPlan, EnergyPlanDetail} from "consumer-data-standards/energy";
+import { EnergyPaymentSchedule, EnergyPlan, EnergyPlanDetailV2} from "consumer-data-standards/energy";
 import { EnergyAccountWrapper } from "../../logic/schema/cdr-test-data-schema";
 import { CardScheme, DigitialWalletIdType, PaymentScheduleUType, RandomEnergy, ScheduleCalculationType } from "../../random-generators";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";

@@ -1,4 +1,4 @@
-import { EnergyAccountDetailV2, EnergyPlanContract,  EnergyPlanControlledLoad, EnergyPlanDiscounts, EnergyPlanEligibility, EnergyPlanFees, EnergyPlanGreenPowerCharges, EnergyPlanIncentives, EnergyPlanSolarFeedInTariff, EnergyPlanTariffPeriod } from 'consumer-data-standards/energy';
+import { EnergyAccountDetailV3, EnergyPlanContractV2,  EnergyPlanControlledLoad, EnergyPlanDiscounts, EnergyPlanEligibility, EnergyPlanFees, EnergyPlanGreenPowerCharges, EnergyPlanIncentives, EnergyPlanSolarFeedInTariffV2, EnergyPlanTariffPeriod } from 'consumer-data-standards/energy';
 import { CustomerWrapper, EnergyAccountWrapper } from '../../logic/schema/cdr-test-data-schema';
 import { Days,  EnergyDiscountType, EnergyOpenStatus, FeeTerm, FuelType, generateRandomDecimalInRangeFormatted, generateRandomNumericInRangeFormatted, MethodUType, OpenStatus,PowerChargeType,PricingModel, RandomEnergy, RateBlockUTypeControlledLoad, RateBlockUTypeForTariff, SolarFeedDays, SolarTariffUType } from '../../random-generators';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
@@ -44,7 +44,7 @@ Key values randomly allocated:
 
     public generateEnergyAccount(customer: CustomerWrapper): EnergyAccountWrapper | undefined {
 
-        let energyAccount: EnergyAccountDetailV2 = {
+        let energyAccount: EnergyAccountDetailV3 = {
             creationDate: Helper.randomDateTimeInThePast(),
             plans: [],
             accountId: uuidv4()

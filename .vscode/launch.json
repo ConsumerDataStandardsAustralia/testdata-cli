@@ -136,8 +136,7 @@
             "args": [
                 "generate",
                 "${workspaceFolder}/samples/options/create-combined.json",
-                "${workspaceFolder}/samples/output/my-created-combined.json",
-                "true"
+                "${workspaceFolder}/samples/output/my-created-combined.json"
             ],
             "outFiles": [
                 "${workspaceFolder}/**/*.js"

@@ -1,4 +1,4 @@
-import { EnergyPlan, EnergyPlanContractFull, EnergyPlanDetail} from "consumer-data-standards/energy";
+import { EnergyPlan, EnergyPlanContractFullV2, EnergyPlanDetailV2} from "consumer-data-standards/energy";
 import { CustomerType, FuelType, PlanTermType, PlanType, PricingModel, RandomEnergy } from "../../random-generators";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { randomUUID } from "crypto";
@@ -43,12 +43,12 @@ Key values randomly allocated:
     public canCreateEnergyPlans(): boolean {return true}
 
 
-    public generateEnergyPlans(): EnergyPlanDetail[] | undefined  {
+    public generateEnergyPlans(): EnergyPlanDetailV2[] | undefined  {
         let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;
 
-        let ret: EnergyPlanDetail[] = [];
+        let ret: EnergyPlanDetailV2[] = [];
         for (let i = 0; i < count; i++) {
-            const plan: EnergyPlanDetail = {
+            const plan: EnergyPlanDetailV2 = {
                 brand:  RandomEnergy.Brand(),
                 brandName: RandomEnergy.Brand(),
                 fuelType: this.fuelType,
