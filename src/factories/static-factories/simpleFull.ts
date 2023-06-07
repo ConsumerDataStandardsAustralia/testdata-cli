@@ -1029,7 +1029,13 @@ This factory supports the follow option fields:
                     payerType: "GOVERNMENT",
                     tariffUType: "singleTariff",
                     singleTariff: {
-                      amount: "10.00"
+                      rates: [
+                        {
+                          unitPrice: "10.0",
+                          measureUnit: "KWH",
+                          volume: 10
+                        }
+                      ]
                     }
                   }
                 ],

@@ -1,4 +1,4 @@
-import { EnergyPlanContractV2, EnergyPlanContractV2, EnergyPlanControlledLoad, EnergyPlanDiscounts, EnergyPlanEligibility, EnergyPlanFees, EnergyPlanGreenPowerCharges, EnergyPlanIncentives, EnergyPlanSolarFeedInTariffV2, EnergyPlanSolarFeedInTariffV2, EnergyPlanTariffPeriod } from "consumer-data-standards/energy";
+import { EnergyPlanContractV2,  EnergyPlanControlledLoad, EnergyPlanDiscounts, EnergyPlanEligibility, EnergyPlanFees, EnergyPlanGreenPowerCharges, EnergyPlanIncentives, EnergyPlanSolarFeedInTariffV2, EnergyPlanTariffPeriod } from "consumer-data-standards/energy";
 import { Helper } from "../../logic/factoryService";
 import { Days, EnergyDiscountType, FeeTerm, FuelType, generateRandomDecimalInRangeFormatted, generateRandomNumericInRangeFormatted, MethodUType, PowerChargeType, PricingModel, RandomEnergy, RateBlockUTypeControlledLoad, RateBlockUTypeForTariff, SolarFeedDays, SolarTariffUType } from "../../random-generators";
 
@@ -284,55 +284,24 @@ function generateSolarFeedInTariffs(cnt: number): EnergyPlanSolarFeedInTariffV2[
         if (tariffUtype == SolarTariffUType.singleTariff) {
             let single: any = {};
             tariff.singleTariff = single;
-            if (tariff.singleTariff != null) tariff.singleTariff.amount = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
-        }
-        if (tariffUtype == SolarTariffUType.timeVaryingTariffs) {
-            let timeVarying: any = {};
-            tariff.timeVaryingTariffs = timeVarying;
-            if (tariff.timeVaryingTariffs != null) {
-                if (Math.random() > 0.5) tariff.timeVaryingTariffs.type = RandomEnergy.SolarFeedType();
-                tariff.timeVaryingTariffs.amount = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
-                let timeVariations: any[] = []
+            if (tariff.singleTariff != null){
+                let rates: any[] = [];
                 let cnt: number = Math.ceil(Math.random() * 3);
-                for(let i = 0; i < cnt; i++) timeVariations.push({});
-                tariff.timeVaryingTariffs.timeVariations = timeVariations;
-                tariff.timeVaryingTariffs.timeVariations.forEach(variation => {
-                    if (Math.random() > 0.5) variation.startTime = Helper.randomDateTimeInThePast();
-                    if (Math.random() > 0.5) variation.endTime = Helper.randomDateTimeInTheFuture();
-                    let days: SolarFeedDays[] = [];
-                    let dayCount: number = Math.ceil(Math.random() * 5);
-                    for(let i = 0; i < dayCount; i++) days.push(RandomEnergy.SolarFeedDays());                   
-                    variation.days = days;
-                })
+                for (let i = 0; i < cnt; i++) {
+                    let rate: any = {};
+                    rate.unitPrice = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
+                    if(Math.random() > 0.5) rate.measureUnit = RandomEnergy.MeasureUnit();
+                    if(Math.random() > 0.5) rate.volume = generateRandomDecimalInRangeFormatted(10, 1000, 2);
+                    rates.push(rate);
+                }             
+                tariff.singleTariff.rates = rates;
             }
         }
-        result.push(tariff);
-    }
-    return result;
-}
-
-function generateSolarFeedInTariffsV2(cnt: number): EnergyPlanSolarFeedInTariffV2[] {
-    let result: EnergyPlanSolarFeedInTariffV2[] = [];
-    for (let i = 0; i < cnt; i++) {
-        let tariffUtype = RandomEnergy.SolarTariffUType();
-        let tariff: EnergyPlanSolarFeedInTariffV2 = {
-            displayName: 'Mandatory display name for Solar Feed Tariff',
-            payerType: RandomEnergy.SolarPayerType(),
-            scheme: RandomEnergy.SolarScheme(),
-            tariffUType: tariffUtype
-        }
-        if (Math.random() > 0.5) tariff.description = 'Optional description for Solar Feed Tariff';
-        if (tariffUtype == SolarTariffUType.singleTariff) {
-            let single: any = {};
-            tariff.singleTariff = single;
-            // TODO singleTAriff structure different in EnergyPlanSolarFeedInTariffV2
-            if (tariff.singleTariff != null) tariff.singleTariff.amount = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
-        }
         if (tariffUtype == SolarTariffUType.timeVaryingTariffs) {
             let timeVarying: any = {};
             tariff.timeVaryingTariffs = timeVarying;
             if (tariff.timeVaryingTariffs != null) {
-                if (Math.random() > 0.5) tariff.timeVaryingTariffs.type = RandomEnergy.SolarFeedType();
+                 tariff.timeVaryingTariffs.type = RandomEnergy.SolarFeedType();
                 tariff.timeVaryingTariffs.amount = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
                 let timeVariations: any[] = []
                 let cnt: number = Math.ceil(Math.random() * 3);
