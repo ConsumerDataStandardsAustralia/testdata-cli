@@ -280,7 +280,7 @@ export enum BasicReadQuality {
 }
 
 export enum IntervalReadQuality {
-    ACTUAL = "ACTUAL", SUBSTITUTE = "SUBSTITUTE", FINAL_SUBSTITUTE = "FINAL_SUBSTITUTE"
+    SUBSTITUTE = "SUBSTITUTE", FINAL_SUBSTITUTE = "FINAL_SUBSTITUTE"
 }
 
 export enum OtherUsageChargesType {
