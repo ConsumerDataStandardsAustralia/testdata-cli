@@ -291,7 +291,7 @@ function generateSolarFeedInTariffs(cnt: number): EnergyPlanSolarFeedInTariffV2[
                     let rate: any = {};
                     rate.unitPrice = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
                     if(Math.random() > 0.5) rate.measureUnit = RandomEnergy.MeasureUnit();
-                    if(Math.random() > 0.5) rate.volume = generateRandomDecimalInRangeFormatted(10, 1000, 2);
+                    if(Math.random() > 0.5) rate.volume = generateRandomNumericInRangeFormatted(10, 1000, 2);
                     rates.push(rate);
                 }             
                 tariff.singleTariff.rates = rates;
