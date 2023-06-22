@@ -1,6 +1,6 @@
 import { BankingAccount, BankingBalance, BankingDirectDebit, BankingPayeeDetailV2, BankingProductV4, BankingScheduledPayment, BankingTransaction } from "consumer-data-standards/banking";
 import { CommonOrganisationDetailV2, CommonPersonDetailV2 } from "consumer-data-standards/common";
-import { EnergyAccount, EnergyAccountDetailV2, EnergyBillingTransaction, EnergyConcession, EnergyDerRecord, EnergyInvoice, EnergyPaymentSchedule, EnergyPlan, EnergyPlanDetail, EnergyServicePoint, EnergyServicePointDetail, EnergyUsageRead } from "consumer-data-standards/energy";
+import { EnergyAccount, EnergyAccountDetailV2, EnergyAccountDetailV3, EnergyBillingTransaction, EnergyConcession, EnergyDerRecord, EnergyInvoice, EnergyPaymentSchedule, EnergyPlan, EnergyPlanDetail, EnergyServicePoint, EnergyServicePointDetail, EnergyUsageRead } from "consumer-data-standards/energy";
 import { RegisterDataRecipient } from "consumer-data-standards/register";
 
  /* A JSON schema for defining test data files that can be used to seed a mock, or test, implementation of a Data Holder for the Consumer Data Right
@@ -52,7 +52,7 @@ export interface EnergyServicePointWrapper {
  * A wrapper for a single eenrgy account to contain all of the data related to the account
  */
 export interface EnergyAccountWrapper {
-  account: EnergyAccountDetailV2;
+  account: EnergyAccountDetailV3;
   balance?: EnergyAccountBalance;
   /**
    * An array of agreed payment schedules

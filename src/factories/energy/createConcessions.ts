@@ -1,5 +1,5 @@
-import { EnergyConcession, EnergyPlan, EnergyPlanDetail} from "consumer-data-standards/energy";
-import { EnergyAccountWrapper } from "src/logic/schema/cdr-test-data-schema";
+import { EnergyConcession, EnergyPlan, EnergyPlanDetailV2} from "consumer-data-standards/energy";
+import { EnergyAccountWrapper } from "../../logic/schema/cdr-test-data-schema";
 import { ConcessionAppliedTo, ConcessionCalculationType, RandomEnergy } from "../../random-generators";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 
