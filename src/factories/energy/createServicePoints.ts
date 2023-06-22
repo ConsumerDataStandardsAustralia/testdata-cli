@@ -1,5 +1,5 @@
 import { EnergyDerRecord, EnergyServicePoint, EnergyUsageRead } from "consumer-data-standards/energy";
-import { EnergyServicePointWrapper } from "src/logic/schema/cdr-test-data-schema";
+import { EnergyServicePointWrapper } from "../../logic/schema/cdr-test-data-schema";
 import { AcEquipmentType, DerDeviceType, OpenStatus, RandomCommon, RandomEnergy, ReadUTYpe, ServicePointConsumerClassification, ServicePointStatus } from '../../random-generators';
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { EnergyServicePointDetail } from "consumer-data-standards/energy_sdh";

@@ -44,13 +44,13 @@ Key values randomly allocated:
       public canCreateEnergyUsage(): boolean { return true; };
       public generateEnergyUsage(servicePoint: EnergyServicePointWrapper): EnergyUsageRead[] | undefined { 
         // TODO bug fix in @types/consumer-data-standards required to enable this
-        // let usageList: EnergyUsageRead[] = [];
-        let usageList: any[] = [];
+        let usageList: EnergyUsageRead[] = [];
+        //let usageList: any[] = [];
         let cnt = this.count != undefined ? this.count as number : 1;
         for (let i = 0; i < cnt; i++) {
              // TODO bug fix in @types/consumer-data-standards required to make this EnergyUsageRead
-            //  let usage: EnergyUsageRead = {
-            let usage: any = {
+            let usage: EnergyUsageRead = {
+            //let usage: any = {
                 readStartDate: Helper.randomDateTimeInThePast(),
                 readUType: this.readType,
                 registerSuffix: "",
@@ -60,7 +60,7 @@ Key values randomly allocated:
                 usage.basicRead = {
                     value: parseFloat(Helper.generateRandomDecimalInRange(-10, 100)),              
                 };
-                if (Math.random() > 0.5) usage.basicRead.quality = RandomEnergy.ReadQuality();
+                if (Math.random() > 0.5) usage.basicRead.quality = RandomEnergy.BasicReadQuality();
             }
             if (this.readType == ReadUTYpe.intervalRead){
                 let aggregateValue: number = 0;
@@ -81,7 +81,7 @@ Key values randomly allocated:
                 let end = Helper.generateRandomIntegerInRange(101, 200);
                 let readQualities: any[] = [];
                 let  readQuality: any = {
-                    startInterval: start, endInterval: end, quality: RandomEnergy.ReadQuality()
+                    startInterval: start, endInterval: end, quality: RandomEnergy.IntervalReadQuality()
                 };
                 readQualities.push(readQuality);              
                 usage.intervalRead.readQualities = readQualities;

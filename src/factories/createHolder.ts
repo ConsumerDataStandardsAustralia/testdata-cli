@@ -1,4 +1,4 @@
-import { HolderWrapper } from 'src/logic/schema/cdr-test-data-schema';
+import { HolderWrapper } from '../logic/schema/cdr-test-data-schema';
 import { Factory, FactoryOptions, Helper } from '../logic/factoryService'
 
 const factoryId: string = "create-holder";
