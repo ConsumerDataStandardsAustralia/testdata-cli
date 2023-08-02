@@ -162,7 +162,6 @@ function generateRates(rateCount: number): any {
         let rate: any = {};
         rate['unitPrice'] = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
         if (Math.random() > 0.5) rate['measureUnit'] = RandomEnergy.MeasureUnit();
-        if (Math.random() > 0.5) rate['description'] = "Optional description for single rate";
         rate['volume'] = generateRandomNumericInRangeFormatted(0.5, 1.5, 2);
         rates.push(rate);
     }
@@ -302,7 +301,6 @@ function generateSolarFeedInTariffs(cnt: number): EnergyPlanSolarFeedInTariffV2[
             tariff.timeVaryingTariffs = timeVarying;
             if (tariff.timeVaryingTariffs != null) {
                  tariff.timeVaryingTariffs.type = RandomEnergy.SolarFeedType();
-                tariff.timeVaryingTariffs.amount = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
                 let timeVariations: any[] = []
                 let cnt: number = Math.ceil(Math.random() * 3);
                 for(let i = 0; i < cnt; i++) timeVariations.push({});
