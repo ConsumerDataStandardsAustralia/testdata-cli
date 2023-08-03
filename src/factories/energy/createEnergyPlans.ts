@@ -72,7 +72,7 @@ Key values randomly allocated:
 
             let geography: any = {};
             if (Math.random() > 0.25) geography.excludedPostcodes = ["6023", "2000"];
-            if (Math.random() > 0.25) geography.includePostcodes = ["3000-3999"];
+            if (Math.random() > 0.25) geography.includedPostcodes = ["3000-3999"];
             geography.distributors = [faker.company.name(), faker.company.name()];
             if (Math.random() > 0.25) plan.geography = geography;
             let includeCharges = Helper.randomBoolean(0.95);
