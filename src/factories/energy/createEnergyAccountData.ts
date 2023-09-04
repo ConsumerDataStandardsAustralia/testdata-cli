@@ -101,7 +101,8 @@ Key values randomly allocated:
             energyAccount.plans.push(plan);
         }
         let result: EnergyAccountWrapper = {
-            account: energyAccount
+            account: energyAccount,
+            balance: Helper.generateRandomDecimalInRange(-500, 5000)
         };
         return result;
     }

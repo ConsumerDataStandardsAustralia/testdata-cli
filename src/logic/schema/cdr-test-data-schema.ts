@@ -53,7 +53,7 @@ export interface EnergyServicePointWrapper {
  */
 export interface EnergyAccountWrapper {
   account: EnergyAccountDetailV3;
-  balance?: EnergyAccountBalance;
+  balance: string;
   /**
    * An array of agreed payment schedules
    */
@@ -217,6 +217,3 @@ export interface Customer {
 /**
  * An energy account balance structure aligned to the current version of the data standards
  */
-export interface EnergyAccountBalance {
-  [k: string]: unknown;
-}

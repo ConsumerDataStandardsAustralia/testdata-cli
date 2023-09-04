@@ -1084,7 +1084,8 @@ This factory supports the follow option fields:
             ]
           }
         ]
-      }
+      },
+      balance: Helper.generateRandomDecimalInRange(-500, 5000)
     }
   }
 
@@ -1099,14 +1100,6 @@ This factory supports the follow option fields:
     }
     return ret;
   }
-
-  // public canCreateEnergyBalance(): boolean { return true; };
-  // public generateEnergyBalance(account: EnergyAccountWrapper): EnergyBalanceResponse | undefined {
-  //   return {
-  //     accountId: account.account.accountId,
-  //     balance: "10.00"
-  //   }
-  // }
 
   public canCreateEnergyPaymentSchedules(): boolean { return true; };
   public generateEnergyPaymentSchedules(account: EnergyAccountWrapper): any[] | undefined {

@@ -889,20 +889,6 @@ function generateDetailedEnergyAccounts(options: Options, accountOptions: any, c
         if (account && account.account) {
           result.push(account);
 
-          // Create the detail inside the created account
-          if (accountOptions.balanceFactory) {
-            Helper.log(`Executing balance factories for energy account`, 1);
-            account.balance = generateSingleItem(options, accountOptions.balanceFactory,
-              (factory) => {
-                return factory.canCreateEnergyBalance();
-              },
-              (factory) => {
-                return factory.generateEnergyBalance(account);
-              })
-          } else {
-            Helper.log(`No energy account balance factories configured`, 1)
-          }
-
           if (accountOptions.invoicesFactory) {
             Helper.log(`Executing invoices factories for energy account`, 1);
             account.invoices = generateArrayOfItems(options, accountOptions.invoicesFactory,

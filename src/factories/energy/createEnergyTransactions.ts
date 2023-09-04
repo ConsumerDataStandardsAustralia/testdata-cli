@@ -1,5 +1,5 @@
 import { EnergyBillingDemandTransaction, EnergyBillingOnceOffTransaction, EnergyBillingOtherTransaction, EnergyBillingPaymentTransaction, EnergyBillingTransaction, EnergyBillingUsageTransaction, EnergyPlan, EnergyPlanDetailV2} from "consumer-data-standards/energy";
-import { EnergyAccountBalance, EnergyAccountWrapper, EnergyServicePointWrapper } from "../../logic/schema/cdr-test-data-schema";
+import { EnergyAccountWrapper, EnergyServicePointWrapper } from "../../logic/schema/cdr-test-data-schema";
 import { TransactionUType } from "../../random-generators";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { RandomEnergy } from '../../random-generators';
@@ -38,15 +38,6 @@ Key values randomly allocated:
 `
         return st;
     } 
-
-    public canCreateEnergyBalance(): boolean { return true};
-
-    public generateEnergyBalance(account: EnergyAccountWrapper): EnergyAccountBalance | undefined {
-        let accBalance: EnergyAccountBalance = {
-            balance: Helper.generateRandomDecimalInRange(-500, 5000, 2)
-        }
-        return account.balance = accBalance;
-    }
 
     public canCreateEnergyTransaction(): boolean { return true; };
     public generateEnergyTransaction(account: EnergyAccountWrapper, servicePoints: EnergyServicePointWrapper[]): EnergyBillingTransaction | undefined 

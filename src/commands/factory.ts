@@ -59,7 +59,6 @@ export const handler = (argv: Arguments<Options>): void => {
       if (factory.canCreateEnergyConcessions()) output +='    create a set of energy concessions\n';
       if (factory.canCreateEnergyAccount()) output +='    create an energy account\n';
       if (factory.canCreateEnergyAccounts()) output +='    create a set of energy accounts\n';
-      if (factory.canCreateEnergyBalance()) output +='    create an energy account balance\n';
       if (factory.canCreateEnergyInvoice()) output +='    create an energy invoice\n';
       if (factory.canCreateEnergyInvoices()) output +='    create a set of energy invoices\n';
       if (factory.canCreateEnergyTransaction()) output +='    create an energy transaction\n';
