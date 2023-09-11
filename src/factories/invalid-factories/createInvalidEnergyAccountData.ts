@@ -29,7 +29,8 @@ export class CreateInvalidEnergyAccountData extends Factory {
             invoiceAmount: Helper.generateRandomDecimalInRange(10, 500)
          } 
          let wrapper: EnergyAccountWrapper = {
-            account : energyAccount
+            account : energyAccount,
+            balance : Helper.generateRandomDecimalInRange(-500, 5000)
          }; 
    
        return wrapper;
