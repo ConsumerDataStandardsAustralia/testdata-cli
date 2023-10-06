@@ -135,35 +135,35 @@
                                         "transactionsFactory": {
                                             "sequence": [
                                                 {
-                                                    "id": "create-energy-transactions",
+                                                    "id": "create-energy-transactions-v2",
                                                     "options": {
                                                         "transactionUType": "usage",
                                                         "count": 10
                                                     }
                                                 },
                                                 {
-                                                    "id": "create-energy-transactions",
+                                                    "id": "create-energy-transactions-v2",
                                                     "options": {
                                                         "transactionUType": "demand",
                                                         "count": 10
                                                     }
                                                 },
                                                 {
-                                                    "id": "create-energy-transactions",
+                                                    "id": "create-energy-transactions-v2",
                                                     "options": {
                                                         "transactionUType": "onceOff",
                                                         "count": 10
                                                     }
                                                 },
                                                 {
-                                                    "id": "create-energy-transactions",
+                                                    "id": "create-energy-transactions-v2",
                                                     "options": {
                                                         "transactionUType": "otherCharges",
                                                         "count": 3
                                                     }
                                                 },
                                                 {
-                                                    "id": "create-energy-transactions",
+                                                    "id": "create-energy-transactions-v2",
                                                     "options": {
                                                         "transactionUType": "payment",
                                                         "count": 10
@@ -211,7 +211,7 @@
                                             ]
                                         },
                                         "balanceFactory": {
-                                            "id": "create-energy-transactions"
+                                            "id": "create-energy-transactions-v2"
                                         }
                                     },
                                     {
@@ -271,7 +271,7 @@
                                             ]
                                         },
                                         "balanceFactory": {
-                                            "id": "create-energy-transactions"
+                                            "id": "create-energy-transactions-v2"
                                         }
                                     },
                                     {
@@ -331,7 +331,7 @@
                                             ]
                                         },
                                         "balanceFactory": {
-                                            "id": "create-energy-transactions"
+                                            "id": "create-energy-transactions-v2"
                                         }
                                     }
                                 ],
