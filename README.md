@@ -267,27 +267,27 @@ Generate some energy plan data, which is compliant with the CDR. (unauthenticate
 
 Generate customers, some of them should residential, some of them business customers.
 
-`testdata generate ./options/uc2.json ./output/u2-output.json`
+`testdata generate ./samples/options/uc2.json ./samples/output/u2-output.json`
 
 ## Use Case 3 (UC3)
 Generate a single residential customer with a single energy account.
 
-`testdata generate ./options/uc3.json ./output/u3-output.json`
+`testdata generate ./samples/options/uc3.json ./output/samples/u3-output.json`
 
 ## Use Case 4 (UC4)
 Augment an existing holder structure and add some customers.
 
-`testdata generate ./options/uc4.json ./output/u4-output.json`
+`testdata generate ./samples/options/uc4.json ./samples/output/u4-output.json`
 
 ## Use Case 5 (UC5)
 Augment an existing data file by adding additional holders. Exsiting data rermains as per input file
 
-`testdata generate ./options/uc5.json ./output/u5-output.json`
+`testdata generate ./samples/options/uc5.json ./samples/output/u5-output.json`
 
 ## Use Case 6 (UC6)
 Create a mix of valid and invalid customer data
 
-`testdata generate ./options/uc6.json ./output/u6-output.json`
+`testdata generate ./samples/options/uc6.json ./samples/output/u6-output.json`
 
 
 # Maintenance
