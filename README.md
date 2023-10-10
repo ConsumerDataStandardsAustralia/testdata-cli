@@ -261,7 +261,7 @@ For each of these example naviate to the root of this repository
 
 Generate some energy plan data, which is compliant with the CDR. (unauthenticated data)
 
-`testdata generate ./options/uc1.json ./output/u1-output.json`
+`testdata generate ./samples/options/uc1.json ./samples/output/u1-output.json`
 
 ## Use Case 2 (UC2)
 
