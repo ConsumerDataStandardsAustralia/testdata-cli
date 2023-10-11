@@ -53,6 +53,9 @@ factories[CreateInvalidEnergyAccountData.id] = (options: any): Factory => { retu
 import { CreateEnergyTransaction } from './energy/createEnergyTransactions';
 factories[CreateEnergyTransaction.id] = (options: any): Factory => { return new CreateEnergyTransaction(options)}
 
+import { CreateEnergyTransactionV2 } from './energy/createEnergyTransactionsV2';
+factories[CreateEnergyTransactionV2.id] = (options: any): Factory => { return new CreateEnergyTransactionV2(options)}
+
 import { CreateEnergyConcessions } from './energy/createConcessions';
 factories[CreateEnergyConcessions.id] = (options: any): Factory => { return new CreateEnergyConcessions(options)}
 

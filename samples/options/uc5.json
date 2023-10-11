@@ -9,7 +9,7 @@
 		"allDataFactory": {
 			"id": "general-load-static",
 			"options": {
-			  "source": "./input/uc5-input.json"
+			  "source": "./samples/input/uc5-input.json"
 			}
 		},
 		"holders": [

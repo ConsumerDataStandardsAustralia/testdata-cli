@@ -4,7 +4,7 @@
 		"allDataFactory": {
 			"id": "general-load-static",
 			"options": {
-			  "source": "../input/uc4-input.json"
+			  "source": "./samples/input/uc4-input.json"
 			}
 		},
 		"holders": [

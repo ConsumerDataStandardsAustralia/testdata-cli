@@ -300,10 +300,22 @@ export enum TransactionUType {
     usage = "usage", demand = "demand", onceOff = "onceOff", otherCharges = "otherCharges", payment = "payment"
 }
 
-export enum TimeOfUseType {
+export enum TimeOfUseTypeV1 {
     PEAK = "PEAK", OFF_PEAK = "OFF_PEAK", OFF_PEAK_DEMAND_CHARGE = "OFF_PEAK_DEMAND_CHARGE", SHOULDER = "SHOULDER",
     SHOULDER1 = "SHOULDER1", SHOULDER2 = "SHOULDER2", CONTROLLED_LOAD = "CONTROLLED_LOAD",
     SOLAR = "SOLAR", AGGREGATE = "AGGREGATE"
+}
+
+export enum TimeOfUseTypeDemand {
+    PEAK = "PEAK", OFF_PEAK = "OFF_PEAK", OFF_PEAK_DEMAND_CHARGE = "OFF_PEAK_DEMAND_CHARGE", SHOULDER = "SHOULDER",
+    SHOULDER1 = "SHOULDER1", SHOULDER2 = "SHOULDER2", CONTROLLED_LOAD = "CONTROLLED_LOAD",
+    SOLAR = "SOLAR", AGGREGATE = "AGGREGATE", ALL_DAY = "ALL_DAY", EXCESS = "EXCESS"
+}
+
+export enum TimeOfUseTypeUsage {
+    PEAK = "PEAK", OFF_PEAK = "OFF_PEAK", OFF_PEAK_DEMAND_CHARGE = "OFF_PEAK_DEMAND_CHARGE", SHOULDER = "SHOULDER",
+    SHOULDER1 = "SHOULDER1", SHOULDER2 = "SHOULDER2", CONTROLLED_LOAD = "CONTROLLED_LOAD",
+    SOLAR = "SOLAR", AGGREGATE = "AGGREGATE", ALL_DAY = "ALL_DAY"
 }
 
 export enum CalculationFactorType {
@@ -573,8 +585,17 @@ export class RandomEnergy {
     }
 
     public static TimeOfUseType(): any {
-        return this.GetRandomValue(TimeOfUseType)
+        return this.GetRandomValue(TimeOfUseTypeV1)
     }
+
+
+    public static TimeOfUseTypeDemand(): any {
+        return this.GetRandomValue(TimeOfUseTypeDemand)
+    }
+
+    public static TimeOfUseTypeUsage(): any {
+        return this.GetRandomValue(TimeOfUseTypeUsage)
+    }    
 
     public static CalculationFactorType(): any {
         return this.GetRandomValue(CalculationFactorType)
