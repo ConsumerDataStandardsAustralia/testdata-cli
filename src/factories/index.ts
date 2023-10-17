@@ -16,10 +16,6 @@ import { CreateHolder } from './createHolder';
 factories[CreateHolder.id] = (options: any): Factory => { return new CreateHolder(options) }
 
 // create banking products
-import { CreateProducts} from './banking/createProducts';
-factories[CreateProducts.id] = (options: any): Factory => { return new CreateProducts(options) }
-
-// create banking products
 import { CreateCustomers} from './common/createCustomers';
 factories[CreateCustomers.id] = (options: any): Factory => { return new CreateCustomers(options) }
 
@@ -64,6 +60,9 @@ factories[CreateEnergyPaymentSchedules.id] = (options: any): Factory => { return
 
 import { CreateEnergyPlanData} from './energy/createEnergyPlans';
 factories[CreateEnergyPlanData.id] = (options: any): Factory => { return new CreateEnergyPlanData(options)}
+
+import { CreateProducts} from './banking/createProducts';
+factories[CreateProducts.id] = (options: any): Factory => { return new CreateProducts(options)}
 
 export * from './common/utils';
 
