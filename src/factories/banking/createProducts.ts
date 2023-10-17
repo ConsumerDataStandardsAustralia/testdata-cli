@@ -45,24 +45,36 @@ export class CreateProducts extends Factory {
 
   private featureAdditionalRequired(type: FeatureType): string | undefined {
 
-    switch(type) {
-        case FeatureType.ADDITIONAL_CARDS: return "3";
-        case FeatureType.BILL_PAYMENT: return "Optional name";
-        case FeatureType.BONUS_REWARDS: return "25000";
-        case FeatureType.CARD_ACCESS: return "All credit cards";
-        case FeatureType.CASHBACK_OFFER: return "$125";
-        case FeatureType.COMPLEMENTARY_PRODUCT_DISCOUNTS: return "Gift cards";
-        case FeatureType.DIGITAL_WALLET: return "Common wallet brand";
-        case FeatureType.FREE_TXNS: return "10";
-        case FeatureType.FREE_TXNS_ALLOWANCE: return "$45";
-        case FeatureType.INSURANCE: return "Travel Insurance";
-        case FeatureType.INTEREST_FREE: return "P6M";
-        case FeatureType.INTEREST_FREE_TRANSFERS: return "P9M";
-        case FeatureType.LOYALTY_PROGRAM: return "Global Alliance";
-        case FeatureType.NOTIFICATIONS: return "Push based notifications";
-        default: return undefined;
+    switch (type) {
+      case FeatureType.ADDITIONAL_CARDS: return "3";
+      case FeatureType.BILL_PAYMENT: return "Optional name";
+      case FeatureType.BONUS_REWARDS: return "25000";
+      case FeatureType.CARD_ACCESS: return "All credit cards";
+      case FeatureType.CASHBACK_OFFER: return "$125";
+      case FeatureType.COMPLEMENTARY_PRODUCT_DISCOUNTS: return "Gift cards";
+      case FeatureType.DIGITAL_WALLET: return "Common wallet brand";
+      case FeatureType.FREE_TXNS: return "10";
+      case FeatureType.FREE_TXNS_ALLOWANCE: return "$45";
+      case FeatureType.INSURANCE: return "Travel Insurance";
+      case FeatureType.INTEREST_FREE: return "P6M";
+      case FeatureType.INTEREST_FREE_TRANSFERS: return "P9M";
+      case FeatureType.LOYALTY_PROGRAM: return "Global Alliance";
+      case FeatureType.NOTIFICATIONS: return "Push based notifications";
+      default: return undefined;
     }
 
+  }
+
+  private generateAdditionalInfo(baseUri: string, suffix: string): any {
+    let cnt = Helper.generateRandomIntegerInRange(0, 3);
+    let objArray: any[] = [];
+    for (let i = 0; i < cnt; i++) {
+      let obj: any = {};
+      obj.description = `More info ${i} here`,
+      obj.additionalInfoUri = `${baseUri}${suffix}-${i}`;
+      objArray.push(obj);
+    }
+    return objArray;
   }
 
   public canCreateHolder(): boolean { return true; };
@@ -118,56 +130,20 @@ export class CreateProducts extends Factory {
     let additionalFeesRequired: boolean = Math.random() > 0.5;
     let additionalBundleRequired: boolean = Math.random() > 0.5;
 
-    if (Math.random() > 0.5)
-    if (Math.random() > 0.5) {
-      product.additionalInformation = {};
-      if (additionalOverviewRequired == true) {product.additionalInformation.overviewUri = `${brandBaseUri}overview`;}
-      if (additionalTermsRequired == true) {product.additionalInformation.termsUri = `${brandBaseUri}terms`;}
-      if (additionalEligibilityRequired == true) {product.additionalInformation.eligibilityUri = `${brandBaseUri}conditions`;}
-      if (additionalFeesRequired == true) {product.additionalInformation.feesAndPricingUri = `${brandBaseUri}fees`;}
-      if (additionalBundleRequired == true) {product.additionalInformation.bundleUri = `${brandBaseUri}bundles`;}
-    }
 
-    if (additionalOverviewRequired == true && Math.random() > 0.5){
-         let cnt = Helper.generateRandomIntegerInRange(0,3);
-         let obj: any = {};
-         for(let i =0; i < cnt; i++) {
-            obj.description = `More info ${i} here`,
-            obj.additionalInfoUri = `${brandBaseUri}more-${i}`
-         }
-    }
-    if (additionalTermsRequired == true && Math.random() > 0.5){
-      let cnt = Helper.generateRandomIntegerInRange(0,3);
-      let obj: any = {};
-      for(let i =0; i < cnt; i++) {
-         obj.description = `More info ${i} here`,
-         obj.additionalInfoUri = `${brandBaseUri}terms-${i}`
-      }
-    }
-    if (additionalEligibilityRequired == true && Math.random() > 0.5){
-      let cnt = Helper.generateRandomIntegerInRange(0,3);
-      let obj: any = {};
-      for(let i =0; i < cnt; i++) {
-         obj.description = `More info ${i} here`,
-         obj.additionalInfoUri = `${brandBaseUri}eligibility-${i}`
-      }
-    }   
-    if (additionalFeesRequired == true && Math.random() > 0.5){
-      let cnt = Helper.generateRandomIntegerInRange(0,3);
-      let obj: any = {};
-      for(let i =0; i < cnt; i++) {
-         obj.description = `More info ${i} here`,
-         obj.additionalInfoUri = `${brandBaseUri}fees-${i}`
-      }
-    }   
-    if (additionalBundleRequired == true && Math.random() > 0.5){
-      let cnt = Helper.generateRandomIntegerInRange(0,3);
-      let obj: any = {};
-      for(let i =0; i < cnt; i++) {
-         obj.description = `More info ${i} here`,
-         obj.additionalInfoUri = `${brandBaseUri}bundles-${i}`
-      }
-    }   
+    product.additionalInformation = {};
+    if (additionalOverviewRequired == true) { product.additionalInformation.overviewUri = `${brandBaseUri}overview`; }
+    if (additionalTermsRequired == true) { product.additionalInformation.termsUri = `${brandBaseUri}terms`; }
+    if (additionalEligibilityRequired == true) { product.additionalInformation.eligibilityUri = `${brandBaseUri}conditions`; }
+    if (additionalFeesRequired == true) { product.additionalInformation.feesAndPricingUri = `${brandBaseUri}fees`; }
+    if (additionalBundleRequired == true) { product.additionalInformation.bundleUri = `${brandBaseUri}bundles`; }
+
+    if (additionalOverviewRequired == true && Math.random() > 0.5) product.additionalInformation.additionalOverviewUris = this.generateAdditionalInfo(brandBaseUri, "overview");
+    if (additionalTermsRequired == true && Math.random() > 0.5) product.additionalInformation.additionalTermsUris = this.generateAdditionalInfo(brandBaseUri, "terms")
+    if (additionalEligibilityRequired == true && Math.random() > 0.5) product.additionalInformation.additionalEligibilityUris = this.generateAdditionalInfo(brandBaseUri, "eligibility")
+    if (additionalFeesRequired == true && Math.random() > 0.5) product.additionalInformation.additionalFeesAndPricingUris = this.generateAdditionalInfo(brandBaseUri, "fees")
+    if (additionalBundleRequired == true && Math.random() > 0.5) product.additionalInformation.additionalBundleUris = this.generateAdditionalInfo(brandBaseUri, "bundles")
+
 
     if (Math.random() > 0.5) {
       product.bundles = [
@@ -186,7 +162,7 @@ export class CreateProducts extends Factory {
       let features: any = [];
       let feature: any = {};
       let featureType = RandomBanking.FeatureType();
-      let val = this.featureAdditionalRequired(featureType) 
+      let val = this.featureAdditionalRequired(featureType)
       if (val != undefined) feature.additionalValue;
       if (featureType == FeatureType.OTHER) feature.additionalInfo = "Additional feature info";
       if (Math.random() > 0.5) feature.additionalInfoUri = `${brandBaseUri}features`;
