@@ -1,7 +1,8 @@
-import { BankingProductBundle , BankingProductConstraint, BankingProductDetailV4, BankingProductEligibility, BankingProductFeatureV2, BankingProductFee, BankingProductV4 } from 'consumer-data-standards/banking';
+import { BankingProductBundle , BankingProductConstraint, BankingProductDepositRate, BankingProductDetailV4, BankingProductDiscount, BankingProductEligibility,
+  BankingProductFeatureV2, BankingProductFee, BankingProductV4, BankingProductRateTierV3, BankingProductRateCondition, BankingProductLendingRateV2 } from 'consumer-data-standards/banking';
 
 import { HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
-import { ContraintType, EligibilityType, FeatureType, FeeType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
+import { ContraintType, DepositRateType, EligibilityType, FeatureType, FeeType, LendingRateType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { CustomerType } from 'src/random-generators';
 import { randomUUID } from 'crypto';
@@ -90,6 +91,26 @@ export class CreateProducts extends Factory {
 
   }
 
+  private lendingRateAdditionalValue (type: LendingRateType): string | undefined {
+    switch (type) {
+      case LendingRateType.FIXED: return "P6M";
+      case LendingRateType.FLOATING: return "Mostly fixed";
+      case LendingRateType.MARKET_LINKED: return "SMP";
+      default: return undefined;
+    }
+
+  }
+
+  private depositRateAdditionalValue (type: DepositRateType): string | undefined {
+    switch (type) {
+      case DepositRateType.FIXED: return "P1Y";
+      case DepositRateType.FLOATING: return "Mostly fixed";
+      case DepositRateType.MARKET_LINKED: return "ASX200";
+      default: return undefined;
+    }
+
+  }
+
   private feeAdditionalValue (type: FeeType): string | undefined {
     switch (type) {
       case FeeType.PERIODIC: return "P6M";
@@ -109,6 +130,29 @@ export class CreateProducts extends Factory {
     }
     return objArray;
   }
+
+  private generateBankingProductRateTiers(brandBaseUri: string): BankingProductRateTierV3[] | undefined {
+    let tiers: BankingProductRateTierV3[] = [];
+    let tier: BankingProductRateTierV3 = {
+      minimumValue: 0,
+      name: 'Base tier',
+      unitOfMeasure: 'DAY'
+    };
+    let applicableConditions: BankingProductRateCondition;
+    if (Math.random() > 0.5) tier.rateApplicationMethod = "WHOLE_BALANCE";
+    if (Math.random() > 0.5) tier.maximumValue = 365;
+    if (Math.random() > 0.5) tier.additionalInfo = "This tier applies to the entire balance";
+    if (Math.random() > 0.5) tier.additionalInfoUri = `${brandBaseUri}rates`;
+    if (Math.random() > 0.5) {
+      applicableConditions = {};
+      applicableConditions.additionalInfo = "Additional conditions apply for this specific rate";
+      if (Math.random() > 0.5) applicableConditions.additionalInfoUri = `${brandBaseUri}rates`;
+      tier.applicabilityConditions = applicableConditions;
+    }
+    tiers.push(tier);
+    return tiers;
+  }
+
 
   public canCreateHolder(): boolean { return true; };
   public generateHolder(): HolderWrapper | undefined {
@@ -250,45 +294,81 @@ export class CreateProducts extends Factory {
       };
       //let featureType = RandomBanking.FeatureType();
       let val = this.feeAdditionalValue(fee.feeType as FeeType);
-      if (fee.feeType != FeeType.VARIABLE) fee.amount
+      if (fee.feeType != FeeType.VARIABLE) fee.amount = "0.05" ;
+      if (fee.feeType != FeeType.VARIABLE) fee.balanceRate = "0.02" ;
+      if (fee.feeType != FeeType.VARIABLE) fee.transactionRate = "0.03" ;
       if (val != undefined) {
         fee.additionalValue = val;
       } 
-      if (Math.random() > 0.5) eligibility.additionalInfoUri = `${brandBaseUri}eligibility`;
-      eligibilities.push(eligibility);
-      product.eligibility = eligibilities;      
+      if (Math.random() > 0.5) fee.additionalInfo = "Additional fees may be payable";
+      if (Math.random() > 0.5) fee.currency = "AUD";
+      if (Math.random() > 0.5) fee.accrualFrequency = "P6M";
+      if (Math.random() > 0.5) fee.additionalInfoUri = `${brandBaseUri}fees`;
+
+      let discounts: BankingProductDiscount[] = [];
+      if (Math.random() > 0.5) {
+        let discount: BankingProductDiscount = {
+          description: 'A discount offered for this product',
+          discountType: RandomBanking.DiscountType()
+        };
+      }
+
+      fees.push(fee);
+      product.fees = fees;      
     }
 
     // populate BankignProductDetailV4.depositRates
     if (Math.random() > 0.5) {
-      product.depositRates = [
-        {
-          depositRateType: RandomBanking.DepositRateType(),
-          rate: "0.01",
-          calculationFrequency: "P1D",
-          applicationFrequency: "P1M",
-          additionalInfo: "These rates may not always be applicable ",
-          additionalInfoUri: `${brandBaseUri}deposits`
-        }
-      ]
+      let depositRates: BankingProductDepositRate[] = [];
+      let depositRate: BankingProductDepositRate = {
+        depositRateType: RandomBanking.DepositRateType(),
+        rate: "0.04"
+      };
+      if (Math.random() > 0.5) depositRate.calculationFrequency = "P1D";
+      if (Math.random() > 0.5) depositRate.applicationFrequency = "P1M";
+      if (Math.random() > 0.5) depositRate.additionalInfo = "These rates are the standard rates";
+      if (Math.random() > 0.5) depositRate.additionalInfoUri = `${brandBaseUri}rates`;
+
+      //let featureType = RandomBanking.FeatureType();
+      let val = this.depositRateAdditionalValue(depositRate.depositRateType as DepositRateType);
+      if (val != undefined) {
+        depositRate.additionalValue = val;
+      } 
+
+      // create the tiers
+      if (Math.random() > 0.5) depositRate.tiers = this.generateBankingProductRateTiers(brandBaseUri);
+
+      depositRates.push(depositRate);
+      product.depositRates = depositRates;      
     }
 
     // populate BankignProductDetailV4.lendingRates
     if (Math.random() > 0.5) {
-      product.lendingRates = [
-        {
-          lendingRateType: RandomBanking.LendingRateType(),
-          rate: "0.01",
-          comparisonRate: "0.01",
-          calculationFrequency: "P1D",
-          applicationFrequency: "P1M",
-          interestPaymentDue: "IN_ADVANCE",
-          repaymentType: RandomBanking.RepaymentType(),
-          loanPurpose: RandomBanking.LoanPurpose(),
-          additionalInfo: "Lending rates mat vary over time. Read the PDS",
-          additionalInfoUri: `${brandBaseUri}lending`
-        }
-      ]
+      let lendingRates: BankingProductLendingRateV2[] = [];
+      let lendingRate: BankingProductLendingRateV2 = {
+        lendingRateType: RandomBanking.LendingRateType(),
+        rate: '0.04'
+      };
+      if (Math.random() > 0.5) lendingRate.comparisonRate = "0.04";
+      if (Math.random() > 0.5) lendingRate.applicationFrequency = "P1M";
+      if (Math.random() > 0.5) lendingRate.calculationFrequency = "P1D";
+      if (Math.random() > 0.5) lendingRate.interestPaymentDue = "IN_ARREARS";
+      if (Math.random() > 0.5) lendingRate.repaymentType = "PRINCIPAL_AND_INTEREST";
+      if (Math.random() > 0.5) lendingRate.loanPurpose = "INVESTMENT";
+      if (Math.random() > 0.5) lendingRate.additionalInfo = "These rates are the standard lending rates";
+      if (Math.random() > 0.5) lendingRate.additionalInfoUri = `${brandBaseUri}rates`;
+
+      //let featureType = RandomBanking.FeatureType();
+      let val = this.lendingRateAdditionalValue(lendingRate.lendingRateType as LendingRateType);
+      if (val != undefined) {
+        lendingRate.additionalValue = val;
+      } 
+
+      // create the tiers
+      if (Math.random() > 0.5) lendingRate.tiers = this.generateBankingProductRateTiers(brandBaseUri);
+
+      lendingRates.push(lendingRate);
+      product.lendingRates = lendingRates;   
     }
 
     return product;
