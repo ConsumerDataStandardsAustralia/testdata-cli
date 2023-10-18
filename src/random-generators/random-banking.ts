@@ -259,18 +259,18 @@ export enum Effective {
 }
 
 export enum EligibilityType {
-    "BUSINESS"
-      , "EMPLOYMENT_STATUS"
-      , "MAX_AGE"
-      , "MIN_AGE"
-      , "MIN_INCOME"
-      , "MIN_TURNOVER"
-      , "NATURAL_PERSON"
-      , "OTHER"
-      , "PENSION_RECIPIENT"
-      , "RESIDENCY_STATUS"
-      , "STAFF"
-      , "STUDENT"
+    BUSINESS = "BUSINESS"
+      , EMPLOYMENT_STATUS = "EMPLOYMENT_STATUS"
+      , MAX_AGE = "MAX_AGE"
+      , MIN_AGE = "MIN_AGE"
+      , MIN_INCOME = "MIN_INCOME"
+      , MIN_TURNOVER = "MIN_TURNOVER"
+      , NATURAL_PERSON = "NATURAL_PERSON"
+      , OTHER = "OTHER"
+      , PENSION_RECIPIENT = "PENSION_RECIPIENT"
+      , RESIDENCY_STATUS = "RESIDENCY_STATUS"
+      , STAFF = "STAFF"
+      , STUDENT = "STUDENT"
 }
 
 export enum UnitOfMeasure {
@@ -367,16 +367,16 @@ export enum ContraintType {
 }
 
 export enum FeeType {
-     "DEPOSIT"
-    , "EVENT"
-    , "EXIT"
-    , "PAYMENT"
-    , "PERIODIC"
-    , "PURCHASE"
-    , "TRANSACTION"
-    , "UPFRONT"
-    , "VARIABLE"
-    , "WITHDRAWAL"
+    DEPOSIT =  "DEPOSIT"
+    , EVENT = "EVENT"
+    , EXIT = "EXIT"
+    , PAYMENT = "PAYMENT"
+    , PERIODIC = "PERIODIC"
+    , PURCHASE = "PURCHASE"
+    , TRANSACTION = "TRANSACTION"
+    , UPFRONT = "UPFRONT"
+    , VARIABLE = "VARIABLE"
+    , WITHDRAWAL = "WITHDRAWAL"
 }
 
 export enum DepositRateType {

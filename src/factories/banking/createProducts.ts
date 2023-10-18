@@ -1,7 +1,7 @@
-import { BankingProductV4 } from 'consumer-data-standards/banking';
+import { BankingProductBundle , BankingProductConstraint, BankingProductDetailV4, BankingProductEligibility, BankingProductFeatureV2, BankingProductFee, BankingProductV4 } from 'consumer-data-standards/banking';
 
 import { HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
-import { FeatureType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
+import { ContraintType, EligibilityType, FeatureType, FeeType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { CustomerType } from 'src/random-generators';
 import { randomUUID } from 'crypto';
@@ -43,7 +43,7 @@ export class CreateProducts extends Factory {
     return st;
   }
 
-  private featureAdditionalRequired(type: FeatureType): string | undefined {
+  private featureAdditionalValue (type: FeatureType): string | undefined {
 
     switch (type) {
       case FeatureType.ADDITIONAL_CARDS: return "3";
@@ -60,6 +60,39 @@ export class CreateProducts extends Factory {
       case FeatureType.INTEREST_FREE_TRANSFERS: return "P9M";
       case FeatureType.LOYALTY_PROGRAM: return "Global Alliance";
       case FeatureType.NOTIFICATIONS: return "Push based notifications";
+      default: return undefined;
+    }
+
+  }
+
+  private constraintAdditionalValue (type: ContraintType): string | undefined {
+    switch (type) {
+      case ContraintType.MAX_BALANCE: return "250000.00";
+      case ContraintType.MAX_LIMIT: return "250000.00";
+      case ContraintType.MIN_BALANCE: return "10.00";
+      case ContraintType.MIN_LIMIT: return  "1000.00";
+      case ContraintType.OPENING_BALANCE: return "1.00";
+      default: return undefined;
+    }
+
+  }
+
+  private eligibilityAdditionalValue (type: EligibilityType): string | undefined {
+    switch (type) {
+      case EligibilityType.EMPLOYMENT_STATUS: return "Employed";
+      case EligibilityType.MAX_AGE: return "35";
+      case EligibilityType.MIN_AGE: return "18";
+      case EligibilityType.MIN_INCOME: return  "85000.00";
+      case EligibilityType.MIN_TURNOVER: return "500000.00";
+      case EligibilityType.RESIDENCY_STATUS: return "Austrailan Citizen";
+      default: return undefined;
+    }
+
+  }
+
+  private feeAdditionalValue (type: FeeType): string | undefined {
+    switch (type) {
+      case FeeType.PERIODIC: return "P6M";
       default: return undefined;
     }
 
@@ -90,7 +123,7 @@ export class CreateProducts extends Factory {
   }
 
   public canCreateBankProduct(): boolean { return true; };
-  public generateBankProduct(): BankingProductV4 {
+  public generateBankProduct(): BankingProductDetailV4 {
 
     let categoryLowerCase = this.category.replace(/['_']/g, '-').toLowerCase();
     let brandInfo = RandomBanking.SelectBaseBrandInfo();
@@ -102,7 +135,8 @@ export class CreateProducts extends Factory {
     let effectiveFromDate = Helper.randomDateTimeBeforeDateString(effectiveToDate);
 
     // create product with mandatory fields
-    let product: BankingProductV4 = {
+    // populate the base product properties, ie BankingProductV4
+    let product: BankingProductDetailV4 = {
       brand: brandInfo.brand,
       description: productInfo.description,
       isTailored: Helper.randomBoolean(0.3),
@@ -119,7 +153,7 @@ export class CreateProducts extends Factory {
     if (Math.random() > 0.5) {
       product.cardArt = [
         {
-          title: "Display label for image",
+          title: `Display label for ${brandInfo.brand}`,
           imageUri: `${brandBaseUri}${categoryLowerCase}`
         }
       ]
@@ -144,61 +178,88 @@ export class CreateProducts extends Factory {
     if (additionalFeesRequired == true && Math.random() > 0.5) product.additionalInformation.additionalFeesAndPricingUris = this.generateAdditionalInfo(brandBaseUri, "fees")
     if (additionalBundleRequired == true && Math.random() > 0.5) product.additionalInformation.additionalBundleUris = this.generateAdditionalInfo(brandBaseUri, "bundles")
 
-
+    // populate BankignProductDetailV4.bundles
     if (Math.random() > 0.5) {
-      product.bundles = [
-        {
-          name: "Name",
-          description: "A banking product bundles",
-          additionalInfo: "Additional bundle info",
-          additionalInfoUri: `${brandBaseUri}bundles-info`,
-          productIds: [
-            this.id, Helper.randomId()
-          ]
-        }
-      ]
+      let bundles: BankingProductBundle[] = [];
+      let bundle: BankingProductBundle = {
+        description: `A bundle available only from ${brandInfo.brandName} `,
+        name: `${brandInfo.brand} - Bundle`
+      };
+      if (Math.random() > 0.5) bundle.additionalInfo = `Additional info for '${bundle.name}'`;
+      if (Math.random() > 0.5) bundle.additionalInfoUri = `${brandBaseUri}bundles-info`;
+      bundles.push(bundle);
+      product.bundles = bundles;
     }
+    // populate BankignProductDetailV4.features
     if (Math.random() > 0.5) {
-      let features: any = [];
-      let feature: any = {};
-      let featureType = RandomBanking.FeatureType();
-      let val = this.featureAdditionalRequired(featureType)
-      if (val != undefined) feature.additionalValue;
-      if (featureType == FeatureType.OTHER) feature.additionalInfo = "Additional feature info";
+      let features: BankingProductFeatureV2[] = [];
+      let feature: BankingProductFeatureV2 = {
+        featureType: RandomBanking.FeatureType()
+      };
+      //let featureType = RandomBanking.FeatureType();
+      let val = this.featureAdditionalValue(feature.featureType as FeatureType)
+      if (val != undefined) {
+        feature.additionalValue = val;
+      } 
+      if (feature.featureType == FeatureType.OTHER) feature.additionalInfo = "Additional feature info";
       if (Math.random() > 0.5) feature.additionalInfoUri = `${brandBaseUri}features`;
       features.push(feature);
       product.features = features;
     }
+
+    // populate BankignProductDetailV4.constraints
     if (Math.random() > 0.5) {
-      product.constraints = [
-        {
-          constraintType: RandomBanking.ContraintType(),
-          additionalValue: "1000.00",
-          additionalInfo: "Additional info",
-          additionalInfoUri: `${brandBaseUri}conditions`
-        }
-      ]
+      let constraints: BankingProductConstraint[] = [];
+      let constraint: BankingProductConstraint = {
+        constraintType: RandomBanking.ContraintType()
+      };
+      //let featureType = RandomBanking.FeatureType();
+      constraint.constraintType = RandomBanking.ContraintType();
+      let val = this.constraintAdditionalValue(constraint.constraintType as ContraintType)
+      if (val != undefined) {
+        constraint.additionalValue = val;
+      } 
+      if (Math.random() > 0.5) constraint.additionalInfoUri = `${brandBaseUri}constraints`;
+      constraints.push(constraint);
+      product.constraints = constraints;
+      
     }
+
+    // populate BankignProductDetailV4.eligibility
     if (Math.random() > 0.5) {
-      product.eligibility = [
-        {
-          eligibilityType: RandomBanking.EligibilityType(),
-          additionalInfo: "Additional info",
-          additionalInfoUri: `${brandBaseUri}conditions`
-        }
-      ]
+      let eligibilities: BankingProductEligibility[] = [];
+      let eligibility: BankingProductEligibility = {
+        eligibilityType: RandomBanking.EligibilityType()
+      };
+      //let featureType = RandomBanking.FeatureType();
+      let val = this.eligibilityAdditionalValue(eligibility.eligibilityType as EligibilityType)
+      if (val != undefined) {
+        eligibility.additionalValue = val;
+      } 
+      if (Math.random() > 0.5) eligibility.additionalInfoUri = `${brandBaseUri}eligibility`;
+      eligibilities.push(eligibility);
+      product.eligibility = eligibilities;      
     }
+
+    // populate BankignProductDetailV4.fees
     if (Math.random() > 0.5) {
-      product.fees = [
-        {
-          name: "Name",
-          feeType: RandomBanking.FeeType(),
-          amount: "10.00",
-          additionalInfo: "These fees are always applicable. More info in the PDS",
-          additionalInfoUri: `${brandBaseUri}fees`
-        }
-      ]
+      let fees: BankingProductFee[] = [];
+      let fee: BankingProductFee = {
+        feeType: RandomBanking.FeeType(),
+        name: ''
+      };
+      //let featureType = RandomBanking.FeatureType();
+      let val = this.feeAdditionalValue(fee.feeType as FeeType);
+      if (fee.feeType != FeeType.VARIABLE) fee.amount
+      if (val != undefined) {
+        fee.additionalValue = val;
+      } 
+      if (Math.random() > 0.5) eligibility.additionalInfoUri = `${brandBaseUri}eligibility`;
+      eligibilities.push(eligibility);
+      product.eligibility = eligibilities;      
     }
+
+    // populate BankignProductDetailV4.depositRates
     if (Math.random() > 0.5) {
       product.depositRates = [
         {
@@ -211,6 +272,8 @@ export class CreateProducts extends Factory {
         }
       ]
     }
+
+    // populate BankignProductDetailV4.lendingRates
     if (Math.random() > 0.5) {
       product.lendingRates = [
         {
