@@ -436,13 +436,13 @@ export enum DiscountEligibilityType {
     , "STUDENT"
 }
 
-export enum BankingBrand {
-    CBA = "Commonwealth Bank", ANZ = "ANZ", NAB = "National Australia",
-    WBC = "Westpac", MAC = "MacQuarie Bank", RABO = "Rabo Bank",
-    UBANK = "UBank", ING = "ING"
+export enum AccountOwnership {
+    UNKNOWN = "UNKNOWN",
+    ONE_PARTY = "ONE_PARTY",
+    TWO_PARTY = "TWO_PARTY",
+    MANY_PARTY = "MANY_PARTY",
+    OTHER = "OTHER"
 }
-
-
 
 export class RandomBanking {
     public static GetRandomValue(enumeration: any) {
@@ -569,9 +569,6 @@ export class RandomBanking {
     public static TransactionType(): any {
         return this.GetRandomValue(TransactionType)
     }  
-    public static Brand(): any {
-        return this.GetRandomValue(BankingBrand)
-    }
 
     public static SelectBaseBankingProductInfo(category: string): any {
         let subSet = BaseBankingProduct.filter(x => x.category.replace(/['_']/g, '-').toLowerCase() == category);

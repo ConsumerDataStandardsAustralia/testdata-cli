@@ -64,6 +64,9 @@ factories[CreateEnergyPlanData.id] = (options: any): Factory => { return new Cre
 import { CreateProducts} from './banking/createProducts';
 factories[CreateProducts.id] = (options: any): Factory => { return new CreateProducts(options)}
 
+import { CreateBankingAccounts} from './banking/createAccounts';
+factories[CreateBankingAccounts.id] = (options: any): Factory => { return new CreateBankingAccounts(options)}
+
 export * from './common/utils';
 
 
