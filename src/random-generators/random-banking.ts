@@ -282,7 +282,7 @@ export enum RateApplicationMethod {
 }
 
 export enum SpecificAccountUType {
-    "creditCard" , "loan" , "termDeposit"
+    creditCard = "creditCard" , loan = "loan" , termDeposit = "termDeposit"
 }
 
 export enum MaturityInstructions {
