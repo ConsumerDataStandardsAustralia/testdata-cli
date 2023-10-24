@@ -4,6 +4,7 @@ import { CustomerWrapper, BankAccountWrapper } from "../../logic/schema/cdr-test
 import { AccountOwnership, OpenStatus, ProductCategory, RandomBanking, SpecificAccountUType } from '../../random-generators/random-banking'
 import { generateDepositRateArray, generateLendingRateArray, generateBankingProductFeatures, generateBankingProductFeeArray } from "./utils";
 import Utils from "../common/utils";
+import { faker } from "@faker-js/faker";
 
 const factoryId: string = "create-banking-accounts";
 
@@ -35,7 +36,8 @@ export class CreateBankingAccounts extends Factory {
     private category: ProductCategory;
     private openStatus: OpenStatus;
     private accountOwnership: AccountOwnership
-  
+
+
     constructor(options: FactoryOptions) {
       super(options, factoryId);
       this.category = options?.options?.productCategory ? options?.options?.productCategory as ProductCategory : RandomBanking.ProductCategory();
@@ -67,8 +69,12 @@ export class CreateBankingAccounts extends Factory {
         if (Math.random() > 0.5) bankingAccount.accountNumber = `${Helper.generateRandomIntegerInRange(10000000, 99999999)}`;
         if (Math.random() > 0.5) bankingAccount.bundleName = "Professional Account Package";
 
-        let specificAccountUType = RandomBanking.SpecificAccountUType();
-        if (Math.random() > 0.25) bankingAccount.specificAccountUType = specificAccountUType;
+        // create a url used for fees, rates, etc. Normally these should correspond to a brand, similar to how this occurs in the products factory
+        let baseUrl = faker.internet.url.name;
+
+        let uType = this.generateSpecificUType(this.category);
+        if (uType)
+            bankingAccount.specificAccountUType = uType
         if (bankingAccount?.specificAccountUType != null) {
             switch (bankingAccount.specificAccountUType) {
                 case SpecificAccountUType.creditCard: bankingAccount.creditCard = this.generateBankingCreditCardAccount();
@@ -79,18 +85,18 @@ export class CreateBankingAccounts extends Factory {
                     break;                                           
             }
         }
-        if (Math.random() > 0.5) bankingAccount.depositRates = generateDepositRateArray("tome");
-        if (Math.random() > 0.5) bankingAccount.lendingRates = generateLendingRateArray("tome");
+        if (Math.random() > 0.5) bankingAccount.depositRates = generateDepositRateArray(baseUrl);
+        if (Math.random() > 0.5) bankingAccount.lendingRates = generateLendingRateArray(baseUrl);
 
         if (Math.random() > 0.5) {
-            let objArray = generateBankingProductFeatures("tome");
+            let objArray = generateBankingProductFeatures(baseUrl);
             objArray.forEach(obj => {
                 if (Math.random() > 0.5) obj.isActivated = Helper.randomBoolean(0.5);
             })
             bankingAccount.features = objArray;
 
         }
-        if (Math.random() > 0.5) bankingAccount.fees = generateBankingProductFeeArray("tome");
+        if (Math.random() > 0.5) bankingAccount.fees = generateBankingProductFeeArray(baseUrl);
         if (Math.random() > 0.5) { 
             customer.customer.customerUType
             let addresses: CommonPhysicalAddress[] = [];
@@ -108,22 +114,34 @@ export class CreateBankingAccounts extends Factory {
     }
 
     private generateBankingTermDepositAccount(): BankingTermDepositAccount[] {
+
         let ret : BankingTermDepositAccount[] = [];
-        let obj: BankingTermDepositAccount = {
-            lodgementDate: "",
-            maturityDate: "",
-            maturityInstructions: "HOLD_ON_MATURITY"
+        let cnt = Helper.generateRandomIntegerInRange(1,3);
+        for (let i = 0; i <= cnt; i++) {
+            let obj: BankingTermDepositAccount = {
+                lodgementDate: Helper.randomDateTimeInThePast(),
+                maturityDate: Helper.randomDateTimeInTheFuture(),
+                maturityInstructions: RandomBanking.MaturityInstructions()
+            }
+            RandomBanking
+            // randonly assign a maturity amount
+            if (Math.random() > 0.5) obj.maturityAmount = (parseFloat(Helper.generateRandomDecimalInRange(0, 100000))* 0.1).toFixed(2);
+            if (Math.random() > 0.5) obj.maturityCurrency = this.getRandomCurrency();
+            ret.push(obj);
         }
-        ret.push(obj);
         return ret;
     }
 
     private generateBankingCreditCardAccount(): BankingCreditCardAccount {
+        let amount= Math.random() * 45000;
+        let minAmount = amount * 0.012;
+
         let ret: BankingCreditCardAccount = {
-            minPaymentAmount: "",
-            paymentDueAmount: "",
-            paymentDueDate: ""
+            minPaymentAmount: amount.toFixed(2).toString(),
+            paymentDueAmount: minAmount.toFixed(2).toString(),
+            paymentDueDate: Helper.randomDateTimeInTheFuture()
         }
+        if (Math.random() > 0.5) ret.paymentCurrency = this.getRandomCurrency();
         return ret;
     }
 
@@ -154,6 +172,29 @@ export class CreateBankingAccounts extends Factory {
             }
         }
         return ret;
+    }
+
+    private getRandomCurrency(): string {
+        let curr: string[] = [
+            "AUD" , "USD" , "GPB" 
+        ] ;
+        let idx = Helper.generateRandomIntegerInRange(0,curr.length-1);
+        return curr[idx];
+    }
+
+    private generateSpecificUType(cat: ProductCategory): SpecificAccountUType | null {
+
+        if (cat in [ProductCategory.CRED_AND_CHRG_CARDS, ProductCategory.TRAVEL_CARDS]) {
+            return SpecificAccountUType.creditCard
+        }
+        else if (cat in [ProductCategory.RESIDENTIAL_MORTGAGES, ProductCategory.OVERDRAFTS, ProductCategory.PERS_LOANS, ProductCategory.MARGIN_LOANS]) {
+            return SpecificAccountUType.loan
+        }
+        else if (cat in [ProductCategory.TERM_DEPOSITS, ProductCategory.REGULATED_TRUST_ACCOUNTS]) {
+            return SpecificAccountUType.termDeposit
+        } else {
+            return null
+        }        
     }
 
     private generateDisplayName(cat: ProductCategory): string {
