@@ -25,6 +25,10 @@ export class CreateBankingTransactions extends Factory {
         return st;
     }
   
+    constructor(options: FactoryOptions) {
+        super(options, factoryId);
+      }
+
     public canCreateBankTransactions(): boolean { return true; };
     public generateBankTransactions(account: BankAccountWrapper): any[] | undefined {
         let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;
