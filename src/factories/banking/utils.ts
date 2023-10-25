@@ -101,9 +101,9 @@ export function generateBankingProductFeeArray(brandBaseUri: string): BankingPro
     };
     //let featureType = RandomBanking.FeatureType();
     let val = feeAdditionalValue(fee.feeType as FeeType);
-    if (fee.feeType != FeeType.VARIABLE) fee.amount = "0.05" ;
+    if (fee.feeType != FeeType.VARIABLE) fee.amount = "0.05";
     if (fee.feeType != FeeType.VARIABLE) fee.balanceRate = "0.02" ;
-    if (fee.feeType != FeeType.VARIABLE) fee.transactionRate = "0.03" ;
+    if (fee.feeType != FeeType.VARIABLE) fee.transactionRate = "0.01" ;
     if (val != undefined) {
       fee.additionalValue = val;
     } 
@@ -118,6 +118,8 @@ export function generateBankingProductFeeArray(brandBaseUri: string): BankingPro
         description: 'A discount offered for this product',
         discountType: RandomBanking.DiscountType()
       };
+      discounts?.push(discount);
+      fee.discounts = discounts;
     }
 
     fees.push(fee);

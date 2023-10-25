@@ -100,8 +100,12 @@ export class CreateBankingAccounts extends Factory {
         if (Math.random() > 0.5) { 
             customer.customer.customerUType
             let addresses: CommonPhysicalAddress[] = [];
-            let address = Utils.createCommPhysicalAddress(customer.customer.customerUType);
-            addresses.push(address)
+            // create either 1 or two addresses
+            let cnt = Helper.generateRandomIntegerInRange(1,2);
+            for (let i = 0; i < cnt; i++) {
+                let address = Utils.createCommPhysicalAddress(customer.customer.customerUType);
+                addresses.push(address)       
+            }
             bankingAccount.addresses = addresses;
         }
         // add balance

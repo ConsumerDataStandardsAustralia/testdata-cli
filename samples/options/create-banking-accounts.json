@@ -28,27 +28,15 @@
                                 "accounts": [
                                     {
                                         "count": 5,
+          
                                         "accountFactory": {
-                                            "sequence": [
-                                                {
-                                                    "id": "create-banking-accounts",
-                                                    "options": {
-                                                        
-                                                        "productCategory": "CRED_AND_CHRG_CARDS",
-                                                        "accountOwnership": "ONE_PARTY",
-                                                        "openStatus": "OPEN"
-                                                    }
-                                                },
-                                                {
-                                                    "id": "create-banking-accounts",
-                                                    "options": {
-                                                        "count": 5,
-                                                        "productCategory": "PERS_LOANS",
-                                                        "openStatus": "CLOSED"
-                                                    }
-                                                }
-                                            ]
-
+                                            "id": "create-banking-accounts",
+                                            "options": {
+                                                
+                                                "productCategory": "CRED_AND_CHRG_CARDS",
+                                                "accountOwnership": "ONE_PARTY",
+                                                "openStatus": "OPEN"
+                                            }
                                         }
                                     }
                                 ]
