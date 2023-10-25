@@ -67,6 +67,9 @@ factories[CreateProducts.id] = (options: any): Factory => { return new CreatePro
 import { CreateBankingAccounts} from './banking/createAccounts';
 factories[CreateBankingAccounts.id] = (options: any): Factory => { return new CreateBankingAccounts(options)}
 
+import { CreateBankingTransactions} from './banking/createBankingTransactions';
+factories[CreateBankingTransactions.id] = (options: any): Factory => { return new CreateBankingTransactions(options)}
+
 export * from './common/utils';
 
 
