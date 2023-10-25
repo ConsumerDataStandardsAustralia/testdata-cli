@@ -45,6 +45,18 @@ export class CreateBankingAccounts extends Factory {
       this.accountOwnership = options?.options?.accountOwnership ? options?.options?.accountOwnership as AccountOwnership : AccountOwnership.UNKNOWN;
     }
 
+    public canCreateBankAccounts(): boolean { return true; };
+    public generateBankAccounts(customer: CustomerWrapper): BankAccountWrapper[] | undefined { 
+        let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;
+
+        let ret: BankAccountWrapper[] = [];
+        for (let i = 0; i < count; i++) {
+            const el = this.generateBankAccount(customer);
+            if (el) ret.push(el);
+        }
+        return ret;
+    }
+
     public canCreateBankAccount(): boolean { return true; };
     public generateBankAccount(customer: CustomerWrapper): BankAccountWrapper | undefined {
 
@@ -211,16 +223,6 @@ export class CreateBankingAccounts extends Factory {
         return ret;
     }
   
-    public canCreateBankAccounts(): boolean { return true; };
-    public generateBankAccounts(customer: CustomerWrapper): BankAccountWrapper[] | undefined { 
-        let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;
 
-        let ret: BankAccountWrapper[] = [];
-        for (let i = 0; i < count; i++) {
-            const el = this.generateBankAccount(customer);
-            if (el) ret.push(el);
-        }
-        return ret;
-    }
 
 }
