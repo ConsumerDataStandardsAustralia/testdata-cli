@@ -285,6 +285,10 @@ export enum SpecificAccountUType {
     creditCard = "creditCard" , loan = "loan" , termDeposit = "termDeposit"
 }
 
+export enum TransactionStatus {
+    POSTED = "POSTED" , PENDING = "PENDING" 
+}
+
 export enum MaturityInstructions {
    "HOLD_ON_MATURITY" , "PAID_OUT_AT_MATURITY" , "ROLLED_OVER"
 }
@@ -402,14 +406,14 @@ export enum RepaymentType {
 }
 
 export enum TransactionType {
-        "DIRECT_DEBIT"
-    , "FEE"
-    , "INTEREST_CHARGED"
-    , "INTEREST_PAID"
-    , "OTHER"
-    , "PAYMENT"
-    , "TRANSFER_INCOMING"
-    , "TRANSFER_OUTGOING"
+    DIRECT_DEBIT =  "DIRECT_DEBIT"
+    , FEE = "FEE"
+    , INTEREST_CHARGED = "INTEREST_CHARGED"
+    , INTEREST_PAID = "INTEREST_PAID"
+    , OTHER = "OTHER"
+    , PAYMENT = "PAYMENT"
+    , TRANSFER_INCOMING = "TRANSFER_INCOMING"
+    , TRANSFER_OUTGOING = "TRANSFER_OUTGOING"
 }
 
 export enum LoanPurpose {
@@ -569,6 +573,10 @@ export class RandomBanking {
     public static TransactionType(): any {
         return this.GetRandomValue(TransactionType)
     }  
+
+    public static TransactionStatus(): any {
+        return this.GetRandomValue(TransactionStatus)
+    }      
 
     public static SelectBaseBankingProductInfo(category: string): any {
         let subSet = BaseBankingProduct.filter(x => x.category.replace(/['_']/g, '-').toLowerCase() == category);

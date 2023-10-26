@@ -2,12 +2,18 @@
 import { BankingTransactionDetail } from "consumer-data-standards/banking";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { CustomerWrapper, BankAccountWrapper } from "../../logic/schema/cdr-test-data-schema";
+import { RandomBanking, TransactionStatus, TransactionType } from "../../random-generators";
 
 const factoryId: string = "create-banking-transactions";
 
 export class CreateBankingTransactions extends Factory {
     
     public static id: string = factoryId;
+
+
+    private transactionType: TransactionType;
+    private transactionStatus: TransactionStatus;
+    private accountWrapper: BankAccountWrapper | undefined;
 
     public get briefDescription(): string {
        return  "Create a number of number of banking transactions.";
@@ -18,7 +24,11 @@ export class CreateBankingTransactions extends Factory {
 
         This factory will accept the following options
               
-        count:             The number of transactions to be issued for each account                    
+        count:             The number of transactions to be issued for each account
+        type:              The type of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
+                           If none specified, the type will be OTHER 
+        status:            The status of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
+                           If none specified, the status will be POSTED                            
 
         Key values randomly allocated:
            Dates, numeric values, and other enumerated types`;
@@ -27,6 +37,8 @@ export class CreateBankingTransactions extends Factory {
   
     constructor(options: FactoryOptions) {
         super(options, factoryId);
+        this.transactionType = options?.options?.type ? options?.options?.type: RandomBanking.TransactionType();
+        this.transactionStatus = options?.options?.status ? options?.options?.status as TransactionStatus: TransactionStatus.POSTED ;
       }
 
     public canCreateBankTransactions(): boolean { return true; };
@@ -57,8 +69,8 @@ export class CreateBankingTransactions extends Factory {
             description: "",
             isDetailAvailable: false,
             reference: "",
-            status: "PENDING",
-            type: "OTHER"
+            status: this.transactionStatus,
+            type: this.transactionType
         };
         return transaction;
     }
