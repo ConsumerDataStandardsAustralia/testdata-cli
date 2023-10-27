@@ -258,6 +258,11 @@ export enum Effective {
     "ALL", "CURRENT", "FUTURE"
 }
 
+export enum ExtensionUType {
+    x2p101Payload = "x2p101Payload", X2P1_01 = "X2P1.01"
+}
+
+
 export enum EligibilityType {
     BUSINESS = "BUSINESS"
       , EMPLOYMENT_STATUS = "EMPLOYMENT_STATUS"
@@ -607,4 +612,8 @@ export class RandomBanking {
     public static SelectRandomCreditCardProduct(): any {
         return this.GetRandomValue(randomCreditCardProducts)
     }  
+
+    public static SelectRandomExtensionUType(): any {
+        return this.GetRandomValue(ExtensionUType)
+    } 
 }
