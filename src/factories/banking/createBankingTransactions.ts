@@ -2,7 +2,10 @@
 import { BankingTransactionDetail } from "consumer-data-standards/banking";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { CustomerWrapper, BankAccountWrapper } from "../../logic/schema/cdr-test-data-schema";
-import { RandomBanking, TransactionStatus, TransactionType } from "../../random-generators";
+import { RandomBanking, TransactionStatus, TransactionType, generateRandomDecimalInRangeFormatted } from "../../random-generators";
+
+import { randomUUID } from "crypto";
+import { faker } from "@faker-js/faker";
 
 const factoryId: string = "create-banking-transactions";
 
@@ -56,6 +59,13 @@ export class CreateBankingTransactions extends Factory {
 
     public canCreateBankTransaction(): boolean { return true; };
     public generateBankTransaction(account: BankAccountWrapper): any | undefined { 
+        let detailIsAvailable: boolean = Helper.randomBoolean(0.5);
+
+        let executionDateTime = Helper.randomDateTimeInThePast();
+        let valueDateTime = Helper.generateRandomDateTimeInRange(executionDateTime, Date());
+        let postingDateTime = Helper.generateRandomDateTimeInRange(valueDateTime, Date());
+
+
         let transaction: BankingTransactionDetail = {
             extendedData: {
                 payer: undefined,
@@ -64,14 +74,60 @@ export class CreateBankingTransactions extends Factory {
                 x2p101Payload: undefined,
                 service: "X2P1.01"
             },
-            accountId: "",
-            amount: "",
+            accountId: account.account.accountId,
+            amount: this.generateTransactionAmount(this.transactionType),
             description: "",
-            isDetailAvailable: false,
+            isDetailAvailable: detailIsAvailable,
             reference: "",
             status: this.transactionStatus,
             type: this.transactionType
         };
+        if (detailIsAvailable == true) transaction.transactionId = randomUUID();
+        if (transaction.status == TransactionStatus.POSTED || Math.random() > 0.5) transaction.postingDateTime = postingDateTime;
+        if (Math.random() > 0.5) transaction.valueDateTime = valueDateTime;
+        if (Math.random() > 0.5) transaction.executionDateTime = executionDateTime;
+        if (Math.random() > 0.5) transaction.apcaNumber = Helper.randomId(6);
+        if (Math.random() > 0.5) transaction.currency = RandomBanking.Currency();
+        if (Math.random() > 0.5) transaction.reference = faker.finance.routingNumber();
+        if (Math.random() > 0.5) transaction.description = faker.finance.transactionDescription();
+        let companyName = faker.company.name();
+        // for outgoing transactiosn set merchant info
+        if (parseFloat(transaction.amount) < 0) {
+            transaction.merchantName = companyName;
+            transaction.merchantCategoryCode = Helper.randomId(4);
+        }
+        // some transactions could be BPAY
+        if (this.transactionType == TransactionType.PAYMENT && Math.random() > 0.75){
+            // biller code is between 3 and 10 digits
+            let cnt = Helper.generateRandomIntegerInRange(3, 10);
+            transaction.billerCode = Helper.randomId(cnt);
+            transaction.billerName = companyName;
+            transaction.crn = `xxxx-xxxx-xxxx-${Helper.randomId(4)}`
+        }
         return transaction;
+    }
+
+    private generateTransactionAmount(transType: TransactionType): string {
+        let ret = "1.00";
+        switch (transType) {
+            case TransactionType.DIRECT_DEBIT: ret = generateRandomDecimalInRangeFormatted(-5000, -10, 2);
+                break;
+            case TransactionType.FEE: ret = generateRandomDecimalInRangeFormatted(-100, -0.5, 2);
+                break;
+            case TransactionType.INTEREST_CHARGED: ret = generateRandomDecimalInRangeFormatted(-10000, -10, 2);
+                break;
+            case TransactionType.INTEREST_PAID: ret = generateRandomDecimalInRangeFormatted(10, 10000, 2);
+                break;
+            case TransactionType.OTHER: ret = generateRandomDecimalInRangeFormatted(10, 5000, 2);
+                break;
+            case TransactionType.PAYMENT: ret = generateRandomDecimalInRangeFormatted(-10000, -0.01, 2);
+                break;
+            case TransactionType.TRANSFER_INCOMING: ret = generateRandomDecimalInRangeFormatted(1, 100000, 2);
+                break;
+            case TransactionType.TRANSFER_OUTGOING: ret = generateRandomDecimalInRangeFormatted(-100000, -0.5, 2);
+                break;   
+            default: break;             
+        }
+        return ret;
     }
 }

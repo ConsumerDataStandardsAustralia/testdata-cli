@@ -5,6 +5,7 @@ import { AccountOwnership, OpenStatus, ProductCategory, RandomBanking, SpecificA
 import { generateDepositRateArray, generateLendingRateArray, generateBankingProductFeatures, generateBankingProductFeeArray } from "./utils";
 import Utils from "../common/utils";
 import { faker } from "@faker-js/faker";
+import { randomUUID } from "crypto";
 
 const factoryId: string = "create-banking-accounts";
 
@@ -62,7 +63,7 @@ export class CreateBankingAccounts extends Factory {
 
         // basic properties from BankingAccount
         let bankingAccount: BankingAccountDetailV3 = {
-            accountId: Helper.randomId(),
+            accountId: randomUUID(),
             accountOwnership: this.accountOwnership,
             displayName: this.generateDisplayName(this.category),
             maskedNumber: this.generateMaskedAccountString(this.category),
@@ -120,9 +121,6 @@ export class CreateBankingAccounts extends Factory {
             }
             bankingAccount.addresses = addresses;
         }
-        // add balance
-        // add transactions
-
         let result: BankAccountWrapper = {         
             account: bankingAccount
         };

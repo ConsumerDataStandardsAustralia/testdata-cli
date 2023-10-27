@@ -448,6 +448,10 @@ export enum AccountOwnership {
     OTHER = "OTHER"
 }
 
+export enum Currency {
+    AUD = "AUD", GBP = "GBP", USD = "USD"
+}
+
 export class RandomBanking {
     public static GetRandomValue(enumeration: any) {
         const values = Object.keys(enumeration);
@@ -576,7 +580,12 @@ export class RandomBanking {
 
     public static TransactionStatus(): any {
         return this.GetRandomValue(TransactionStatus)
+    } 
+    
+    public static Currency(): any {
+        return this.GetRandomValue(Currency)
     }      
+
 
     public static SelectBaseBankingProductInfo(category: string): any {
         let subSet = BaseBankingProduct.filter(x => x.category.replace(/['_']/g, '-').toLowerCase() == category);
