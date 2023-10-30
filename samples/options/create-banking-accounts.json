@@ -24,35 +24,20 @@
                             "banking": {
                                 "accounts": [
                                     {
-                                        "count": 1,
+                                        "count": 10,
                                         "accountFactory": {
-                                            "id": "create-banking-accounts",
-                                            "options": {
-                                                "productCategory": "CRED_AND_CHRG_CARDS",
-                                                "accountOwnership": "ONE_PARTY",
-                                                "openStatus": "OPEN"
-                                            }
+                                            "id": "create-banking-accounts"
                                         },
                                         "transactionsFactory": {
                                             "sequence": [
                                                 {
                                                     "id": "create-banking-transactions",
                                                     "options": {
-                                                        "count": 2,
-                                                        "type": "INTEREST_CHARGED",
-                                                        "status": "PENDING"
-                                                    }
-                                                },
-                                                {
-                                                    "id": "create-banking-transactions",
-                                                    "options": {
                                                         "count": 10
+
                                                     }
                                                 }
                                             ]
-                                        },
-                                        "balanceFactory": {
-                                            "id": "simple-full"
                                         }
                                     }
                                 ]

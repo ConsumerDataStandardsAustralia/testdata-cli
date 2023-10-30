@@ -586,6 +586,10 @@ export class RandomBanking {
     public static TransactionStatus(): any {
         return this.GetRandomValue(TransactionStatus)
     } 
+
+    public static AccountOwnership(): any {
+        return this.GetRandomValue(AccountOwnership)
+    } 
     
     public static Currency(): any {
         return this.GetRandomValue(Currency)

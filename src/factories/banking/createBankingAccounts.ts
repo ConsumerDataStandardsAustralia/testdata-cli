@@ -25,9 +25,9 @@ export class CreateBankingAccounts extends Factory {
            productCategory:  This should be BankingProductCategory as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingproductcategory
                              If not specified it will be randomnly assigned.
            accountOwnership: This should be one of the values as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingaccountv2
-                             If not specified UNKOWN is being assigned
+                             If not specified it will be randomnly assigned.
            openStatus:       This should be one of the values as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingaccountv2
-                             If not specified OPEN is being assigned                            
+                             If not specified it will be randomnly assigned.                       
 
         Key values randomly allocated:
            Dates, numeric values, and other enumerated types`;
@@ -42,8 +42,8 @@ export class CreateBankingAccounts extends Factory {
     constructor(options: FactoryOptions) {
       super(options, factoryId);
       this.category = options?.options?.productCategory ? options?.options?.productCategory as ProductCategory : RandomBanking.ProductCategory();
-      this.openStatus = options?.options?.openStatus ? options?.options?.openStatus as OpenStatus : OpenStatus.OPEN;
-      this.accountOwnership = options?.options?.accountOwnership ? options?.options?.accountOwnership as AccountOwnership : AccountOwnership.UNKNOWN;
+      this.openStatus = options?.options?.openStatus ? options?.options?.openStatus as OpenStatus : RandomBanking.OpenStatus();
+      this.accountOwnership = options?.options?.accountOwnership ? options?.options?.accountOwnership as AccountOwnership : RandomBanking.AccountOwnership();
     }
 
     public canCreateBankAccounts(): boolean { return true; };
@@ -171,17 +171,17 @@ export class CreateBankingAccounts extends Factory {
         switch (cat) {
             case ProductCategory.CRED_AND_CHRG_CARDS: {
                 let intSt = Helper.generateRandomIntegerInRange(1000, 9999);
-                let ret = `xxxx xxxx xxxx ${intSt}`
+                ret = `xxxx xxxx xxxx ${intSt}`
                 break;
             }
             case ProductCategory.TRANS_AND_SAVINGS_ACCOUNTS: {
                 let intSt = Helper.generateRandomIntegerInRange(1000, 9999);
-                let ret = `xxx-xxx xxxxx${intSt}`;
+                ret = `xxx-xxx xxxxx${intSt}`;
                 break;
             }
             default: {
                 let intSt = Helper.generateRandomIntegerInRange(1000, 9999);
-                let ret = `xxxxx${intSt}`;
+                ret = `xxxxx${intSt}`;
                 break;             
             }
         }
@@ -213,11 +213,67 @@ export class CreateBankingAccounts extends Factory {
 
     private generateDisplayName(cat: ProductCategory): string {
         let ret: string = '';
+        switch (cat) {
+            case ProductCategory.BUSINESS_LOANS: ret = "Standard Business Loan";
+                break;
+            case ProductCategory.CRED_AND_CHRG_CARDS: ret = "Super Platinum Card";
+                break;
+            case ProductCategory.LEASES: ret = "Novated Lease Account";
+                break;
+            case ProductCategory.OVERDRAFTS: ret = "Overdraft Account";
+                break;
+            case ProductCategory.PERS_LOANS: ret = "Unsecured Personal Loan";
+                break;
+            case ProductCategory.RESIDENTIAL_MORTGAGES: ret = "Standard Rate Mortgage";
+                break; 
+            case ProductCategory.TERM_DEPOSITS: ret = "5yr Term Deposit Account";
+                break;
+            case ProductCategory.MARGIN_LOANS: ret = "Investment Loan Account";
+                break;
+            case ProductCategory.REGULATED_TRUST_ACCOUNTS: ret = "Trust Account";
+                break;
+            case ProductCategory.TRADE_FINANCE: ret = "Trade Finance Account";
+                break;  
+            case ProductCategory.TRANS_AND_SAVINGS_ACCOUNTS: ret = "Everyday Transaction Account";
+                break;
+            case ProductCategory.TRAVEL_CARDS: ret = "International Travel Card";
+                break;
+            default: ret = "Standard Bank Account";
+                break;                                                                   
+        }
         return ret;
     }
 
     private generateProductName(cat: ProductCategory): string {
         let ret: string = '';
+        switch (cat) {
+            case ProductCategory.BUSINESS_LOANS: ret = "Standard Business Loan";
+                break;
+            case ProductCategory.CRED_AND_CHRG_CARDS: ret = "Super Platinum Card";
+                break;
+            case ProductCategory.LEASES: ret = "Novated Lease Account";
+                break;
+            case ProductCategory.OVERDRAFTS: ret = "Overdraft Account";
+                break;
+            case ProductCategory.PERS_LOANS: ret = "Unsecured Personal Loan";
+                break;
+            case ProductCategory.RESIDENTIAL_MORTGAGES: ret = "Standard Rate Mortgage";
+                break; 
+                case ProductCategory.TERM_DEPOSITS: ret = "5yr Term Deposit Account";
+                break;
+            case ProductCategory.MARGIN_LOANS: ret = "Investment Loan Account";
+                break;
+            case ProductCategory.REGULATED_TRUST_ACCOUNTS: ret = "Trust Account";
+                break;
+            case ProductCategory.TRADE_FINANCE: ret = "Trade Finance Account";
+                break;  
+            case ProductCategory.TRANS_AND_SAVINGS_ACCOUNTS: ret = "Everyday Transaction Account";
+                break;
+            case ProductCategory.TRAVEL_CARDS: ret = "International Travel Card";
+                break;
+            default: ret = "Standard Bank Account";
+                break;                                                                   
+        }
         return ret;
     }
   
