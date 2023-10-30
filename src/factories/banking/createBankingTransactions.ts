@@ -27,7 +27,7 @@ export class CreateBankingTransactions extends Factory {
 
         This factory will accept the following options
               
-        count:             The number of transactions to be issued for each account
+        count:             The number of transactions to be issued for each account. Default is 1
         type:              The type of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
                            If none specified, the type will be randomly assigned
         status:            The status of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
