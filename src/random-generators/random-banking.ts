@@ -1,18 +1,4 @@
 
-export  enum ProductCategory {
-    BUSINESS_LOANS =  "BUSINESS_LOANS"
-    , CRED_AND_CHRG_CARDS =  "CRED_AND_CHRG_CARDS"
-    , LEASES = "LEASES"
-    , MARGIN_LOANS = "MARGIN_LOANS"
-    , OVERDRAFTS =  "OVERDRAFTS"
-    , PERS_LOANS = "PERS_LOANS"
-    , REGULATED_TRUST_ACCOUNTS = "REGULATED_TRUST_ACCOUNTS"
-    , RESIDENTIAL_MORTGAGES = "RESIDENTIAL_MORTGAGES"
-    , TERM_DEPOSITS = "TERM_DEPOSITS"
-    , TRADE_FINANCE = "TRADE_FINANCE"
-    , TRANS_AND_SAVINGS_ACCOUNTS = "TRANS_AND_SAVINGS_ACCOUNTS"
-    , TRAVEL_CARDS = "TRAVEL_CARDS"
-} 
 
 export const BaseBankingProduct = [
     {
@@ -246,16 +232,33 @@ export const randomLoanProducts: string[][]= [
     ['Premier Platinum credit card','There’s more to enjoy with Premier Platinum. Your journey will feel special.'],
   ]
 
+
+
+  export  enum ProductCategory {
+    BUSINESS_LOANS =  "BUSINESS_LOANS"
+    , CRED_AND_CHRG_CARDS =  "CRED_AND_CHRG_CARDS"
+    , LEASES = "LEASES"
+    , MARGIN_LOANS = "MARGIN_LOANS"
+    , OVERDRAFTS =  "OVERDRAFTS"
+    , PERS_LOANS = "PERS_LOANS"
+    , REGULATED_TRUST_ACCOUNTS = "REGULATED_TRUST_ACCOUNTS"
+    , RESIDENTIAL_MORTGAGES = "RESIDENTIAL_MORTGAGES"
+    , TERM_DEPOSITS = "TERM_DEPOSITS"
+    , TRADE_FINANCE = "TRADE_FINANCE"
+    , TRANS_AND_SAVINGS_ACCOUNTS = "TRANS_AND_SAVINGS_ACCOUNTS"
+    , TRAVEL_CARDS = "TRAVEL_CARDS"
+} 
+
 export  enum OpenStatus {
     CLOSED = "CLOSED" , OPEN = "OPEN" 
 } 
 
 export  enum PayeeType {
-   "BILLER" , "DIGITAL_WALLET" , "DOMESTIC" , "INTERNATIONAL"
+    BILLER = "BILLER" , DIGITAL_WALLET = "DIGITAL_WALLET" , DOMESTIC = "DOMESTIC" , INTERNATIONAL = "INTERNATIONAL"
 } 
 
 export enum Effective {
-    "ALL", "CURRENT", "FUTURE"
+   ALL =  "ALL", CURRENT = "CURRENT", FUTURE = "FUTURE"
 }
 
 export enum ExtensionUType {
@@ -279,7 +282,7 @@ export enum EligibilityType {
 }
 
 export enum UnitOfMeasure {
-    "DAY" , "DOLLAR" , "MONTH" , "PERCENT"
+    DAY = "DAY" , DOLLAR = "DOLLAR" , MONTH = "MONTH" , PERCENT = "PERCENT"
 }
 
 export enum RateApplicationMethod {
@@ -295,47 +298,47 @@ export enum TransactionStatus {
 }
 
 export enum MaturityInstructions {
-   "HOLD_ON_MATURITY" , "PAID_OUT_AT_MATURITY" , "ROLLED_OVER"
+    HOLD_ON_MATURITY = "HOLD_ON_MATURITY" , PAID_OUT_AT_MATURITY = "PAID_OUT_AT_MATURITY" , ROLLED_OVER = "ROLLED_OVER"
 }
 
 export enum PayeeUType {
-    "biller" , "digitalWallet" , "domestic" , "international"
+    biller = "biller" , digitalWallet = "digitalWallet" , domestic = "domestic" , international = "international"
 }
 
 export enum PayeeAccountType {
-    "account" , "card" , "payId"
+    account = "account" , card = "card" , payId = "payId"
 }
 
 export enum PayIDType {
-    "ABN" , "EMAIL" , "ORG_IDENTIFIER" , "TELEPHONE"
+    ABN = "ABN" , EMAIL = "EMAIL" , ORG_IDENTIFIER = "ORG_IDENTIFIER" , TELEPHONE = "TELEPHONE"
 }
 
 export enum DigitalWalletPayeeType {
-    "ABN" , "EMAIL" , "ORG_IDENTIFIER" , "TELEPHONE"
+    ABN = "ABN" , EMAIL = "EMAIL" , ORG_IDENTIFIER = "ORG_IDENTIFIER" , TELEPHONE = "TELEPHONE"
 }
 
 export enum ScheduledPaymentStatusType {
-   "ACTIVE" , "INACTIVE" , "SKIP"
+    ACTIVE = "ACTIVE" , INACTIVE = "INACTIVE" , SKIP = "SKIP"
 }
 
 export enum ScheduledPaymentToUType {
-    "accountId" , "biller" , "domestic" , "international" , "payeeId"
+    accountId = "accountId" , biller = "biller" , domestic = "domestic" , international = "international" , payeeId  = "payeeId"
 }
 
 export enum RecurrenceUType {
-    "eventBased" , "intervalSchedule" , "lastWeekDay" , "onceOff"
+    eventBased = "eventBased" , intervalSchedule = "intervalSchedule" , lastWeekDay = "lastWeekDay" , onceOff = "onceOff"
 }
 
 export enum NonBusinessDayTreatment {
-    "AFTER" , "BEFORE" , "ON" , "ONLY" , null
+    AFTER = "AFTER" , BEFORE = "BEFORE" , ON = "ON" , ONLY = "ONLY" 
 }
 
 export enum LastWeekDay {
-    "FRI" , "MON" , "SAT" , "SUN" , "THU" , "TUE" , "WED"
+    FRI = "FRI" , MON = "MON" , SAT = "SAT" , SUN = "SUN" , THU = "THU" , TUE = "TUE" , WED = "WED"
 }
 
 export enum AddressUType {
-    "paf", "simple"
+    PAF = "paf", SIMPLE = "simple"
 }
 
 export enum FeatureType {
@@ -426,23 +429,23 @@ export enum LoanPurpose {
 }
 
 export enum DiscountType {
-    "BALANCE" , "DEPOSITS" , "ELIGIBILITY_ONLY" , "FEE_CAP" , "PAYMENTS"
+    BALANCE =  "BALANCE" , DEPOSITS = "DEPOSITS" , ELIGIBILITY_ONLY = "ELIGIBILITY_ONLY" , FEE_CAP = "FEE_CAP" , PAYMENTS = "PAYMENTS"
 }
 
 export enum DiscountEligibilityType {
-     "BUSINESS"
-    , "EMPLOYMENT_STATUS"
-    , "INTRODUCTORY"
-    , "MAX_AGE"
-    , "MIN_AGE"
-    , "MIN_INCOME"
-    , "MIN_TURNOVER"
-    , "NATURAL_PERSON"
-    , "OTHER"
-    , "PENSION_RECIPIENT"
-    , "RESIDENCY_STATUS"
-    , "STAFF"
-    , "STUDENT"
+    BUSINESS =  "BUSINESS"
+    , EMPLOYMENT_STATUS = "EMPLOYMENT_STATUS"
+    , INTRODUCTORY = "INTRODUCTORY"
+    , MAX_AGE = "MAX_AGE"
+    , MIN_AGE = "MIN_AGE"
+    , MIN_INCOME = "MIN_INCOME"
+    , MIN_TURNOVER = "MIN_TURNOVER"
+    , NATURAL_PERSON = "NATURAL_PERSON"
+    , OTHER = "OTHER"
+    , PENSION_RECIPIENT = "PENSION_RECIPIENT"
+    , RESIDENCY_STATUS = "RESIDENCY_STATUS"
+    , STAFF = "STAFF"
+    , STUDENT = "STUDENT"
 }
 
 export enum AccountOwnership {

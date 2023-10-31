@@ -1,6 +1,7 @@
-import { HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
+import { BankAccountWrapper, HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
 import { ContraintType, DepositRateType, EligibilityType, FeatureType, FeeType, LendingRateType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
+import { BankingBalance } from 'consumer-data-standards/banking';
 
 const factoryId: string = "create-banking-balances";
 
@@ -31,4 +32,14 @@ export class CreateBalances extends Factory {
             Dates, numeric values, and other enumerated types`;
     return st;
   }
+
+  public canCreateBankBalance(): boolean { return true; };
+  public generateBankBalance(account: BankAccountWrapper): BankingBalance | undefined {
+    return {
+      accountId: account.account.accountId,
+      currentBalance: "100.00",
+      availableBalance: "100.00"
+    }
+  }
+
 }

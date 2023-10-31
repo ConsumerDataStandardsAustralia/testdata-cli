@@ -1,6 +1,7 @@
-import { HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
+import { BankAccountWrapper, HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
 import { ContraintType, DepositRateType, EligibilityType, FeatureType, FeeType, LendingRateType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
+import { BankingDirectDebit } from 'consumer-data-standards/banking';
 
 const factoryId: string = "create-banking-direct-debits";
 
@@ -30,5 +31,25 @@ export class CreateDirectDebits extends Factory {
           Key values randomly allocated:
             Dates, numeric values, and other enumerated types`;
     return st;
+  }
+  public canCreateBankDirectDebits(): boolean { return true; };
+  public generateBankDirectDebits(accounts: BankAccountWrapper[]): BankingDirectDebit[] | undefined {
+    let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;
+
+    let ret: BankingDirectDebit[] = [];
+    for (let i = 0; i < count; i++) {
+      ret.push({
+        accountId: accounts[0].account.accountId,
+        authorisedEntity: {
+          description: "Direct debit description",
+          financialInstitution: "ACME Bank",
+          abn: "012345678",
+          acn: "012345678"
+        },
+        lastDebitDateTime: Helper.randomDateTimeInThePast(),
+        lastDebitAmount: "10.00"
+      })
+    }
+    return ret;
   }
 }
