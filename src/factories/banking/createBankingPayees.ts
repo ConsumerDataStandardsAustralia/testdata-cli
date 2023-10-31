@@ -1,16 +1,22 @@
 import { BankAccountWrapper, HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
-import { ContraintType, DepositRateType, EligibilityType, FeatureType, FeeType, LendingRateType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
+import { ContraintType, DepositRateType, EligibilityType, FeatureType, FeeType, LendingRateType, PayeeUType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
-import { BankingPayeeDetailV2 } from 'consumer-data-standards/banking';
+import { BankingBillerPayee, BankingDigitalWalletPayee, BankingDomesticPayee, BankingInternationalPayee, BankingPayeeDetailV2 } from 'consumer-data-standards/banking';
+import { PayeeType } from '../../random-generators/random-banking';
+import { randomUUID } from 'crypto';
+import { faker } from "@faker-js/faker";
 
 const factoryId: string = "create-banking-payees";
 
 
 export class CreatePayees extends Factory {
 
+  private payeeType: PayeeType;
+
+
   constructor(options: FactoryOptions) {
     super(options, factoryId);
-
+    this.payeeType = this.options.options?.type ? this.options.options?.type as PayeeType: RandomBanking.PayeeType();
   }
 
   public static id: string = factoryId;
@@ -39,21 +45,47 @@ export class CreatePayees extends Factory {
 
     let ret: BankingPayeeDetailV2[] = [];
     for (let i = 0; i < count; i++) {
-      ret.push({
-        payeeId: Helper.randomId(),
-        nickname: "Nick name",
-        description: "A standard biller",
-        type: "DOMESTIC",
-        creationDate: Helper.randomDateTimeInThePast(),
-        payeeUType: "domestic",
-        payeeAccountUType: "account",
-        account: {
-          accountName: "The account",
-          bsb: "123456",
-          accountNumber: "123456789"
-        }
-      });
+        const el = this.generatePayee(accounts);
+        if (el) ret.push(el);
     }
     return ret;
-  }  
+
+  }
+  
+  private generatePayee(accounts: BankAccountWrapper[]) : BankingPayeeDetailV2{
+
+    let ret: BankingPayeeDetailV2 = {
+      payeeUType: RandomBanking.PayeeUType(),
+      nickname: '',
+      payeeId: randomUUID(),
+      type: this.payeeType
+    };
+    if (Math.random() > 0.5) ret.description = faker.company.name();
+    if (Math.random() > 0.5) ret.creationDate = Helper.randomDateTimeInThePast();
+
+    return ret;
+  }
+
+
+  private generateBillerPayee(): BankingBillerPayee {
+    let ret : BankingBillerPayee = {};
+    return ret;
+  }
+
+  private generateDomesticPayee(): BankingDomesticPayee {
+    let ret : BankingDomesticPayee = {};
+    return ret;
+  }
+
+  private generateDigitalWalletPayee(): BankingDigitalWalletPayee {
+    let ret : BankingDigitalWalletPayee = {};
+    return ret;
+  }
+
+
+  private generateInternationalPayee(): BankingInternationalPayee {
+    let ret : BankingInternationalPayee = {};
+    return ret;
+  }
+
 }
