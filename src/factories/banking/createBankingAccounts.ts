@@ -83,7 +83,7 @@ export class CreateBankingAccounts extends Factory {
         if (Math.random() > 0.5) bankingAccount.bundleName = "Professional Account Package";
 
         // create a url used for fees, rates, etc. Normally these should correspond to a brand, similar to how this occurs in the products factory
-        let baseUrl = faker.internet.url.name;
+        let baseUrl = faker.internet.url();
 
         let uType = this.generateSpecificUType(this.category);
         if (uType)

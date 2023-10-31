@@ -21,6 +21,34 @@
                                     "type": "person"
                                 }
                             },
+                            "energy": {
+                                "accounts": [
+                                    {
+                                        "count": 1,
+                                        "accountFactory": {
+                                            "sequence": [
+                                                {
+                                                    "id": "create-energy-account-data",
+                                                    "options": {
+                                                        
+                                                        "fuelType": "ELECTRICITY",
+                                                        "status": "OPEN"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "create-energy-account-data",
+                                                    "options": {
+                                                        "count": 1,
+                                                        "fuelType": "GAS",
+                                                        "status": "CLOSED"
+                                                    }
+                                                }
+                                            ]
+
+                                        }
+                                    }
+                                ]
+                            },
                             "banking": {
                                 "accounts": [
                                     {

@@ -1,5 +1,6 @@
 import { BankingProductDepositRate, BankingProductDiscount, BankingProductFeatureV2, BankingProductFee, BankingProductLendingRateV2, BankingProductRateCondition, BankingProductRateTierV3 } from "consumer-data-standards/banking";
 import { DepositRateType, FeatureType, FeeType, LendingRateType, RandomBanking } from '../../random-generators/random-banking'
+import { faker } from "@faker-js/faker";
 
 export function generateDepositRateArray(brandBaseUri: string): BankingProductDepositRate[] {
     let depositRates: BankingProductDepositRate[] = [];
@@ -97,7 +98,7 @@ export function generateBankingProductFeeArray(brandBaseUri: string): BankingPro
     let fees: BankingProductFee[] = [];
     let fee: BankingProductFee = {
       feeType: RandomBanking.FeeType(),
-      name: ''
+      name: `Fee - ${faker.finance.transactionType()}`
     };
     //let featureType = RandomBanking.FeatureType();
     let val = feeAdditionalValue(fee.feeType as FeeType);
