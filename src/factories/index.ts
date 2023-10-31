@@ -70,6 +70,18 @@ factories[CreateBankingAccounts.id] = (options: any): Factory => { return new Cr
 import { CreateBankingTransactions} from './banking/createBankingTransactions';
 factories[CreateBankingTransactions.id] = (options: any): Factory => { return new CreateBankingTransactions(options)}
 
+import { CreateDirectDebits} from './banking/createBankingDirectDebits';
+factories[CreateDirectDebits.id] = (options: any): Factory => { return new CreateDirectDebits(options)}
+
+import { CreatePayees} from './banking/createBankingPayees';
+factories[CreatePayees.id] = (options: any): Factory => { return new CreatePayees(options)}
+
+import { CreateScheduledPayments} from './banking/createBankingPayments';
+factories[CreateScheduledPayments.id] = (options: any): Factory => { return new CreateScheduledPayments(options)}
+
+import { CreateBalances} from './banking/createBankingBalances';
+factories[CreateBalances.id] = (options: any): Factory => { return new CreateBalances(options)}
+
 export * from './common/utils';
 
 
