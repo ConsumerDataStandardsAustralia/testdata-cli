@@ -6,6 +6,7 @@ import { ExtensionUType, RandomBanking, TransactionStatus, TransactionType, gene
 
 import { randomUUID } from "crypto";
 import { faker } from "@faker-js/faker";
+import { generateBPAYBillerCode, generateMaskedPAN } from "./utils";
 
 const factoryId: string = "create-banking-transactions";
 
@@ -106,11 +107,9 @@ export class CreateBankingTransactions extends Factory {
         }
         // some transactions could be BPAY
         if (this.transactionType == TransactionType.PAYMENT && Math.random() > 0.75){
-            // biller code is between 3 and 10 digits
-            let cnt = Helper.generateRandomIntegerInRange(3, 10);
-            transaction.billerCode = Helper.randomId(cnt);
+            transaction.billerCode = generateBPAYBillerCode();
             transaction.billerName = companyName;
-            transaction.crn = `xxxx-xxxx-xxxx-${Helper.randomId(4)}`
+            transaction.crn = generateMaskedPAN()
         }
         return transaction;
     }

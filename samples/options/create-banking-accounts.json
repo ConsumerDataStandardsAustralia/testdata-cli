@@ -68,7 +68,13 @@
                                             ]
                                         }
                                     }
-                                ]
+                                ],
+                                "payeesFactory": {
+                                    "id": "create-banking-payees",
+                                    "options": {
+                                        "count": 5
+                                    }
+                                }
                             }
                         }
                     ]

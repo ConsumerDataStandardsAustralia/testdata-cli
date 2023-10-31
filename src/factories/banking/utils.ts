@@ -1,6 +1,7 @@
 import { BankingProductDepositRate, BankingProductDiscount, BankingProductFeatureV2, BankingProductFee, BankingProductLendingRateV2, BankingProductRateCondition, BankingProductRateTierV3 } from "consumer-data-standards/banking";
-import { DepositRateType, FeatureType, FeeType, LendingRateType, RandomBanking } from '../../random-generators/random-banking'
+import { DepositRateType, FeatureType, FeeType, LendingRateType, PayIDType, RandomBanking } from '../../random-generators/random-banking'
 import { faker } from "@faker-js/faker";
+import { Helper } from "src/logic/factoryService";
 
 export function generateDepositRateArray(brandBaseUri: string): BankingProductDepositRate[] {
     let depositRates: BankingProductDepositRate[] = [];
@@ -172,6 +173,33 @@ export function feeAdditionalValue (type: FeeType): string | undefined {
       case FeeType.PERIODIC: return "P6M";
       default: return undefined;
     }
+}
 
-  }
+export function generateBSB(): string {
+    return `${Helper.randomId(3)}-${Helper.randomId(3)}`;
+}
+
+export function generateBPAYBillerCode(): string {
+    // biller code is between 3 and 10 digits
+    let cnt = Helper.generateRandomIntegerInRange(3, 10);
+    return Helper.randomId(cnt);
+}
+
+export function generateMaskedPAN(): string {
+    return `xxxx-xxxx-xxxx-${Helper.randomId(4)}`;
+}
+
+export function generatePayIdNameFromType(type: PayIDType): string {
+    switch (type) {
+        case PayIDType.ABN: return generateABN();
+        case PayIDType.EMAIL: return faker.internet.email();
+        case PayIDType.TELEPHONE: return faker.phone.number('04########');
+        case PayIDType.ORG_IDENTIFIER: return faker.company.name();
+        default: return "";
+      }
+}
+
+export function generateABN(): string {
+    return `${Helper.randomId(11)}`;
+}
 
