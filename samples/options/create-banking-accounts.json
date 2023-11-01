@@ -30,7 +30,6 @@
                                                 {
                                                     "id": "create-energy-account-data",
                                                     "options": {
-                                                        
                                                         "fuelType": "ELECTRICITY",
                                                         "status": "OPEN"
                                                     }
@@ -44,7 +43,6 @@
                                                     }
                                                 }
                                             ]
-
                                         }
                                     }
                                 ]
@@ -62,7 +60,6 @@
                                                     "id": "create-banking-transactions",
                                                     "options": {
                                                         "count": 10
-
                                                     }
                                                 }
                                             ]
@@ -70,10 +67,36 @@
                                     }
                                 ],
                                 "payeesFactory": {
-                                    "id": "create-banking-payees",
-                                    "options": {
-                                        "count": 5
-                                    }
+                                    "sequence": [
+                                        {
+                                            "id": "create-banking-payees",
+                                            "options": {
+                                                "count": 2,
+                                                "type": "DIGITAL_WALLET"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payees",
+                                            "options": {
+                                                "count": 2,
+                                                "type": "DOMESTIC"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payees",
+                                            "options": {
+                                                "count": 2,
+                                                "type": "BILLER"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payees",
+                                            "options": {
+                                                "count": 2,
+                                                "type": "INTERNATIONAL"
+                                            }
+                                        }                                                                                
+                                    ]
                                 }
                             }
                         }

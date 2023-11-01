@@ -1,7 +1,7 @@
 import { BankingProductDepositRate, BankingProductDiscount, BankingProductFeatureV2, BankingProductFee, BankingProductLendingRateV2, BankingProductRateCondition, BankingProductRateTierV3 } from "consumer-data-standards/banking";
-import { DepositRateType, FeatureType, FeeType, LendingRateType, PayIDType, RandomBanking } from '../../random-generators/random-banking'
+import { DepositRateType, DigitalWalletPayeeType, FeatureType, FeeType, LendingRateType, PayIDType, RandomBanking } from '../../random-generators/random-banking'
 import { faker } from "@faker-js/faker";
-import { Helper } from "src/logic/factoryService";
+import { Helper } from "../../logic/factoryService";
 
 export function generateDepositRateArray(brandBaseUri: string): BankingProductDepositRate[] {
     let depositRates: BankingProductDepositRate[] = [];
@@ -199,7 +199,52 @@ export function generatePayIdNameFromType(type: PayIDType): string {
       }
 }
 
+export function generateDigitalWalletNameFromType(type: DigitalWalletPayeeType): string {
+    switch (type) {
+        case DigitalWalletPayeeType.CONTACT_NAME: return faker.name.fullName();
+        case DigitalWalletPayeeType.EMAIL: return faker.internet.email();
+        case DigitalWalletPayeeType.TELEPHONE: return faker.phone.number('04########');
+        default: return "";
+      }
+}
+
 export function generateABN(): string {
     return `${Helper.randomId(11)}`;
 }
+
+export function generateBIC(): string {
+    let bankCode = faker.random.alpha({count: 4, casing: 'upper'});
+    let countryCode = faker.address.countryCode('alpha-2');
+    var locationCode ;
+    // location code can be 2 letters or digits, more often it is letters
+    if (Math.random() > 0.2)
+        locationCode = faker.random.alpha({count: 2, casing: 'upper'});
+    else
+      locationCode = faker.datatype.number({min: 10, max: 99 })
+    return `${bankCode}${countryCode}${locationCode}XXX`;
+}
+
+export function generateFedWireNumber(): string {
+    //YYYYMMDD ABCDXXXX 012345
+    let currentDate = new Date();
+    let year = currentDate.getFullYear();
+    let month = currentDate.getMonth();
+    let day = currentDate.getDay();
+    let sourceId = faker.random.alpha({count: 8, casing: 'upper'});
+    let sequenceNumber = faker.datatype.number({min: 100000, max: 999999 });
+    return `${year}${month}${day}${sourceId}${sequenceNumber}`;
+}
+
+export function generateBankRoutingNumber(): string {
+    return `${faker.datatype.number({min: 100000000, max: 999999999 })}`;
+}
+
+export function generateBankSortCode(): string {
+    return `${faker.datatype.number({min: 10, max: 99 })}-${faker.datatype.number({min: 10, max: 99 })}-${faker.datatype.number({min: 10, max: 99 })}`;
+}
+
+export function generateLegalEntityId(): string {
+    return `${faker.datatype.number({min: 1000, max: 9999 })} 00 ${faker.random.alpha({count: 12, casing: 'upper'})} ${faker.datatype.number({min: 10, max: 99 })}`;
+}
+
 

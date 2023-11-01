@@ -1,3 +1,4 @@
+import { DigitalWalletProvider } from "./random-energy"
 
 
 export const BaseBankingProduct = [
@@ -314,7 +315,7 @@ export enum PayIDType {
 }
 
 export enum DigitalWalletPayeeType {
-    ABN = "ABN" , EMAIL = "EMAIL" , ORG_IDENTIFIER = "ORG_IDENTIFIER" , TELEPHONE = "TELEPHONE"
+    CONTACT_NAME = "CONTACT_NAME" , EMAIL = "EMAIL" , TELEPHONE = "TELEPHONE"
 }
 
 export enum ScheduledPaymentStatusType {
@@ -339,6 +340,10 @@ export enum LastWeekDay {
 
 export enum AddressUType {
     PAF = "paf", SIMPLE = "simple"
+}
+
+export enum DgitalWalletProvider {
+    PAYPAL_AU = "PAYPAL_AU", OTHER = "OTHER"
 }
 
 export enum FeatureType {
@@ -622,5 +627,9 @@ export class RandomBanking {
 
     public static SelectRandomExtensionUType(): any {
         return this.GetRandomValue(ExtensionUType)
-    } 
+    }
+    
+    public static SelectDigitalWalletProvider(): any {
+        return this.GetRandomValue(DigitalWalletProvider)
+    }     
 }

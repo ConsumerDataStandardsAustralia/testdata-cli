@@ -5,7 +5,7 @@ import { BankingBillerPayee, BankingDigitalWalletPayee, BankingDomesticPayee, Ba
 import { PayeeType } from '../../random-generators/random-banking';
 import { randomUUID } from 'crypto';
 import { faker } from "@faker-js/faker";
-import { generateBPAYBillerCode, generateBSB, generateMaskedPAN, generatePayIdNameFromType } from './utils';
+import { generateBIC, generateBPAYBillerCode, generateBSB, generateBankRoutingNumber, generateBankSortCode, generateDigitalWalletNameFromType, generateFedWireNumber, generateLegalEntityId, generateMaskedPAN, generatePayIdNameFromType } from './utils';
 
 const factoryId: string = "create-banking-payees";
 
@@ -31,7 +31,7 @@ export class CreatePayees extends Factory {
           Create a number of number of banking payees.
 
           This factory will accept the following options
-                
+            count: The number of payees to be created for each account. Default is 1     
             type:  This should be BankingProductCategory as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingpayeev2
                               If not specified it will be randomnly assigned.
 
@@ -57,7 +57,7 @@ export class CreatePayees extends Factory {
 
     let ret: BankingPayeeDetailV2 = {
       payeeUType: RandomBanking.PayeeUType(),
-      nickname: '',
+      nickname: faker.name.firstName(),
       payeeId: randomUUID(),
       type: this.payeeType
     };
@@ -127,35 +127,45 @@ export class CreatePayees extends Factory {
   }
 
   private generateDigitalWalletPayee(): BankingDigitalWalletPayee {
+    let payIdType = RandomBanking.DigitalWalletPayeeType();
+    let identifier = generateDigitalWalletNameFromType(payIdType);
     let ret: BankingDigitalWalletPayee = {
-      identifier: '',
-      name: '',
-      provider: 'OTHER',
-      type: 'EMAIL'
+      identifier: identifier,
+      name: 'My Digital Wallet',
+      provider: RandomBanking.SelectDigitalWalletProvider(),
+      type: payIdType
     };
     return ret;
   }
 
 
   private generateInternationalPayee(): BankingInternationalPayee {
+    let bankAddress: any = {};
+    let addressObj = faker.address;
+    bankAddress.name = faker.company.name();
+    bankAddress.address = addressObj.streetAddress(true);
     let ret: BankingInternationalPayee = {
       bankDetails: {
-        accountNumber: '',
-        bankAddress: undefined,
-        beneficiaryBankBIC: undefined,
-        chipNumber: undefined,
-        country: '',
-        fedWireNumber: undefined,
-        legalEntityIdentifier: undefined,
-        routingNumber: undefined,
-        sortCode: undefined
+        accountNumber: faker.finance.account(),
+        bankAddress: bankAddress,
+        country: addressObj.countryCode('alpha-3'),
       },
-      beneficiaryDetails: {
-        country: '',
-        message: undefined,
-        name: undefined
+      beneficiaryDetails:  {
+        country: addressObj.countryCode('alpha-3')
       }
+
     };
+    if (Math.random() > 0.25) ret.bankDetails.bankAddress = bankAddress;
+
+    if (Math.random() > 0.5) ret.beneficiaryDetails.name = faker.name.fullName();
+    if (Math.random() > 0.5) ret.beneficiaryDetails.message = 'This is a lottery win from some strange country';
+
+    if (Math.random() > 0.25) ret.fedWireNumber =  generateFedWireNumber();
+    if (Math.random() > 0.25) ret.legalEntityIdentifier = generateLegalEntityId();
+    if (Math.random() > 0.25) ret.routingNumber = generateBankRoutingNumber();
+    if (Math.random() > 0.25) ret.sortCode = generateBankSortCode();
+    if (Math.random() > 0.25) ret.beneficiaryBankBIC = generateBIC();
+    if (Math.random() > 0.25) ret.chipNumber = undefined;
     return ret;
   }
 
