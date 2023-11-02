@@ -506,11 +506,13 @@ This factory supports the follow option fields:
         type: "DOMESTIC",
         creationDate: Helper.randomDateTimeInThePast(),
         payeeUType: "domestic",
-        payeeAccountUType: "account",
-        account: {
-          accountName: "The account",
-          bsb: "123456",
-          accountNumber: "123456789"
+        domestic: {
+          payeeAccountUType: "account",
+          account: {
+            accountName: "The account",
+            bsb: "123456",
+            accountNumber: "123456789"
+          }
         }
       });
     }
