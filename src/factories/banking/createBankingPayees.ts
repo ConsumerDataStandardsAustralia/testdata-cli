@@ -13,11 +13,13 @@ const factoryId: string = "create-banking-payees";
 export class CreatePayees extends Factory {
 
   private payeeType: PayeeType;
-
+  private payeeUType: PayeeUType;
 
   constructor(options: FactoryOptions) {
     super(options, factoryId);
+    // Confirmed this with MV. The BankingPayeeV2.type is always equal to BankingPayeeDetailV2.payeeUType
     this.payeeType = this.options.options?.type ? this.options.options?.type as PayeeType : RandomBanking.PayeeType();
+    this.payeeUType = this.payeeType.toLowerCase() as PayeeUType;
   }
 
   public static id: string = factoryId;
@@ -56,7 +58,7 @@ export class CreatePayees extends Factory {
   private generatePayee(accounts: BankAccountWrapper[]): BankingPayeeDetailV2 {
 
     let ret: BankingPayeeDetailV2 = {
-      payeeUType: RandomBanking.PayeeUType(),
+      payeeUType: this.payeeUType,
       nickname: faker.name.firstName(),
       payeeId: randomUUID(),
       type: this.payeeType
