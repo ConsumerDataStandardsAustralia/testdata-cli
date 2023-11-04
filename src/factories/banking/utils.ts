@@ -208,6 +208,7 @@ export function generateDigitalWalletNameFromType(type: DigitalWalletPayeeType):
       }
 }
 
+
 export function generateABN(): string {
     return `${Helper.randomId(11)}`;
 }
@@ -245,6 +246,10 @@ export function generateBankSortCode(): string {
 
 export function generateLegalEntityId(): string {
     return `${faker.datatype.number({min: 1000, max: 9999 })} 00 ${faker.random.alpha({count: 12, casing: 'upper'})} ${faker.datatype.number({min: 10, max: 99 })}`;
+}
+
+export function generatISODuration(): string {
+    return `P${faker.random.numeric()}Y${faker.random.numeric()}M${faker.random.numeric()}DT${faker.random.numeric()}`
 }
 
 

@@ -323,7 +323,7 @@ export enum ScheduledPaymentStatusType {
 }
 
 export enum ScheduledPaymentToUType {
-    accountId = "accountId" , biller = "biller" , domestic = "domestic" , international = "international" , payeeId  = "payeeId"
+    accountId = "accountId" , biller = "biller" , domestic = "domestic" , international = "international" , payeeId  = "payeeId", digitalWallet = "digitalWallet"
 }
 
 export enum RecurrenceUType {

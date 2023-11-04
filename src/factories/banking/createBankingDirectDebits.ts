@@ -2,6 +2,7 @@ import { BankAccountWrapper, HolderWrapper } from '../../logic/schema/cdr-test-d
 import { ContraintType, DepositRateType, EligibilityType, FeatureType, FeeType, LendingRateType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { BankingDirectDebit } from 'consumer-data-standards/banking';
+import { faker } from "@faker-js/faker";
 
 const factoryId: string = "create-banking-direct-debits";
 

@@ -97,6 +97,56 @@
                                             }
                                         }                                                                                
                                     ]
+                                },
+                                "scheduledPaymentsFactory": {
+                                    "sequence": [
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "ACTIVE",
+                                                "recurrence": "eventBased"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "ACTIVE",
+                                                "recurrence": "intervalSchedule"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "ACTIVE",
+                                                "recurrence": "lastWeekDay"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "ACTIVE",
+                                                "recurrence": "onceOff"
+                                            }
+                                        },                                                                                                                        
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "INACTIVE"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "SKIP"
+                                            }
+                                        }                                                                              
+                                    ]
                                 }
                             }
                         }
