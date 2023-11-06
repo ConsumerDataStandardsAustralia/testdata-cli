@@ -1,8 +1,8 @@
 
 import { BankingTransactionDetail } from "consumer-data-standards/banking";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
-import { CustomerWrapper, BankAccountWrapper } from "../../logic/schema/cdr-test-data-schema";
-import { ExtensionUType, RandomBanking, TransactionStatus, TransactionType, generateRandomDecimalInRangeFormatted } from "../../random-generators";
+import { BankAccountWrapper } from "../../logic/schema/cdr-test-data-schema";
+import { RandomBanking, TransactionStatus, TransactionType, generateRandomDecimalInRangeFormatted } from "../../random-generators";
 
 import { randomUUID } from "crypto";
 import { faker } from "@faker-js/faker";
@@ -24,18 +24,19 @@ export class CreateBankingTransactions extends Factory {
     }
     public get detailedDescription(): string {
         let st = `
-        Create a number of number of banking transactions.
+Create a number of number of banking transactions.
 
-        This factory will accept the following options
-              
-        count:             The number of transactions to be issued for each account. Default is 1
-        type:              The type of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
-                           If none specified, the type will be randomly assigned
-        status:            The status of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
-                           If none specified, the status will be POSTED                            
+This factory will accept the following options
+        
+    - count:             The number of transactions to be issued for each account. Default is 1
+    - type:              The type of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
+                            If none specified, the type will be randomly assigned
+    - status:            The status of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
+                            If none specified, the status will be POSTED                            
 
-        Key values randomly allocated:
-           Dates, numeric values, and other enumerated types`;
+Key values randomly allocated:
+    - Dates, numeric values, and other enumerated types
+            `;
         return st;
     }
   

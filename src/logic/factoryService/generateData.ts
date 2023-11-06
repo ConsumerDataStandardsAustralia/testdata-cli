@@ -709,6 +709,18 @@ function generateDetailedBankAccounts(options: Options, accountOptions: any, cus
         if (account && account.account) {
           result.push(account);
 
+          if (accountOptions.transactionsFactory) {
+            Helper.log(`Executing transactions factories for bank account`, 1);
+            account.transactions = generateArrayOfItems(options, accountOptions.transactionsFactory,
+              (factory) => {
+                return factory.canCreateBankTransactions();
+              },
+              (factory) => {
+                return factory.generateBankTransactions(account);
+              })
+          } else {
+            Helper.log(`No bank account transactions factories configured`, 1)
+          }
           // Create the detail inside the created account
           if (accountOptions.balanceFactory) {
             Helper.log(`Executing balance factories for bank account`, 1);
@@ -721,19 +733,6 @@ function generateDetailedBankAccounts(options: Options, accountOptions: any, cus
               })
           } else {
             Helper.log(`No bank account balance factories configured`, 1)
-          }
-
-          if (accountOptions.transactionsFactory) {
-            Helper.log(`Executing transactions factories for bank account`, 1);
-            account.transactions = generateArrayOfItems(options, accountOptions.transactionsFactory,
-              (factory) => {
-                return factory.canCreateBankTransactions();
-              },
-              (factory) => {
-                return factory.generateBankTransactions(account);
-              })
-          } else {
-            Helper.log(`No bank account transactions factories configured`, 1)
           }
         }
       } else {

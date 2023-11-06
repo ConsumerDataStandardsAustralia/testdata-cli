@@ -1,5 +1,5 @@
-import { BankAccountWrapper, HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
-import { ContraintType, DepositRateType, EligibilityType, FeatureType, FeeType, LendingRateType, PayeeAccountType, PayeeUType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
+import { BankAccountWrapper} from '../../logic/schema/cdr-test-data-schema';
+import {  PayeeAccountType, PayeeUType,  RandomBanking } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { BankingBillerPayee, BankingDigitalWalletPayee, BankingDomesticPayee, BankingDomesticPayeeAccount, BankingDomesticPayeeCard, BankingDomesticPayeePayId, BankingInternationalPayee, BankingPayeeDetailV2 } from 'consumer-data-standards/banking';
 import { PayeeType } from '../../random-generators/random-banking';
@@ -29,16 +29,18 @@ export class CreatePayees extends Factory {
     return "Create a number of banking payees.";
   }
   public get detailedDescription(): string {
-    let st = `
-          Create a number of number of banking payees.
+    let st = `      
+Create a number of number of banking payees.
 
-          This factory will accept the following options
-            count: The number of payees to be created for each account. Default is 1     
-            type:  This should be BankingProductCategory as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingpayeev2
-                              If not specified it will be randomnly assigned.
+This factory will accept the following options
 
-          Key values randomly allocated:
-            Dates, numeric values, and other enumerated types`;
+    - count: The number of payees to be created for each account. Default is 1     
+    - type:  This should be type as defined under BankingPayeeV2 (eg BILLER or DOMESTIC)
+              If none specified it will be randomly assigned.
+
+Key values randomly allocated:
+    - Dates, numeric values, and other enumerated types
+             `;
     return st;
   }
 

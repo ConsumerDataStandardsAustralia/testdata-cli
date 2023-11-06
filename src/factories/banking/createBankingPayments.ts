@@ -1,5 +1,5 @@
-import { BankAccountWrapper, HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
-import { ContraintType, DepositRateType, DigitalWalletPayeeType, EligibilityType, FeatureType, FeeType, LendingRateType, PayeeAccountType, ProductCategory, RandomBanking, RecurrenceUType, ScheduledPaymentStatusType, ScheduledPaymentToUType } from '../../random-generators/random-banking';
+import { BankAccountWrapper } from '../../logic/schema/cdr-test-data-schema';
+import {  DigitalWalletPayeeType,  PayeeAccountType, RandomBanking, RecurrenceUType, ScheduledPaymentStatusType, ScheduledPaymentToUType } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { faker } from "@faker-js/faker";
 import { BankingBillerPayee, BankingDigitalWalletPayee, BankingDomesticPayee, BankingDomesticPayeeAccount, BankingDomesticPayeeCard, BankingDomesticPayeePayId, BankingInternationalPayee, BankingScheduledPaymentFrom, BankingScheduledPaymentInterval, BankingScheduledPaymentRecurrence, BankingScheduledPaymentRecurrenceEventBased, BankingScheduledPaymentRecurrenceIntervalSchedule, BankingScheduledPaymentRecurrenceLastWeekday, BankingScheduledPaymentRecurrenceOnceOff, BankingScheduledPaymentSetV2, BankingScheduledPaymentToV2, BankingScheduledPaymentV2 } from 'consumer-data-standards/banking';
@@ -28,17 +28,18 @@ export class CreateScheduledPayments extends Factory {
   }
   public get detailedDescription(): string {
     let st = `
-          Create a number of number of banking scheduled payments.
+Create a number of number of banking scheduled payments.
 
-          This factory will accept the following options
-                
-            status:     This should be either ACTIVE, INACTIVE, or SKIP
-                        If not specified it will be randomnly assigned.
-            recurrence: The type of payment recurrence as defined here https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingscheduledpaymentrecurrence
-                        as recurrenceUType
+This factory will accept the following options
+      
+    - status:     This should be either ACTIVE, INACTIVE, or SKIP
+                  If not specified it will be randomnly assigned.
+    - recurrence: The type of payment recurrence as defined here https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingscheduledpaymentrecurrence
+                  as recurrenceUType
 
-          Key values randomly allocated:
-            Dates, numeric values, and other enumerated types`;
+Key values randomly allocated:
+    - Dates, numeric values, and other enumerated types
+            `;
     return st;
   }
 
@@ -75,13 +76,12 @@ export class CreateScheduledPayments extends Factory {
     return ret;
   } 
 
-
   private generatePaymentSet(accounts: BankAccountWrapper[]): BankingScheduledPaymentSetV2[] {
       let ret: BankingScheduledPaymentSetV2[] = []
       let cnt = Helper.generateRandomIntegerInRange(1, 3);
       for (let i = 0; i < cnt; i++) {
         let paymentSet: BankingScheduledPaymentSetV2 = {
-          to: this.generateScheduledTo()
+          to: this.generateScheduledTo(accounts)
         };
         ret.push(paymentSet);
       }
@@ -246,8 +246,7 @@ export class CreateScheduledPayments extends Factory {
     return ret;    
   }
 
-  private generateScheduledTo(): BankingScheduledPaymentToV2 {
-
+  private generateScheduledTo(accounts: BankAccountWrapper[]): BankingScheduledPaymentToV2 {
     let toUType: ScheduledPaymentToUType = RandomBanking.ScheduledPaymentToUType();
     // TODO let ret: any = {BankingScheduledPaymentToV2  /* Bug in DT lib required as digitalWallet currently is mandatory */
     let ret: any = {
