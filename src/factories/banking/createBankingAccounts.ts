@@ -21,7 +21,8 @@ export class CreateBankingAccounts extends Factory {
 Create a number of number of banking accounts.
 
 This factory will accept the following options
-        
+
+    - count:            The number of accounts to be created for each account. Default is 1        
     - productCategory:  This should be BankingProductCategory as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingproductcategory
                         If not specified it will be randomnly assigned.
     - accountOwnership: This should be one of the values as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingaccountv2

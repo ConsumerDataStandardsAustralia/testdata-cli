@@ -213,6 +213,10 @@ export function generateABN(): string {
     return `${Helper.randomId(11)}`;
 }
 
+export function generateACN(): string {
+    return `55${Helper.randomId(9)}`;
+}
+
 export function generateBIC(): string {
     let bankCode = faker.random.alpha({count: 4, casing: 'upper'});
     let countryCode = faker.address.countryCode('alpha-2');

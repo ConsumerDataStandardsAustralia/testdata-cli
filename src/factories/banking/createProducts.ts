@@ -33,15 +33,17 @@ export class CreateProducts extends Factory {
   }
   public get detailedDescription(): string {
     let st = `
-          Create a number of number of banking products.
+Create a number of number of banking products.
 
-          This factory will accept the following options
-                
-            productCategory:  This should be BankingProductCategory as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingproductcategory
-                              If not specified it will be randomnly assigned.
+This factory will accept the following options
+  
+  - count:            The number of products to be created for each account. Default is 1   
+  - productCategory:  This should be BankingProductCategory as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingproductcategory
+                      If not specified it will be randomnly assigned.
 
-          Key values randomly allocated:
-            Dates, numeric values, and other enumerated types`;
+Key values randomly allocated:
+  - Dates, numeric values, and other enumerated types
+            `;
     return st;
   }
 

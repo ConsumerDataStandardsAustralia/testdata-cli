@@ -11,6 +11,93 @@
                 "holderFactory": {
                     "id": "create-holder"
                 },
+                "unauthenticated": {
+                    "banking": {
+                        "productsFactory": {
+                            "sequence": [
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "CRED_AND_CHRG_CARDS"
+                                    }
+                                },
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "BUSINESS_LOANS"
+                                    }
+                                },
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "TERM_DEPOSITS"
+                                    }
+                                },
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "TRANS_AND_SAVINGS_ACCOUNTS"
+                                    }
+                                } ,
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "MARGIN_LOANS"
+                                    }
+                                },
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "OVERDRAFTS"
+                                    }
+                                },
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "PERS_LOANS"
+                                    }
+                                },
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "REGULATED_TRUST_ACCOUNTS"
+                                    }
+                                },
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "RESIDENTIAL_MORTGAGES"
+                                    }
+                                },
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "TRADE_FINANCE"
+                                    }
+                                },
+                                {
+                                    "id": "create-products",
+                                    "options": {
+                                        "count": 5,
+                                        "productCategory": "TRAVEL_CARDS"
+                                    }
+                                }                                                     
+                            ]
+                        } 
+    
+    
+                    }
+                },
                 "authenticated": {
                     "customers": [
                         {
@@ -150,6 +237,16 @@
                                                 "status": "SKIP"
                                             }
                                         }                                                                              
+                                    ]
+                                },
+                                "directDebitsFactory": {
+                                    "sequence": [
+                                        {
+                                            "id": "create-banking-direct-debits",
+                                            "options": {
+                                                "count": 2
+                                            }
+                                        }                                                                            
                                     ]
                                 }
                             }

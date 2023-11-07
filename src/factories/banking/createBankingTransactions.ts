@@ -30,9 +30,9 @@ This factory will accept the following options
         
     - count:             The number of transactions to be issued for each account. Default is 1
     - type:              The type of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
-                            If none specified, the type will be randomly assigned
+                         If none specified, the type will be randomly assigned
     - status:            The status of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
-                            If none specified, the status will be POSTED                            
+                         If none specified, the status will be POSTED                            
 
 Key values randomly allocated:
     - Dates, numeric values, and other enumerated types

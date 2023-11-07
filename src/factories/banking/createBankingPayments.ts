@@ -31,7 +31,8 @@ export class CreateScheduledPayments extends Factory {
 Create a number of number of banking scheduled payments.
 
 This factory will accept the following options
-      
+
+    - count:      The number of payments to be created for each account. Default is 1    
     - status:     This should be either ACTIVE, INACTIVE, or SKIP
                   If not specified it will be randomnly assigned.
     - recurrence: The type of payment recurrence as defined here https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingscheduledpaymentrecurrence
