@@ -5,6 +5,7 @@ import { randomUUID } from "crypto";
 import { faker } from "@faker-js/faker";
 import { generateContract } from "./utils";
 import { Customer } from "../../logic/schema/cdr-test-data-schema";
+import { generatISODuration } from "../banking/utils";
 
 const factoryId: string = "create-energy-plan-data";
 
@@ -111,7 +112,7 @@ Key values randomly allocated:
         if (this.planType == PlanType.MARKET) electricityContract.coolingOffDays = Helper.generateRandomIntegerInRange(7,35);
         if (electricityContract.termType == PlanTermType.ONGOING) electricityContract.benefitPeriod = "Description for the benefit period";
         if (Math.random() > 0.25) electricityContract.terms = "Free text description of the terms for the contract";
-        if (Math.random() > 0.25) electricityContract.billFrequency = ["P1M1"]
+        electricityContract.billFrequency = generatISODuration();
         return electricityContract;
     }
 }
