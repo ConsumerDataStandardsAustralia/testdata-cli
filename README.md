@@ -197,8 +197,11 @@ This schema defines the hierachical dependencies between factories.
 
 The options file drives the behaviour of the data generation. The process is configured via the existence (or absence) of OptionsFactory properties defined under the factories object. (see `options.ts`). This will determine the extend of data detail the `generate` command will create.
 
-An options file can utilise any number of factories. For instance, the `samples\options\simple-full.json` options file utilses a single factory (sse `factories\static-factories\simple-ull.ts`) to implement a complete data set.
-The options file `samples\options\create-combined.json` utilises a range of individual factories, each with specific configurations to cerate a complete data set.
+An options file can utilise any number of factories. For instance, the `samples\options\.json` options file utilses a *single* factory (sse `factories\static-factories\simple-ull.ts`) to implement a complete data set.
+
+On the other habd, the options file `samples\options\create-combined.json` utilises a *range of individual factories*, each with specific configurations to create a complete data set. To create a comprehensive data set run `testdata generate <OPTIONS_FILE> <OUTPUT_FILE>`
+
+Eg, `testdata generate ./samples/options/create-combined.json ./samples/output/combined-data.json`
 
 ## Data Factoroies
 
