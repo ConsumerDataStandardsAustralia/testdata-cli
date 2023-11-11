@@ -101,7 +101,7 @@ Key values randomly allocated:
         if (this.planType == PlanType.MARKET) gasContract.coolingOffDays = Helper.generateRandomIntegerInRange(7,35);
         if (gasContract.termType == PlanTermType.ONGOING) gasContract.benefitPeriod = "Description for the benefit period";
         if (Math.random() > 0.25) gasContract.terms = "Free text description of the terms for the contract";
-        if (Math.random() > 0.25) gasContract.billFrequency = ["P1M1"]
+        if (Math.random() > 0.25) gasContract.billFrequency = [generatISODuration()];
         return gasContract;
     }
 
@@ -112,7 +112,7 @@ Key values randomly allocated:
         if (this.planType == PlanType.MARKET) electricityContract.coolingOffDays = Helper.generateRandomIntegerInRange(7,35);
         if (electricityContract.termType == PlanTermType.ONGOING) electricityContract.benefitPeriod = "Description for the benefit period";
         if (Math.random() > 0.25) electricityContract.terms = "Free text description of the terms for the contract";
-        electricityContract.billFrequency = generatISODuration();
+        electricityContract.billFrequency = [generatISODuration()];
         return electricityContract;
     }
 }
