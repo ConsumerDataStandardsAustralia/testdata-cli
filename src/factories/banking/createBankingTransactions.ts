@@ -90,7 +90,7 @@ Key values randomly allocated:
                 purposeCode: faker.random.alpha({count: 4, casing: 'upper'})
             };
         }
-        if (detailIsAvailable == true) transaction.transactionId = randomUUID();
+        transaction.transactionId = randomUUID();
         if (transaction.status == TransactionStatus.POSTED || Math.random() > 0.5) transaction.postingDateTime = postingDateTime;
         if (Math.random() > 0.5) transaction.valueDateTime = valueDateTime;
         if (Math.random() > 0.5) transaction.executionDateTime = executionDateTime;
