@@ -19,7 +19,7 @@ export class CreatePayees extends Factory {
     super(options, factoryId);
     // Confirmed this with MV. The BankingPayeeV2.type is always equal to BankingPayeeDetailV2.payeeUType
     this.payeeType = this.options.options?.type ? this.options.options?.type as PayeeType : RandomBanking.PayeeType();
-    this.payeeUType = this.payeeType.toLowerCase() as PayeeUType;
+    this.payeeUType = PayeeUType[this.payeeType];
   }
 
   public static id: string = factoryId;
@@ -69,13 +69,13 @@ Key values randomly allocated:
     if (Math.random() > 0.5) ret.creationDate = Helper.randomDateTimeInThePast();
 
     switch (ret.payeeUType) {
-      case PayeeUType.biller: ret.biller = this.generateBillerPayee();
+      case PayeeUType.BILLER: ret.biller = this.generateBillerPayee();
         break;
-      case PayeeUType.international: ret.international = this.generateInternationalPayee();
+      case PayeeUType.INTERNATIONAL: ret.international = this.generateInternationalPayee();
         break;
-      case PayeeUType.digitalWallet: ret.digitalWallet = this.generateDigitalWalletPayee();
+      case PayeeUType.DIGITAL_WALLET: ret.digitalWallet = this.generateDigitalWalletPayee();
         break;
-      case PayeeUType.domestic: ret.domestic = this.generateDomesticPayee();
+      case PayeeUType.DOMESTIC: ret.domestic = this.generateDomesticPayee();
         break;   
       default: break;     
     }
@@ -164,12 +164,12 @@ Key values randomly allocated:
     if (Math.random() > 0.5) ret.beneficiaryDetails.name = faker.name.fullName();
     if (Math.random() > 0.5) ret.beneficiaryDetails.message = 'This is a lottery win from some strange country';
 
-    if (Math.random() > 0.25) ret.fedWireNumber =  generateFedWireNumber();
-    if (Math.random() > 0.25) ret.legalEntityIdentifier = generateLegalEntityId();
-    if (Math.random() > 0.25) ret.routingNumber = generateBankRoutingNumber();
-    if (Math.random() > 0.25) ret.sortCode = generateBankSortCode();
-    if (Math.random() > 0.25) ret.beneficiaryBankBIC = generateBIC();
-    if (Math.random() > 0.25) ret.chipNumber = undefined;
+    if (Math.random() > 0.25) ret.bankDetails.fedWireNumber =  generateFedWireNumber();
+    if (Math.random() > 0.25) ret.bankDetails.legalEntityIdentifier = generateLegalEntityId();
+    if (Math.random() > 0.25) ret.bankDetails.routingNumber = generateBankRoutingNumber();
+    if (Math.random() > 0.25) ret.bankDetails.sortCode = generateBankSortCode();
+    if (Math.random() > 0.25) ret.bankDetails.beneficiaryBankBIC = generateBIC();
+    if (Math.random() > 0.25) ret.bankDetails.chipNumber = undefined;
     return ret;
   }
 
