@@ -43,7 +43,7 @@ Key values randomly allocated:
     }
     if (Math.random() > 0.25) ret.creditLimit = creditLimit;
     if (Math.random() > 0.25) ret.amortisedLimit = "25000.00";
-    if (Math.random() > 0.25) ret.pusess = this.generateBalancePurses(Helper.generateRandomIntegerInRange(1,5));
+    if (Math.random() > 0.25) ret.purses = this.generateBalancePurses(Helper.generateRandomIntegerInRange(1,5));
     if (Math.random() > 0.75) ret.currency = RandomBanking.Currency();
     return ret;
   }

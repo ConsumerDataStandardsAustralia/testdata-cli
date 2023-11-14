@@ -78,7 +78,6 @@ class Utils {
        if (customerType == 'organisation') {name = faker.company.name()}
          let address: CommonSimpleAddress = {
            mailingName: name,
-           localityName: faker.address.city(),
            addressLine1: faker.address.street(),
            postcode: faker.address.zipCode('####'),
            city: faker.address.cityName(),

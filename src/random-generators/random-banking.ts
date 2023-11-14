@@ -303,7 +303,7 @@ export enum MaturityInstructions {
 }
 
 export enum PayeeUType {
-    biller = "biller" , digitalWallet = "digitalWallet" , domestic = "domestic" , international = "international"
+    BILLER = "biller" , DIGITAL_WALLET = "digitalWallet" , DOMESTIC = "domestic" , INTERNATIONAL = "international"
 }
 
 export enum PayeeAccountType {
