@@ -52,10 +52,10 @@ export class Helper {
   }
 
   // Random value functions
-  public static randomId(): string {
+  public static randomId(length?: number): string {
     const newId = new ShortUniqueId({
       dictionary: 'number',
-      length: 9
+      length: length? length: 9
     });
     return newId();
   }

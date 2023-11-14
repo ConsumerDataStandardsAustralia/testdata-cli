@@ -16,10 +16,6 @@ import { CreateHolder } from './createHolder';
 factories[CreateHolder.id] = (options: any): Factory => { return new CreateHolder(options) }
 
 // create banking products
-import { CreateProducts} from './banking/createProducts';
-factories[CreateProducts.id] = (options: any): Factory => { return new CreateProducts(options) }
-
-// create banking products
 import { CreateCustomers} from './common/createCustomers';
 factories[CreateCustomers.id] = (options: any): Factory => { return new CreateCustomers(options) }
 
@@ -64,6 +60,27 @@ factories[CreateEnergyPaymentSchedules.id] = (options: any): Factory => { return
 
 import { CreateEnergyPlanData} from './energy/createEnergyPlans';
 factories[CreateEnergyPlanData.id] = (options: any): Factory => { return new CreateEnergyPlanData(options)}
+
+import { CreateProducts} from './banking/createProducts';
+factories[CreateProducts.id] = (options: any): Factory => { return new CreateProducts(options)}
+
+import { CreateBankingAccounts} from './banking/createBankingAccounts';
+factories[CreateBankingAccounts.id] = (options: any): Factory => { return new CreateBankingAccounts(options)}
+
+import { CreateBankingTransactions} from './banking/createBankingTransactions';
+factories[CreateBankingTransactions.id] = (options: any): Factory => { return new CreateBankingTransactions(options)}
+
+import { CreateDirectDebits} from './banking/createBankingDirectDebits';
+factories[CreateDirectDebits.id] = (options: any): Factory => { return new CreateDirectDebits(options)}
+
+import { CreatePayees} from './banking/createBankingPayees';
+factories[CreatePayees.id] = (options: any): Factory => { return new CreatePayees(options)}
+
+import { CreateScheduledPayments} from './banking/createBankingPayments';
+factories[CreateScheduledPayments.id] = (options: any): Factory => { return new CreateScheduledPayments(options)}
+
+import { CreateBalances} from './banking/createBankingBalances';
+factories[CreateBalances.id] = (options: any): Factory => { return new CreateBalances(options)}
 
 export * from './common/utils';
 

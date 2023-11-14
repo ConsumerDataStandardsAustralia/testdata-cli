@@ -1,5 +1,241 @@
+import { DigitalWalletProvider } from "./random-energy"
 
-export  enum ProductCategory {
+
+export const BaseBankingProduct = [
+    {
+        category: 'BUSINESS_LOANS',
+        name: "Business Loan Fixed Rate Principal and Interest",
+        description: "If you need to borrow money for your business, whether it’s to purchase a property or any other business purpose"
+    },
+    {
+        category: 'BUSINESS_LOANS',
+        name: "Business Variable Rate Principal and Interest",
+        description: "If you need to borrow money for your business, whether it’s to purchase a property or any other business purpose"
+    },    
+    {
+        category: 'BUSINESS_LOANS',
+        name: "Business Loan Variable Rate Interest Only",
+        description: "If you need to borrow money for your business, whether it’s to purchase a property or any other business purpose"
+    },    
+    {
+        category: 'CRED_AND_CHRG_CARDS',
+        name: "Premier Platinum credit card",
+        description: "There’s more to enjoy with Premier Platinum. Your journey will feel special."
+    },
+    {
+        category: 'CRED_AND_CHRG_CARDS',
+        name: "Premier Gold credit card",
+        description: "There’s more to enjoy with Premier Gold. Your journey will feel special."
+    },
+    {
+        category: 'CRED_AND_CHRG_CARDS',
+        name: "Premier Silver credit card",
+        description: "There’s more to enjoy with Premier Silver. Your journey will feel special."
+    },        
+    {
+        category: 'LEASES',
+        name: "Standard Lease account",
+        description: "An account designed to provide best benefits of a lease."
+    },
+    {
+        category: 'LEASES',
+        name: "Advanced Lease account",
+        description: "An account designed to provide best benefits of a lease with advanced features."
+    },
+    {
+        category: 'LEASES',
+        name: "Long Lease account",
+        description: "An account designed to provide best benefits of a long-term lease."
+    },    
+    {
+        category: 'MARGIN_LOANS',
+        name: "Standard margin loan account",
+        description: "Margin loan account target at share market investors."
+    },
+    {
+        category: 'MARGIN_LOANS',
+        name: "Advanced margin loan account",
+        description: "Margin loan account target at share market investors with more features"
+    },
+    {
+        category: 'MARGIN_LOANS',
+        name: "Premier margin loan account",
+        description: "Margin loan account target at share market investors with premium features"
+    },    
+    {
+        category: 'OVERDRAFTS',
+        name: "Standard overdraft account",
+        description: "An account specificvally designed for short term finance."
+    },
+    {
+        category: 'OVERDRAFTS',
+        name: "Premium overdraft account",
+        description: "An account specificvally designed for short term finance with more features"
+    },
+    {
+        category: 'OVERDRAFTS',
+        name: "Extended overdraft account",
+        description: "An account specificvally designed for medium term finance."
+    },    
+    {
+        category: 'PERS_LOANS',
+        name: "Standard personal loan account",
+        description: "An account designed to finance captital purchases for individuals."
+    },
+    {
+        category: 'PERS_LOANS',
+        name: "Advanced personal loan account",
+        description: "An account designed to finance captital purchases for individuals with more features"
+    },
+    {
+        category: 'PERS_LOANS',
+        name: "Premium personal loan account",
+        description: "An account designed to finance captital purchases for individuals with all features"
+    },    
+    {
+        category: 'REGULATED_TRUST_ACCOUNTS',
+        name: "Trust Basic",
+        description: "Basic trust account with minimum free transactactions."
+    },
+    {
+        category: 'REGULATED_TRUST_ACCOUNTS',
+        name: "Premium Trust Account",
+        description: "Premium trust account with more features."
+    },
+    {
+        category: 'REGULATED_TRUST_ACCOUNTS',
+        name: "Trust Superior",
+        description: "Most advanced trust account with all features"
+    },    
+    {
+        category: 'RESIDENTIAL_MORTGAGES',
+        name: "Standard Consumer Mortgage",
+        description: "A standard mortgage account designed for residential property purchaes"
+    } ,
+    {
+        category: 'RESIDENTIAL_MORTGAGES',
+        name: "Variable Rate Mortgage",
+        description: "A standard mortgage account designed for residential property purchaes"
+    } ,
+    {
+        category: 'RESIDENTIAL_MORTGAGES',
+        name: "Fixed-rate Mortgage",
+        description: "A standard mortgage account designed for residential property purchaes"
+    } ,
+    {
+        category: 'TERM_DEPOSITS',
+        name: "1 Year Term Deposit",
+        description: "A standard term deposit account."
+    },
+    {
+        category: 'TERM_DEPOSITS',
+        name: "3 Year Term Deposit",
+        description: "A standard term deposit account."
+    },
+    {
+        category: 'TERM_DEPOSITS',
+        name: "5 Year Term Deposit",
+        description: "A standard term deposit account."
+    },
+    {
+        category: 'TRADE_FINANCE',
+        name: "Standard Trade Account",
+        description: "An account designed for finance trading."
+    },
+    {
+        category: 'TRADE_FINANCE',
+        name: "Premium Trade Account",
+        description: "A premium account designed for finance trading with all features."
+    },
+    {
+        category: 'TRADE_FINANCE',
+        name: "Advanced Trade Account",
+        description: "An advanced account designed for finance trading with more features"
+    },    
+    {
+        category: 'TRANS_AND_SAVINGS_ACCOUNTS',
+        name: "Standard Everyday Account",
+        description: "An everyday account for transactions and savings."
+    },
+    {
+        category: 'TRANS_AND_SAVINGS_ACCOUNTS',
+        name: "Savings Account",
+        description: "An everyday account for  better savings."
+    },
+    {
+        category: 'TRANS_AND_SAVINGS_ACCOUNTS',
+        name: "Transaction Account",
+        description: "An everyday low fee account for transactions and savings."
+    },    
+    {
+        category: 'TRAVEL_CARDS',
+        name: "Standard Travel Card",
+        description: "An travel card account."
+    },
+    {
+        category: 'TRAVEL_CARDS',
+        name: "Advanced Travel Card",
+        description: "A better travel card account with more features"
+    },  
+    {
+        category: 'TRAVEL_CARDS',
+        name: "Premium Travel Card",
+        description: "An premium travel card account with all features."
+    }                   
+]
+
+export const BaseBrandInformation = [
+    {
+        brand: "ABB",
+        brandName: "Australia Better Bank"
+    },
+    {
+        brand: "SBA",
+        brandName: "Savings Bank of Australia"
+    },
+    {
+        brand: "My Bank",
+        brandName: "MyBank Community Bank"
+    },
+    {
+        brand: "DSB",
+        brandName: "The Data Standards Body Bank"
+    },
+    {
+        brand: "Loan TA",
+        brandName: "The Loan to Anyone Finacial Service"
+    }
+]
+
+export const randomLoanProducts: string[][]= [
+    ['Business Loan Fixed Rate Principal and Interest', 'If you need to borrow money for your business, whether it’s to purchase a property or any other business purpose'],
+    ['Home Loan Interest Only', 'A flexible loan to assist in the purchase of a home to live in.'],
+    ['Home Loan Interest Only Fixed 1 year', 'A fixed rate loan to assist in the purchase of a home to live in.'],
+    ['2 YEAR FIXED HOME LOAN - INVESTMENT (Principal and Interest)','A fixed rate for 2 years for investors wanting certainty of repayments for a period. Comes with a 100% offset account.'],
+    ['BASIC VARIABLE LOAN','BASIC VARIABLE LOAN INVESTOR P&I'],
+    ['Better Home Loan','Owner Occupied Variable Rate Home Loan'],
+    ['Everyday Overdraft','EVERYDAY OVERDRAFT'],
+    ['Personal Loan - Secured','Personal Loan - Secured secured against assets']
+  ]
+
+
+  export const randomSavingsProducts: string[][]= [
+    ['Money Go Account', 'Bank like never before with a Money transaction account. Earn Virgin Money Points for how you spend and budget'],
+    ['SMSF Saver','Specifically designed SMSF account product'],
+    ['Club Community Saver','Club Community Saver'],
+    ['Netbank Saver Account',''],
+    ['Every Day Transaction Account',''],
+    ['Easy Savings account','An online savings account that earns you interest every month on balances, regardless of how you save.'],
+  ]
+
+
+  export const randomCreditCardProducts: string[][]= [
+    ['Premier Platinum credit card','There’s more to enjoy with Premier Platinum. Your journey will feel special.'],
+  ]
+
+
+
+  export  enum ProductCategory {
     BUSINESS_LOANS =  "BUSINESS_LOANS"
     , CRED_AND_CHRG_CARDS =  "CRED_AND_CHRG_CARDS"
     , LEASES = "LEASES"
@@ -19,30 +255,35 @@ export  enum OpenStatus {
 } 
 
 export  enum PayeeType {
-   "BILLER" , "DIGITAL_WALLET" , "DOMESTIC" , "INTERNATIONAL"
+    BILLER = "BILLER" , DIGITAL_WALLET = "DIGITAL_WALLET" , DOMESTIC = "DOMESTIC" , INTERNATIONAL = "INTERNATIONAL"
 } 
 
 export enum Effective {
-    "ALL", "CURRENT", "FUTURE"
+   ALL =  "ALL", CURRENT = "CURRENT", FUTURE = "FUTURE"
 }
 
+export enum ExtensionUType {
+    x2p101Payload = "x2p101Payload", X2P1_01 = "X2P1.01"
+}
+
+
 export enum EligibilityType {
-    "BUSINESS"
-      , "EMPLOYMENT_STATUS"
-      , "MAX_AGE"
-      , "MIN_AGE"
-      , "MIN_INCOME"
-      , "MIN_TURNOVER"
-      , "NATURAL_PERSON"
-      , "OTHER"
-      , "PENSION_RECIPIENT"
-      , "RESIDENCY_STATUS"
-      , "STAFF"
-      , "STUDENT"
+    BUSINESS = "BUSINESS"
+      , EMPLOYMENT_STATUS = "EMPLOYMENT_STATUS"
+      , MAX_AGE = "MAX_AGE"
+      , MIN_AGE = "MIN_AGE"
+      , MIN_INCOME = "MIN_INCOME"
+      , MIN_TURNOVER = "MIN_TURNOVER"
+      , NATURAL_PERSON = "NATURAL_PERSON"
+      , OTHER = "OTHER"
+      , PENSION_RECIPIENT = "PENSION_RECIPIENT"
+      , RESIDENCY_STATUS = "RESIDENCY_STATUS"
+      , STAFF = "STAFF"
+      , STUDENT = "STUDENT"
 }
 
 export enum UnitOfMeasure {
-    "DAY" , "DOLLAR" , "MONTH" , "PERCENT"
+    DAY = "DAY" , DOLLAR = "DOLLAR" , MONTH = "MONTH" , PERCENT = "PERCENT"
 }
 
 export enum RateApplicationMethod {
@@ -50,51 +291,59 @@ export enum RateApplicationMethod {
 }
 
 export enum SpecificAccountUType {
-    "creditCard" , "loan" , "termDeposit"
+    creditCard = "creditCard" , loan = "loan" , termDeposit = "termDeposit"
+}
+
+export enum TransactionStatus {
+    POSTED = "POSTED" , PENDING = "PENDING" 
 }
 
 export enum MaturityInstructions {
-   "HOLD_ON_MATURITY" , "PAID_OUT_AT_MATURITY" , "ROLLED_OVER"
+    HOLD_ON_MATURITY = "HOLD_ON_MATURITY" , PAID_OUT_AT_MATURITY = "PAID_OUT_AT_MATURITY" , ROLLED_OVER = "ROLLED_OVER"
 }
 
 export enum PayeeUType {
-    "biller" , "digitalWallet" , "domestic" , "international"
+    BILLER = "biller" , DIGITAL_WALLET = "digitalWallet" , DOMESTIC = "domestic" , INTERNATIONAL = "international"
 }
 
 export enum PayeeAccountType {
-    "account" , "card" , "payId"
+    account = "account" , card = "card" , payId = "payId"
 }
 
 export enum PayIDType {
-    "ABN" , "EMAIL" , "ORG_IDENTIFIER" , "TELEPHONE"
+    ABN = "ABN" , EMAIL = "EMAIL" , ORG_IDENTIFIER = "ORG_IDENTIFIER" , TELEPHONE = "TELEPHONE"
 }
 
 export enum DigitalWalletPayeeType {
-    "ABN" , "EMAIL" , "ORG_IDENTIFIER" , "TELEPHONE"
+    CONTACT_NAME = "CONTACT_NAME" , EMAIL = "EMAIL" , TELEPHONE = "TELEPHONE"
 }
 
 export enum ScheduledPaymentStatusType {
-   "ACTIVE" , "INACTIVE" , "SKIP"
+    ACTIVE = "ACTIVE" , INACTIVE = "INACTIVE" , SKIP = "SKIP"
 }
 
 export enum ScheduledPaymentToUType {
-    "accountId" , "biller" , "domestic" , "international" , "payeeId"
+    accountId = "accountId" , biller = "biller" , domestic = "domestic" , international = "international" , payeeId  = "payeeId", digitalWallet = "digitalWallet"
 }
 
 export enum RecurrenceUType {
-    "eventBased" , "intervalSchedule" , "lastWeekDay" , "onceOff"
+    eventBased = "eventBased" , intervalSchedule = "intervalSchedule" , lastWeekDay = "lastWeekDay" , onceOff = "onceOff"
 }
 
 export enum NonBusinessDayTreatment {
-    "AFTER" , "BEFORE" , "ON" , "ONLY" , null
+    AFTER = "AFTER" , BEFORE = "BEFORE" , ON = "ON" , ONLY = "ONLY" 
 }
 
 export enum LastWeekDay {
-    "FRI" , "MON" , "SAT" , "SUN" , "THU" , "TUE" , "WED"
+    FRI = "FRI" , MON = "MON" , SAT = "SAT" , SUN = "SUN" , THU = "THU" , TUE = "TUE" , WED = "WED"
 }
 
 export enum AddressUType {
-    "paf", "simple"
+    PAF = "paf", SIMPLE = "simple"
+}
+
+export enum DgitalWalletProvider {
+    PAYPAL_AU = "PAYPAL_AU", OTHER = "OTHER"
 }
 
 export enum FeatureType {
@@ -135,34 +384,34 @@ export enum ContraintType {
 }
 
 export enum FeeType {
-     "DEPOSIT"
-    , "EVENT"
-    , "EXIT"
-    , "PAYMENT"
-    , "PERIODIC"
-    , "PURCHASE"
-    , "TRANSACTION"
-    , "UPFRONT"
-    , "VARIABLE"
-    , "WITHDRAWAL"
+    DEPOSIT =  "DEPOSIT"
+    , EVENT = "EVENT"
+    , EXIT = "EXIT"
+    , PAYMENT = "PAYMENT"
+    , PERIODIC = "PERIODIC"
+    , PURCHASE = "PURCHASE"
+    , TRANSACTION = "TRANSACTION"
+    , UPFRONT = "UPFRONT"
+    , VARIABLE = "VARIABLE"
+    , WITHDRAWAL = "WITHDRAWAL"
 }
 
 export enum DepositRateType {
-    "BONUS" , "BUNDLE_BONUS" , "FIXED" , "FLOATING" , "INTRODUCTORY" , "MARKET_LINKED" , "VARIABLE"
+    BONUS = "BONUS" , BUNDLE_BONUS = "BUNDLE_BONUS" , FIXED ="FIXED" , FLOATING="FLOATING" , INTRODUCTORY="INTRODUCTORY" , MARKET_LINKED="MARKET_LINKED" , VARIABLE="VARIABLE"
 }
 
 export enum LendingRateType {
-     "BUNDLE_DISCOUNT_FIXED"
-    , "BUNDLE_DISCOUNT_VARIABLE"
-    , "CASH_ADVANCE"
-    , "DISCOUNT"
-    , "FIXED"
-    , "FLOATING"
-    , "INTRODUCTORY"
-    , "MARKET_LINKED"
-    , "PENALTY"
-    , "PURCHASE"
-    , "VARIABLE"
+    BUNDLE_DISCOUNT_FIXED = "BUNDLE_DISCOUNT_FIXED"
+    , BUNDLE_DISCOUNT_VARIABLE ="BUNDLE_DISCOUNT_VARIABLE"
+    , CASH_ADVANCE ="CASH_ADVANCE"
+    , DISCOUNT ="DISCOUNT"
+    , FIXED = "FIXED"
+    , FLOATING = "FLOATING"
+    , INTRODUCTORY = "INTRODUCTORY"
+    , MARKET_LINKED = "MARKET_LINKED"
+    , PENALTY = "PENALTY"
+    , PURCHASE = "PURCHASE"
+    , VARIABLE = "VARIABLE"
 }
 
 export enum RepaymentType {
@@ -170,14 +419,14 @@ export enum RepaymentType {
 }
 
 export enum TransactionType {
-        "DIRECT_DEBIT"
-    , "FEE"
-    , "INTEREST_CHARGED"
-    , "INTEREST_PAID"
-    , "OTHER"
-    , "PAYMENT"
-    , "TRANSFER_INCOMING"
-    , "TRANSFER_OUTGOING"
+    DIRECT_DEBIT =  "DIRECT_DEBIT"
+    , FEE = "FEE"
+    , INTEREST_CHARGED = "INTEREST_CHARGED"
+    , INTEREST_PAID = "INTEREST_PAID"
+    , OTHER = "OTHER"
+    , PAYMENT = "PAYMENT"
+    , TRANSFER_INCOMING = "TRANSFER_INCOMING"
+    , TRANSFER_OUTGOING = "TRANSFER_OUTGOING"
 }
 
 export enum LoanPurpose {
@@ -185,23 +434,35 @@ export enum LoanPurpose {
 }
 
 export enum DiscountType {
-    "BALANCE" , "DEPOSITS" , "ELIGIBILITY_ONLY" , "FEE_CAP" , "PAYMENTS"
+    BALANCE =  "BALANCE" , DEPOSITS = "DEPOSITS" , ELIGIBILITY_ONLY = "ELIGIBILITY_ONLY" , FEE_CAP = "FEE_CAP" , PAYMENTS = "PAYMENTS"
 }
 
 export enum DiscountEligibilityType {
-     "BUSINESS"
-    , "EMPLOYMENT_STATUS"
-    , "INTRODUCTORY"
-    , "MAX_AGE"
-    , "MIN_AGE"
-    , "MIN_INCOME"
-    , "MIN_TURNOVER"
-    , "NATURAL_PERSON"
-    , "OTHER"
-    , "PENSION_RECIPIENT"
-    , "RESIDENCY_STATUS"
-    , "STAFF"
-    , "STUDENT"
+    BUSINESS =  "BUSINESS"
+    , EMPLOYMENT_STATUS = "EMPLOYMENT_STATUS"
+    , INTRODUCTORY = "INTRODUCTORY"
+    , MAX_AGE = "MAX_AGE"
+    , MIN_AGE = "MIN_AGE"
+    , MIN_INCOME = "MIN_INCOME"
+    , MIN_TURNOVER = "MIN_TURNOVER"
+    , NATURAL_PERSON = "NATURAL_PERSON"
+    , OTHER = "OTHER"
+    , PENSION_RECIPIENT = "PENSION_RECIPIENT"
+    , RESIDENCY_STATUS = "RESIDENCY_STATUS"
+    , STAFF = "STAFF"
+    , STUDENT = "STUDENT"
+}
+
+export enum AccountOwnership {
+    UNKNOWN = "UNKNOWN",
+    ONE_PARTY = "ONE_PARTY",
+    TWO_PARTY = "TWO_PARTY",
+    MANY_PARTY = "MANY_PARTY",
+    OTHER = "OTHER"
+}
+
+export enum Currency {
+    AUD = "AUD", GBP = "GBP", USD = "USD"
 }
 
 export class RandomBanking {
@@ -328,5 +589,47 @@ export class RandomBanking {
     } 
     public static TransactionType(): any {
         return this.GetRandomValue(TransactionType)
-    }                                                          
+    }  
+
+    public static TransactionStatus(): any {
+        return this.GetRandomValue(TransactionStatus)
+    } 
+
+    public static AccountOwnership(): any {
+        return this.GetRandomValue(AccountOwnership)
+    } 
+    
+    public static Currency(): any {
+        return this.GetRandomValue(Currency)
+    }      
+
+
+    public static SelectBaseBankingProductInfo(category: string): any {
+        let subSet = BaseBankingProduct.filter(x => x.category.replace(/['_']/g, '-').toLowerCase() == category);
+        return this.GetRandomValue(subSet)
+    }
+
+    public static SelectBaseBrandInfo(): any {
+        return this.GetRandomValue(BaseBrandInformation)
+    }
+
+    public static SelectRandomLoanProduct(): any {
+        return this.GetRandomValue(randomLoanProducts)
+    }
+
+    public static SelectRandomSavingsProduct(): any {
+        return this.GetRandomValue(randomSavingsProducts)
+    } 
+    
+    public static SelectRandomCreditCardProduct(): any {
+        return this.GetRandomValue(randomCreditCardProducts)
+    }  
+
+    public static SelectRandomExtensionUType(): any {
+        return this.GetRandomValue(ExtensionUType)
+    }
+    
+    public static SelectDigitalWalletProvider(): any {
+        return this.GetRandomValue(DigitalWalletProvider)
+    }     
 }
