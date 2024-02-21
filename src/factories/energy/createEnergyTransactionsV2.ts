@@ -49,7 +49,7 @@ Key values randomly allocated:
         
         let transaction : EnergyBillingTransactionV2 = {
             accountId: account.account.accountId,
-            executionDateTime: "",
+            executionDateTime:  Helper.randomDateTimeInThePast(),
             transactionUType: this.transactionUType
         }
 
