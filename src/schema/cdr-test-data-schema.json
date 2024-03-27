@@ -291,7 +291,7 @@
       }
     },
     "bankAccount": {
-      "$ref": "https://raw.githubusercontent.com/ConsumerDataStandardsAustralia/dsb-schema-tools/main/1.20.0/schemas/banking/BankingAccountDetailV2.json"
+      "$ref": "https://raw.githubusercontent.com/ConsumerDataStandardsAustralia/dsb-schema-tools/main/1.20.0/schemas/banking/BankingAccountDetailV3.json"
     },
     "bankAccountBalance": {
       "$ref": "https://raw.githubusercontent.com/ConsumerDataStandardsAustralia/dsb-schema-tools/main/1.20.0/schemas/banking/BankingBalance.json"
