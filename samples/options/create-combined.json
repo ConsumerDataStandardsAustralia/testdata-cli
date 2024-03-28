@@ -169,7 +169,7 @@
                                                 {   
                                                     "weighting": 50,
                                                     "factory": {
-                                                        "id": "create-energy-transactions",
+                                                        "id": "create-energy-transactions-v3",
                                                         "options": {
                                                             "transactionUType": "usage"
                                                       }
@@ -179,7 +179,7 @@
                                                 {
                                                       "weighting": 50,
                                                       "factory": {
-                                                        "id": "create-energy-transactions",
+                                                        "id": "create-energy-transactions-v3",
                                                         "options": {
                                                             "transactionUType": "demand"
                                                         }
@@ -188,7 +188,7 @@
                                               ]
                                         },
                                         "balanceFactory" : {
-                                            "id": "create-energy-transactions"
+                                            "id": "create-energy-transactions-v3"
                                         },
                                         "concessionsFactory": {
                                             "id": "create-energy-concessions",

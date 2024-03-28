@@ -365,6 +365,14 @@ export enum PlanTermType {
     , OTHER = "OTHER"
 }
 
+export enum EnergyAccountName {
+    VALUE_SAVER = "Value Saver",
+    SOLAR_SAVER = "Solar Saver",
+    STANDARD_ACCOUNT = "Standard Account",
+    PENSIONER_ACCOUNT = "Pensioner Account",
+    COMBINATION_ACCOUNT = "Combination Account",
+}
+
 export class RandomEnergy {
 
     public static GetRandomValue(enumeration: any) {
@@ -635,5 +643,9 @@ export class RandomEnergy {
 
     public static PlanTermType(): any {
         return this.GetRandomValue(PlanTermType);
+    }
+
+    public static EnergyAccountName(): any {
+        return this.GetRandomValue(EnergyAccountName);
     }
 }

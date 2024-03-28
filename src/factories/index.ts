@@ -52,6 +52,9 @@ factories[CreateEnergyTransaction.id] = (options: any): Factory => { return new 
 import { CreateEnergyTransactionV2 } from './energy/createEnergyTransactionsV2';
 factories[CreateEnergyTransactionV2.id] = (options: any): Factory => { return new CreateEnergyTransactionV2(options)}
 
+import { CreateEnergyTransactionV3 } from './energy/createEnergyTransactionsV3';
+factories[CreateEnergyTransactionV3.id] = (options: any): Factory => { return new CreateEnergyTransactionV3(options)}
+
 import { CreateEnergyConcessions } from './energy/createConcessions';
 factories[CreateEnergyConcessions.id] = (options: any): Factory => { return new CreateEnergyConcessions(options)}
 
