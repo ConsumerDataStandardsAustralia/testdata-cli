@@ -49,9 +49,9 @@ Key values randomly allocated:
             plans: [],
             accountId: uuidv4()
         };
-        let displayName = Helper.randomBoolean(null) ? "Display name" : null;
+        let displayName = Helper.randomBoolean(null) ? RandomEnergy.EnergyAccountName() : null;
         // 80% probability that an account number exists
-        let accountNumber = Helper.randomBoolean(0.8) ? "23455-4567" : null;
+        let accountNumber = Helper.randomBoolean(0.8) ? this.generateRandomEnergyAccountNumber() : null;
         // create a number of plan object, up to 10
         let planCount = Math.ceil(Math.random() * 3);
         let status = this.accountStatus;
@@ -125,6 +125,12 @@ Key values randomly allocated:
             authorisedContacts.push(contact)
         }
         return authorisedContacts;
+    }
+
+    private generateRandomEnergyAccountNumber(): string {
+        let val1 = Helper.generateRandomIntegerInRange(1000, 9999);
+        let val2 = Helper.generateRandomIntegerInRange(1000, 9999);
+        return `${val1}-${val2}`;
     }
 
     public generateEnergyAccounts(customer: CustomerWrapper): EnergyAccountWrapper[] | undefined {
