@@ -1,300 +1,212 @@
-# Consumer Data Right Test Data CLI
-
-## Disclaimer
-
-The artefacts in this repo are offered without warranty or liability, in accordance with the [MIT licence.](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/LICENSE)
-
-[The Data Standards Body](https://www.csiro.au/en/News/News-releases/2018/Data61-appointed-to-Data-Standards-Body-role)
-(DSB) develops these artefacts in the course of its work, in order to perform quality assurance on the Australian Consumer Data Right Standards (Data Standards).
-
-The DSB makes this repo, and its artefacts, public [on a non-commercial basis](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/LICENSE)
-in the interest of supporting the participants in the CDR eco-system.
-
-The resources of the DSB are primarily directed towards assisting the [Data Standards Chair](https://consumerdatastandards.gov.au/about/)
-for [developing the Data Standards](https://github.com/ConsumerDataStandardsAustralia/standards).
-
-Consequently, the development work provided on the artefacts in this repo is on a best-effort basis,
-and the DSB acknowledges the use of these tools alone is not sufficient for, nor should they be relied upon
-with respect to [accreditation](https://www.accc.gov.au/focus-areas/consumer-data-right-cdr-0/cdr-draft-accreditation-guidelines),
-conformance, or compliance purposes.
-
+#  Testdata Cli
 
 ## Overview
 
-The CDR testdata CLI can be used to generate manufactured test data for the Consumer Data Right standards.  This CLI allows the configuration, through an option file, of a variety of data `factories` that can be used to generate test files with different characteristics.  This project is also designed to allow for additional `factories` to be added via Pull Request to accommodate different scenarios.
+The CDR Test Data CLI tool has been created by the [Data Standards Body](https://consumerdatastandards.gov.au/) (DSB) to provide diverse test datasets to the Consumer Data Right (CDR) community to assist with the development and delivery of various CDR solutions.  
 
-This tool has been created by the [Data Standards Body](https://consumerdatastandards.gov.au/) to support participants implementing of the [technical standards](https://github.com/ConsumerDataStandardsAustralia/standards) developed for the Australian Consumer Data Right regime.
+This versatile tool showcases its ability to create synthetic datasets that can be tailored to specific requirements using configurable option files. This enables developers to use these tailored datasets for testing, experimentation, or development purposes within their CDR projects.
 
-The goal of the testdata CLI is to provide support for CDR participants seeking to test their implementations to ensure confidence that they have covered a wide range of possible scenarios liked to be encountered in production scenarios.
+The goal of the Test Data CLI is to provide support for CDR participants seeking to test their implementations to ensure confidence that they have covered a wide range of possible scenarios likely to be encountered in production scenarios.
 
-## CLI Usage
+## Using the Test Data CLI
 
-To install the testdata command line tool (`testdata`) you need to have npm installed.  With npm installed run the following command:
-`npm install @cds-au/testdata -g`
+The Test Data CLI can be used to generate manufactured test data for the [Consumer Data Standards](https://consumerdatastandardsaustralia.github.io/standards/#introduction) (CDS). This CLI allows the configuration, through an option file, of a variety of data `factories` that can be used to generate test files with different scenarios. 
 
-This will make the CLI available globally.
+The DSB offers the Test Data CLI as an [npm package](https://www.npmjs.com/package/@cds-au/testdata) available in the NPM registry. You can easily install this package in your project using npm. For more information, refer to the [Quick Start](#quick-start) section below.
 
-### Test Data Commands
+You can also set up a local instance of the Test Data CLI tool for customised and extended use cases. For more information, refer to the [Local Setup and Customisation](#local-setup-and-customisation) section below.
 
-|Command|Options|Arguments|Description|Examples|
-|-|-|-|-|-|
-|`schema`|`vonly`|None|Print out the test data schema currently in use to stdout.  This will be the full JSON schema file and allows for the schema to be reused in your own tools or workflow|`testdata schema`|
-||||Output only the version of the schema that the CLI is currently using|`testdata schema --vonly`|
-|`factories`|None|None|List the factories that are currently implemented with a short description of each factory describing its purpose|`testdata factories`|
-|`factory`|None|`<factory-id>`,  the ID of the factory that documentation is requested for|Give detailed documentation for a specific factory including the purpose of the factory, the data that it generates or modifies and the options that it consumes.|`testdata factory load-static-data`|
-|`generate`|None|`<opts>` the options file for the data generation process|Read in the specified options file and generate a data file in the file specified as the destination.  The resulting file will contain JSON consistent with the test data schema supported by the CLI.|`testdata generate options.json data.json` Generate test data using the options in the `options.json` file and output the resulting data to the `data.json` file.|
-|||`<dst>`, the destination file for the generated output.  The contents will always be JSON consistent with the test data schema|||
+For detailed examples and practical applications, please refer to the [Example Use Cases](#example-use-cases) section below.
 
+## Quick Start
 
-### Building and running the cli locally
+To install the Test Data CLI tool globally, ensure npm is installed on your system and run the following command:
 
-To build the repository and use the library without installing it globally
-
-1. Install libraries
-`npm install`
-
-2. Build
-`npm run build`
-
-3. Use npm link
-`npm link @cds-au/testdata`
-
-# Data Generation Process
-
-## Schema
-
-The data generator utilises one or more data factories and creates data by excuting the individual factories.
-
-This data generation logic does not impose any restrictions on the detailed data contents, it merely relies on a high-level structure which is required to programmatically generate data. In particular, this approach allows for the development
-and incorporation of data factories, which deliberately generate invalid
-data.
-
-
-This high-level structure is depicted in the diagram below.
-
-![Test Data Schema](DataStructures.png "Test Data Schema")
-*Figure 1: ConsumerDataRightTestDataJSONSchema*
-
-A single data factory can be designed to generate a complete data set
-containing all structures defined in
-ConsumerDataRightTestDataJSONSchema, or generate a one or more specific
-data structures (eg EnergyAccountData and EnergyInvoiceData). This
-allows for a great deal of flexibility and reusability. 
-
-Run `testdata factories` to view all currently available factories, and locate the underlying data generation code in the `src/facrories` directories.
-
-To view a description and the capability of a factory run 
-`testdata factory <FACTORY_NAME>`
-
-Eg, `testdata factory create-customers` will return
-
-```
-Supported capabilities include:
-    create a customer
-    create a set of customers
-    ...
+```bash
+npm install @cds-au/testdata -g
 ```
 
-Most of data factories in this repository will take into account the conditional property dependencies, optional and mandatory requirements, and randonly select enumerated types for each data structure generated.
-That is, these will generate **valid** data and this data can be validated against the schemas defined by by the [Data Standards Body](https://consumerdatastandards.gov.au/), eg [energy schemas](https://consumerdatastandardsaustralia.github.io/standards/#cdr-energy-api-schemas).
+This makes the CLI available globally on your system.
 
-A set of valid data factories can be found in this repository (`src/factories`) grouped by sector (see folders for banking, energy, etc) as well as the common factories (see common folder).
+### Generating Test Data
 
-This framework also allows for the deliberate generation of **invalid** data, which can be usefull for particular test harness configuration. The `src\factories\invalid-factories` folder contains some examples of such invalid factories
+To generate test data, you will need an options file that specifies the configuration for data generation:
 
-Additionally, the framework can read in a static file and augment this file with additional data. An example of this is the `loadStatic` factory. More information on data augmentation can be found [here](#data-augmentation).
-
-## Generate Data Command
-
-To generate data issue the follwing command. 
-
-`testdata generate <opts> <dst>`
-
-|Argument|Description|
-|-|-|
-|`<opts>`| The options file indicating the factories to execute, in what order and with what options specified. |
-|`<dst>`| The destination file for the generated output.  The contents will always be JSON consistent with the test data schema. |
-
-
-## Options File
-The options file (`<opts>`) is a **mandatory** input for the `testdata generate` command and it has to adhere to the schema defined in the  file `src\logic\options.ts`.
-This schema defines the hierachical dependencies between factories. 
-
-```ts
-{
-  general?: OptionsGeneral,
-
-  factories?: {
-    allDataFactory?: OptionsFactory,
-
-    holdersFactory?: OptionsFactory,
-    holders?: [
-      {
-        count?: OptionsItemCount,
-
-        holderFactory?: OptionsFactory,
-        unauthenticated?: {
-          banking?: {
-            productsFactory?: OptionsFactory
-          },
-          energy?: {
-            plansFactory?: OptionsFactory
-          },
-          admin?: {
-            statusFactory?: OptionsFactory,
-            outagesFactory?: OptionsFactory
-          }
-        },
-        authenticated?: {
-          customersFactory?: OptionsFactory,
-          customers?: [
-            {
-              count?: OptionsItemCount;
-              customerFactory?: OptionsFactory,
-
-              banking?: {
-                accountsFactory?: OptionsFactory,
-                accounts?: [{
-                  count?: OptionsItemCount;
-                  accountFactory?: OptionsFactory,
-                  balanceFactory?: OptionsFactory,
-                  transactionsFactory?: OptionsFactory,
-                }],
-                directDebitsFactory?: OptionsFactory,
-                payeesFactory?: OptionsFactory,
-                scheduledPaymentsFactory?: OptionsFactory
-              },
-              energy?: {
-                accountsFactory?: OptionsFactory,
-                accounts?: [{
-                  count?: OptionsItemCount;
-                  accountFactory?: OptionsFactory,
-                  balanceFactory?: OptionsFactory,
-                  invoicesFactory?: OptionsFactory,
-                  transactionsFactory?: OptionsFactory,
-                  concessionsFactory?: OptionsFactory,
-                  paymentScheduleFactory?: OptionsFactory
-                }],
-                servicePointsFactory?: OptionsFactory,
-                servicePoints?: [{
-                  count?: OptionsItemCount;
-                  servicePointFactory?: OptionsFactory,
-                  derFactory?: OptionsFactory,
-                  usageFactory?: OptionsFactory,
-                }]
-              }
-            }
-          ]
-        }
-      }
-    ],
-
-    clientCacheFactory?: OptionsFactory,
-
-    registerCacheFactory?: OptionsFactory
-  }
+```bash
+testdata generate <options-file> <destination-file>
 ```
 
-The options file drives the behaviour of the data generation. The process is configured via the existence (or absence) of OptionsFactory properties defined under the factories object. (see `options.ts`). This will determine the extend of data detail the `generate` command will create.
+| Argument | Required | Description |
+| --- | --- | --- |
+| <options-file> | mandatory | The options file indicating the factories to execute, in what order and with what options specified. |
+| <destination-file> | optional | The destination file where the generated JSON test data will be saved. The contents will always be JSON consistent with the test data schema. |
 
-An options file can utilise any number of factories. For instance, the `samples\options\.json` options file utilses a *single* factory (sse `factories\static-factories\simple-ull.ts`) to implement a complete data set.
+To learn more about the Data Generator and how it works, refer to the **Data Generation Process** section below.
 
-On the other habd, the options file `samples\options\create-combined.json` utilises a *range of individual factories*, each with specific configurations to create a complete data set. To create a comprehensive data set run `testdata generate <OPTIONS_FILE> <OUTPUT_FILE>`
+### Common Commands
 
-Eg, `testdata generate ./samples/options/create-combined.json ./samples/output/combined-data.json`
+- **Schema Display**: Run**`testdata schema`** to view the current JSON schema used for test data. Use **`vonly`** option to view the version of the current JSON schema.
+- **List Factories**: Run **`testdata factories`** to view the list of all the currently implemented factories, along with a short description of each factory describing its purpose.
+- **Factory Details**: Run **`testdata factory <factory-id>`** to view detailed information about a specific factory, including the purpose of the factory, the data that it generates or modifies and the options that it consumes.
+    
+    
+    | Argument | Required | Description |
+    | --- | --- | --- |
+    | <factory-id> | mandatory | The ID of the factory that documentation is requested for |
+    
+    For example, **`testdata factory create-customers`** will return:
+    
+    ```bash
+    Supported capabilities include:
+        create a customer
+        create a set of customers
+        ...
+    ```
+    
 
-## Data Factoroies
+## Example Use Cases
 
-The data factories in `src/factories` contain the code to generate the data taking into account the configuration from the options file.
-Additional factories can be developed and added to the relevant folder, which will make the factory available to the cli.
+In this section, you will find practical use cases for the Test Data CLI, each designed to show how the tool can be used to generate synthetic data for a variety of scenarios. To facilitate ease of use and understanding, each use case is accompanied by a specific command. These commands use specific sample options files from the repository, located in the **`samples/options`** directory, which define the necessary parameters for generating targeted datasets. You can run these commands to generate a JSON file with the test data output and use them for development or testing of your CDR application.
 
-A factory (OptionsFactory) can be implemented as a Sequence factory, Weighted factory, or a Single factory.
+- **Use Case 1 (UC1):** Generate CDS-compliant test energy plan data to simulate realistic API responses in your mock Data Holder’s Product Reference Data API.
+    
+    ```bash
+    testdata generate ./samples/options/uc1.json ./samples/output/u1-output.json
+    ```
+    
+- **Use Case 2 (UC2):** Generate a mix of residential and business customer profiles to enhance testing of varied customer interactions.
+    
+    ```bash
+    testdata generate ./samples/options/uc2.json ./samples/output/u2-output.json
+    ```
+    
+- **Use Case 3 (UC3):** Create a dataset for a single residential customer with an energy account to test personalised service scenarios.
+    
+    ```bash
+    testdata generate ./samples/options/uc3.json ./output/samples/u3-output.json
+    ```
+    
+- **Use Case 4 (UC4):** Augment an existing data holder structure by adding additional customer profiles to enhance your existing dataset.
+    
+    ```bash
+    testdata generate ./samples/options/uc4.json ./samples/output/u4-output.json
+    ```
+    
+- **Use Case 5 (UC5):** Augment an existing data file by adding additional holders without altering existing data from the input file.
+    
+    ```bash
+    testdata generate ./samples/options/uc5.json ./samples/output/u5-output.json
+    ```
+    
+- **Use Case 6 (UC6):** Create a dataset that includes a mix of valid and intentionally invalid customer data to test system robustness.
+    
+    ```bash
+    testdata generate ./samples/options/uc6.json ./samples/output/u6-output.json
+    ```
+    
+## Data Generation Process
 
-| Factory Type | Description |
-|-|-|
-| OptionsSingleFactory | A single factory which will be executed. |
-| OptionsSequence | Multiple factories which will be executed in sequence. Eg, see UC4 |
-| OptionsWeighteg | Multiple factories of which one will be executed and for the execution the selection is random and based on a weighting. Eg UC6 |
+The data generator utilises one or more data factories and creates data by executing the individual factories. The options file drives the behaviour of the data generation.
 
-Additionally, each factory may have factory specific options. These can be used to fine-tune the data being generated. To get the options available for a factory.
+### Data Factories
 
-`testdata factory <FACTORY_NAME>`
+Data factories are modular components within the CLI that generate specific data structures:
 
-Eg, `testdata factory create-customers` will return
+- **Valid Data Factories**: Located in **`src/factories`**, these are grouped by sector (banking, energy, etc.) and generate synthetic data compliant with CDR standards.
+- **Invalid Data Factories**: Found in **`src/factories/invalid-factories`**, these are used for generating synthetic data that deliberately includes errors for testing error handling.
 
-```
-This factory supports the follow option fields:
+### Configuration via Options File
 
-  type:    The type must be either 'person' or 'organisation'. This will determine if a 
-           CommonPersonDetail or a CommonOrganisationDetail structure will be created.
+The options file is crucial for directing the data generation process. It details which factories to execute and the order and parameters for execution, adhering to a schema defined in **`src/logic/options.ts`**.
 
-```
+## Local Setup and Customisation
 
-## General Options
+### Prerequisites
 
-The general section in the options file can be used to capture information about the generated data set.
+Before you begin, ensure you have the following installed:
 
-Should this section does not exists in the options file, the generic template response will be created
+- Git, for cloning the repository.
+- [Node.js](https://nodejs.org/en/).
+- npm (Node Package Manager) - **included with Node.js installation**.
 
-```json
-    "general": {
-        "fileVersion": "1.0.0",
-        "standardsVersion": "1.20.0",
-        "title": "Automatically generated data file",
-        "description": "Test data generated by the CDR Test Data CLI",
-    }
-```
-*Additionally the setting `individualFileOutDir` can be added to the general options. This will create a folder for each data holder and generated a single file for each customer (CustomerWrapper) in the directory specified.
-This may be useful in some situations, especially where larger data sets are to be generated.*
+### Installation
 
-## Data Augmentation
+1. Create a fork of this repository. To do this, click the "Fork" button on the top right corner of this page. 
+2. After forking the repository, clone it to your local machine. You can do this by running the following command in your terminal or command prompt:
+    
+    ```bash
+    git clone https://github.com/your-username/project-name.git
+    ```
+    
+    Replace **`your-username`** with your GitHub username and **`project-name`** with the name of your repository.
+    
+3. Once the repository is cloned, navigate to the project directory by running:
+    
+    ```bash
+    cd project-name
+    ```
+    
+    Replace **`project-name`** with the name of the repository.
+    
 
-The data generation can augment an existing data file. To achieve this the `factories:allDataFactory` has to be defined.
-For instance,a data file with previously generated data may need to be augmented with additional holders (UC5), or a data file with only product exists (unauthenticated) and some customer data needs to be added (UC4), or Client and RegisterRecipient data may exists in a file, but no data holder data.
-The `loadStatic` factory can be used to load a static file.
-The `allDataFactory` implementation will simply use whatever input file is specified as the base dataset.
+### Build
 
-# Examples
+To build the repository and use the library without installing it globally:
 
-The repository contains a number of example options files for each factory in the the `src/factories` folder. Additionally, below are some typical use cases for this cli and the associated options files required to achieve this.
+1. Customise the project as needed for your specific use case.
+2. Install libraries `npm install`
+3. Build `npm run build`
+4. Use npm link `npm link`
 
-For each of these example naviate to the root of this repository
+### Testing
 
-## Use Case 1 (UC1)
+To test your changes:
 
-Generate some energy plan data, which is compliant with the CDR. (unauthenticated data)
+1. Run `npm run test`
 
-`testdata generate ./samples/options/uc1.json ./samples/output/u1-output.json`
+## Contribution** Process
 
-## Use Case 2 (UC2)
+We welcome contributions from the community! If you'd like to contribute to this project, please follow these simple steps:
 
-Generate customers, some of them should residential, some of them business customers.
+1. Create a new branch for your work from the `master` branch:
+    
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
+    
+2. Begin making your changes or contributions.
+3. Follow the instructions in the project repository to run and test your changes locally.
+4. Commit your changes with clear and concise commit messages.
+5. Push your changes to your forked repository.
+6. Open a pull request (PR) using the `master` branch in the [original repository](https://github.com/ConsumerDataStandardsAustralia/testdata-cli) as the destination branch. Include a detailed description of your changes and the problem you are addressing.
+7. Engage in the discussion on your PR and make any necessary adjustments based on feedback from maintainers and other contributors.
+8. Once your PR is approved and all tests pass, it will be merged into the project.
 
-`testdata generate ./samples/options/uc2.json ./samples/output/u2-output.json`
+### Note:
 
-## Use Case 3 (UC3)
-Generate a single residential customer with a single energy account.
-
-`testdata generate ./samples/options/uc3.json ./output/samples/u3-output.json`
-
-## Use Case 4 (UC4)
-Augment an existing holder structure and add some customers.
-
-`testdata generate ./samples/options/uc4.json ./samples/output/u4-output.json`
-
-## Use Case 5 (UC5)
-Augment an existing data file by adding additional holders. Exsiting data rermains as per input file
-
-`testdata generate ./samples/options/uc5.json ./samples/output/u5-output.json`
-
-## Use Case 6 (UC6)
-Create a mix of valid and invalid customer data
-
-`testdata generate ./samples/options/uc6.json ./samples/output/u6-output.json`
+1. Please ensure your contributions align with our project's objectives and [guidelines](https://www.notion.so/Contribution-Guidelines-8b99d030fea946668fbc75444197e68b?pvs=21).
 
 
-# Maintenance
+## Reporting Issues
 
-Enhancement and bug fix pull requests are welcome in accordance with the contribution policy for the repository.
+Encountered an issue? We're here to help. Please visit our ****[issue reporting guidelines](https://www.notion.so/Issue-Reporting-Guidelines-71a329a0658c4b69a232eab95822509b?pvs=21) for submitting an issue.
 
-For additional contribution please ensure that pull requests are fully tested and include updates to documentation.
+## Stay Updated
+
+Join our newsletter to receive the latest updates, release notes, and alerts. [Subscribe here](https://consumerdatastandards.us18.list-manage.com/subscribe?u=fb3bcb1ec5662d9767ab3c414&id=a4414b3906).
+
+## License
+
+The artefact is released under the [MIT License](https://github.com/ConsumerDataRight/mock-register/blob/main/LICENSE), which allows the community to use and modify it freely.
+
+## Disclaimer
+
+The artefacts in this repository are offered without warranty or liability, in accordance with the [MIT licence.](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/LICENSE)
+
+[The Data Standards Body](https://consumerdatastandards.gov.au/about) (DSB) develops these artefacts in the course of its work, in order to perform quality assurance on the Australian Consumer Data Right Standards (Data Standards).
+
+The DSB makes this repository, and its artefacts, public [on a non-commercial basis](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/LICENSE) in the interest of supporting the participants in the CDR ecosystem.
+
+The resources of the DSB are primarily directed towards assisting the [Data Standards Chair](https://consumerdatastandards.gov.au/about/) for [developing the Data Standards](https://github.com/ConsumerDataStandardsAustralia/standards).
+
+Consequently, the development work provided on the artefacts in this repository is on a best-effort basis, and the DSB acknowledges the use of these tools alone is not sufficient for, nor should they be relied upon with respect to [accreditation](https://www.accc.gov.au/focus-areas/consumer-data-right-cdr-0/cdr-draft-accreditation-guidelines), conformance, or compliance purposes.
