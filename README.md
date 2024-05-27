@@ -38,8 +38,8 @@ testdata generate <options-file> <destination-file>
 
 | Argument | Required | Description |
 | --- | --- | --- |
-| <options-file> | mandatory | The options file indicating the factories to execute, in what order and with what options specified. |
-| <destination-file> | optional | The destination file where the generated JSON test data will be saved. The contents will always be JSON consistent with the test data schema. |
+| options-file | mandatory | The options file indicating the factories to execute, in what order and with what options specified. |
+| destination-file | optional | The destination file where the generated JSON test data will be saved. The contents will always be JSON consistent with the test data schema. |
 
 To learn more about the Data Generator and how it works, refer to the **Data Generation Process** section below.
 
@@ -50,9 +50,9 @@ To learn more about the Data Generator and how it works, refer to the **Data Ge
 - **Factory Details**: Run **`testdata factory <factory-id>`** to view detailed information about a specific factory, including the purpose of the factory, the data that it generates or modifies and the options that it consumes.
     
     
-    | Argument | Required | Description |
-    | --- | --- | --- |
-    | <factory-id> | mandatory | The ID of the factory that documentation is requested for |
+| Argument | Required | Description |
+| --- | --- | --- |
+| factory-id | mandatory | The ID of the factory that documentation is requested for |
     
     For example, **`testdata factory create-customers`** will return:
     
@@ -126,7 +126,7 @@ The options file is crucial for directing the data generation process. It detail
 Before you begin, ensure you have the following installed:
 
 - Git, for cloning the repository.
-- [Node.js](https://nodejs.org/en/).
+- [Node.js](https://nodejs.org/en/). (***Note:** This demo project was tested with NodeJS v18.12.1.*)
 - npm (Node Package Manager) - **included with Node.js installation**.
 
 ### Installation
@@ -164,7 +164,7 @@ To test your changes:
 
 1. Run `npm run test`
 
-## Contribution** Process
+## Contribution Process
 
 We welcome contributions from the community! If you'd like to contribute to this project, please follow these simple steps:
 
@@ -182,14 +182,11 @@ We welcome contributions from the community! If you'd like to contribute to this
 7. Engage in the discussion on your PR and make any necessary adjustments based on feedback from maintainers and other contributors.
 8. Once your PR is approved and all tests pass, it will be merged into the project.
 
-### Note:
-
-1. Please ensure your contributions align with our project's objectives and [guidelines](https://www.notion.so/Contribution-Guidelines-8b99d030fea946668fbc75444197e68b?pvs=21).
-
+*Note: Please ensure your contributions align with our project's objectives and [guidelines](https://www.notion.so/Contribution-Guidelines-8b99d030fea946668fbc75444197e68b?pvs=21).*
 
 ## Reporting Issues
 
-Encountered an issue? We're here to help. Please visit our ****[issue reporting guidelines](https://www.notion.so/Issue-Reporting-Guidelines-71a329a0658c4b69a232eab95822509b?pvs=21) for submitting an issue.
+Encountered an issue? We're here to help. Please visit our [issue reporting guidelines]((https://d61cds.notion.site/Issue-Reporting-Guidelines-71a329a0658c4b69a232eab95822509b?pvs=4) for submitting an issue.
 
 ## Stay Updated
 
@@ -197,7 +194,7 @@ Join our newsletter to receive the latest updates, release notes, and alerts. [S
 
 ## License
 
-The artefact is released under the [MIT License](https://github.com/ConsumerDataRight/mock-register/blob/main/LICENSE), which allows the community to use and modify it freely.
+The artefact is released under the [MIT License](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/LICENSE), which allows the community to use and modify it freely.
 
 ## Disclaimer
 
