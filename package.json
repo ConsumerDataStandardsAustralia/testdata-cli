@@ -1,6 +1,6 @@
 {
   "name": "@cds-au/testdata",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Tools for the creation of manufactured test data for the Australian Consumer Data Right regime",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,13 +12,11 @@
     "lint": "tslint -p .",
     "sync-schema": "rm -f ./src/schema/* && cp ../../schema/cdr-test-data-schema.json ./src/schema && node ./utils/create-schema-definitions.js",
     "build": "rm -rf ./dist/ && tsc && chmod +x ./dist/cli.js && cp ./src/schema/* ./dist/schema/",
-    "publish": "npm publish --access public",
-    "test": "node ./dist/cli.js generate samples/options/load-static.json working/full.json"
+    "publish": "npm publish --access public"
   },
   "author": "Data Standards Body",
   "license": "MIT",
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
     "@types/node": "^17.0.26",
     "@types/uuid": "^9.0.0",
     "@types/yargs": "^17.0.8",
@@ -29,6 +27,7 @@
   "dependencies": {
     "@types/consumer-data-standards": "^7.2.0",
     "better-ajv-errors": "^1.1.2",
+    "@faker-js/faker": "^7.6.0",
     "big-json": "^3.2.0",
     "json-schema-to-typescript": "^10.1.5",
     "short-unique-id": "^4.4.4",
