@@ -196,7 +196,39 @@
                                                 "count": 5,
                                                 "calculationType": "FIXED_PERCENTAGE"
                                             }
-                                        }    
+                                        },
+                                        "paymentScheduleFactory": {
+                                            "sequence": [
+                                              {
+                                                "id": "create-energy-payment-schedules",
+                                                "options": {
+                                                    "count": 1,
+                                                    "paymentScheduleUType": "cardDebit"
+                                                }
+                                              },
+                                              {
+                                                "id": "create-energy-payment-schedules",
+                                                "options": {
+                                                    "count": 1,
+                                                    "paymentScheduleUType": "directDebit"
+                                                }
+                                              },
+                                              {
+                                                "id": "create-energy-payment-schedules",
+                                                "options": {
+                                                    "count": 1,
+                                                    "paymentScheduleUType": "digitalWallet"
+                                                }
+                                              },
+                                              {
+                                                "id": "create-energy-payment-schedules",
+                                                "options": {
+                                                    "count": 1,
+                                                    "paymentScheduleUType": "manualPayment"
+                                                }
+                                              }
+                                            ]
+                                      }
                                     }
                                 ],
                                 "servicePoints": [
@@ -223,7 +255,7 @@
                                             }
                                         }
                                     }
-                                ] 
+                                ]
                             },
                             "banking": {
                                 "accounts": [
