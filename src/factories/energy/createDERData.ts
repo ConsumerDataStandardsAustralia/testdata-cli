@@ -81,7 +81,6 @@ Key values randomly allocated:
         let cnt = Helper.generateRandomIntegerInRange(1, 5);
         for (let i = 0; i < cnt; i++) {
             let ac: any = {
-                connectionId: uuidv4(),
                 commissioningDate: Helper.randomTimeInThePast(),
                 connectionIdentifier: Helper.generateRandomIntegerInRange(10, 200),
                 count: 1,
