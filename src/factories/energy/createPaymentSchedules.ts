@@ -12,7 +12,7 @@ export class CreateEnergyPaymentSchedules extends Factory {
         super(options, factoryId);
         this.paymentScheduleUType  = options?.options?.paymentScheduleUType ?  options?.options?.paymentScheduleUType as PaymentScheduleUType : RandomEnergy.PaymentScheduleUType();
         this.cardScheme  = options?.options?.cardScheme ?  options?.options?.cardScheme as CardScheme : RandomEnergy.CardScheme();
-        this.calculationType  = options?.options?.calculationType ?  options?.options?.cardScheme as ScheduleCalculationType : RandomEnergy.ScheduleCalculationType();
+        this.calculationType  = options?.options?.calculationType ?  options?.options?.calculationType as ScheduleCalculationType : RandomEnergy.ScheduleCalculationType();
 
     }
 

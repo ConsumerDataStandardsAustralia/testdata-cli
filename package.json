@@ -25,6 +25,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@types/consumer-data-standards": "^7.2.0",
     "better-ajv-errors": "^1.1.2",
     "@faker-js/faker": "^7.6.0",
