@@ -37,7 +37,8 @@
                                                     "options": {
                                                         
                                                         "fuelType": "ELECTRICITY",
-                                                        "status": "OPEN"
+                                                        "status": "OPEN",
+                                                        "version": 4
                                                     }
                                                 },
                                                 {
@@ -45,7 +46,8 @@
                                                     "options": {
                                                         "count": 5,
                                                         "fuelType": "GAS",
-                                                        "status": "CLOSED"
+                                                        "status": "CLOSED",
+                                                        "version": 4
                                                     }
                                                 }
                                             ]
