@@ -20,7 +20,8 @@
 									"count": 10,
 									"fuelType": "ELECTRICITY",
 									"planType": "MARKET",
-									"customerType": "RESIDENTIAL"
+									"customerType": "RESIDENTIAL",
+									"verion": 3
 								}
 							},
 							{
@@ -29,7 +30,8 @@
 									"count": 10,
 									"fuelType": "GAS",
 									"planType": "STANDING",
-									"customerType": "BUSINESS"
+									"customerType": "BUSINESS",
+									"verion": 3
 								}
 							}
 						]

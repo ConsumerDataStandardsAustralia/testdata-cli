@@ -35,7 +35,7 @@
                                                 {
                                                     "id": "create-energy-account-data",
                                                     "options": {
-                                                        
+                                                        "count": 5,
                                                         "fuelType": "ELECTRICITY",
                                                         "status": "OPEN",
                                                         "version": 4
