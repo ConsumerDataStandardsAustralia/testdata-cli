@@ -388,7 +388,6 @@ function generateSolarFeedInTariffs(cnt: number): EnergyPlanSolarFeedInTariff[] 
                 }
                 tariff.timeVaryingTariffs.timeVariations.push(obj);
             }
-            //tariff.timeVaryingTariffs.timeVariations = timeVariations;
             tariff.timeVaryingTariffs.timeVariations.forEach(variation => {
                 if (Math.random() > 0.5) variation.startTime = Helper.randomDateTimeInThePast();
                 if (Math.random() > 0.5) variation.endTime = Helper.randomDateTimeInTheFuture();
