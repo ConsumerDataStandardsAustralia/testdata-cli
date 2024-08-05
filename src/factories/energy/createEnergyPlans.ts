@@ -53,11 +53,11 @@ Key values randomly allocated:
         if (this.detailVersion == 1) {
             energyPlans = this.energyPlanDetail()
         }
-        if (this.detailVersion == 3) {
-            energyPlans = this.energyPlanDetailV3()
-        }
         if (this.detailVersion == 2) {
             energyPlans = this.energyPlanDetailV2()
+        }
+        if (this.detailVersion == 3) {
+            energyPlans = this.energyPlanDetailV3()
         }
         return energyPlans;   
     }
