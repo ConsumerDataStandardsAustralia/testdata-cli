@@ -21,7 +21,8 @@
                                         "count": 10,
                                         "fuelType": "ELECTRICITY",
                                         "planType": "MARKET",
-                                        "customerType": "RESIDENTIAL"
+                                        "customerType": "RESIDENTIAL",
+                                        "verion": 3
                                     }
                                 },
                                 {
@@ -30,7 +31,8 @@
                                         "count": 10,
                                         "fuelType": "GAS",
                                         "planType": "STANDING",
-                                        "customerType": "BUSINESS"
+                                        "customerType": "BUSINESS",
+                                        "verion": 3
                                     }
                                 }
                             ]
@@ -141,16 +143,19 @@
                                                 {
                                                     "id": "create-energy-account-data",
                                                     "options": {
+                                                        "count": 10,
                                                         "fuelType": "ELECTRICITY",
-                                                        "status": "OPEN"
+                                                        "status": "OPEN",
+                                                        "version": 4
                                                     }
                                                 },
                                                 {
                                                     "id": "create-energy-account-data",
                                                     "options": {
-                                                        "count": 1,
+                                                        "count": 10,
                                                         "fuelType": "GAS",
-                                                        "status": "CLOSED"
+                                                        "status": "CLOSED",
+                                                        "version": 4
                                                     }
                                                 }
                                             ]
