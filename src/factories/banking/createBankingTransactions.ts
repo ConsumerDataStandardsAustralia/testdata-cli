@@ -1,8 +1,8 @@
 
-import { BankingTransactionDetail } from "consumer-data-standards/banking";
+import { BankingTransactionDetailV2 } from "consumer-data-standards/banking";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { BankAccountWrapper } from "../../logic/schema/cdr-test-data-schema";
-import { RandomBanking, TransactionStatus, TransactionType, generateRandomDecimalInRangeFormatted } from "../../random-generators";
+import {  RandomBanking, RandomEnergy, TransactionStatus, TransactionType, generateRandomDecimalInRangeFormatted } from "../../random-generators";
 
 import { randomUUID } from "crypto";
 import { faker } from "@faker-js/faker";
@@ -50,7 +50,7 @@ Key values randomly allocated:
     public generateBankTransactions(account: BankAccountWrapper): any[] | undefined {
         let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;
 
-        let ret: BankingTransactionDetail[] = [];
+        let ret: BankingTransactionDetailV2[] = [];
         for (let i = 0; i < count; i++) {
             const el = this.generateBankTransaction(account);
             if (el) ret.push(el);
@@ -68,7 +68,7 @@ Key values randomly allocated:
         let postingDateTime = Helper.generateRandomDateTimeInRange(valueDateTime, Date());
         
 
-        let transaction: BankingTransactionDetail = {
+        let transaction: BankingTransactionDetailV2 = {
             extendedData: {
                 service: "X2P1.01"  
             },
@@ -80,14 +80,15 @@ Key values randomly allocated:
             status: this.transactionStatus,
             type: this.transactionType
         };
-        if (Math.random() > 0.5) transaction.extendedData.extensionUType = "x2p101Payload";
+        if (Math.random() > 0.5) transaction.extendedData.extensionUType = "nppPayload";
         if (transaction.extendedData?.extensionUType) {
-            transaction.extendedData.x2p101Payload = {
+            transaction.extendedData.nppPayload = {
                 
                 extendedDescription: faker.random.words(6),
                 endToEndId: randomUUID(),
-                // NPP typically uses 4 letter code
-                purposeCode: faker.random.alpha({count: 4, casing: 'upper'})
+                service: RandomEnergy.NppPaymentService(),
+                purposeCode: RandomEnergy.NppPurposeCode(),
+                serviceVersion: "01"
             };
         }
         transaction.transactionId = randomUUID();

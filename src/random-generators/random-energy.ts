@@ -373,6 +373,14 @@ export enum EnergyAccountName {
     COMBINATION_ACCOUNT = "Combination Account",
 }
 
+export enum NppPurposeCode {
+    SALARY = "Business" , INVOICE = "Residential",  GOODS = "Goods", CHARGES="Charges"
+}
+
+export enum NppPaymentService {
+   X2P1 = "X2P1", IFTI = "IFTI", BSCT = "BSCT", CATSCT = "CATSCT" 
+}
+
 export class RandomEnergy {
 
     public static GetRandomValue(enumeration: any) {
@@ -648,4 +656,12 @@ export class RandomEnergy {
     public static EnergyAccountName(): any {
         return this.GetRandomValue(EnergyAccountName);
     }
+
+    public static NppPurposeCode(): any {
+        return this.GetRandomValue(NppPurposeCode);
+    }  
+    
+    public static NppPaymentService(): any {
+        return this.GetRandomValue(NppPaymentService);
+    }        
 }
