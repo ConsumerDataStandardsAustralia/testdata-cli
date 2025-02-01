@@ -144,7 +144,7 @@
                                         "transactionsFactory": {
                                             "sequence": [
                                                 {
-                                                    "id": "create-banking-transactions",
+                                                    "id": "create-banking-transactions-v2",
                                                     "options": {
                                                         "count": 10
                                                     }

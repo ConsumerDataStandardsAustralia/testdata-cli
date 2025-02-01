@@ -1,16 +1,16 @@
 
-import { BankingTransactionDetail } from "consumer-data-standards/banking";
+import { BankingTransactionDetailV2 } from "consumer-data-standards/banking";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { BankAccountWrapper } from "../../logic/schema/cdr-test-data-schema";
-import { RandomBanking, TransactionStatus, TransactionType, generateRandomDecimalInRangeFormatted } from "../../random-generators";
+import {  RandomBanking, RandomEnergy, TransactionStatus, TransactionType, generateRandomDecimalInRangeFormatted } from "../../random-generators";
 
 import { randomUUID } from "crypto";
 import { faker } from "@faker-js/faker";
 import { generateBPAYBillerCode, generateMaskedPAN } from "./utils";
 
-const factoryId: string = "create-banking-transactions";
+const factoryId: string = "create-banking-transactions-v2";
 
-export class CreateBankingTransactions extends Factory {
+export class CreateBankingTransactionsV2 extends Factory {
     
     public static id: string = factoryId;
 
@@ -20,18 +20,18 @@ export class CreateBankingTransactions extends Factory {
     private accountWrapper: BankAccountWrapper | undefined;
 
     public get briefDescription(): string {
-       return  "Create a number of number of banking transactions.";
+       return  "Create a number of number of V2 banking transactions.";
     }
     public get detailedDescription(): string {
         let st = `
-Create a number of number of banking transactions.
+Create a number of number of V2 banking transactions.
 
 This factory will accept the following options
         
     - count:             The number of transactions to be issued for each account. Default is 1
-    - type:              The type of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
+    - type:              The type of transaction to be created. This should be one of the values as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
                          If none specified, the type will be randomly assigned
-    - status:            The status of transaction to be created. This should be one of the values as defined inhttps://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
+    - status:            The status of transaction to be created. This should be one of the values as defined in https://consumerdatastandardsaustralia.github.io/standards/#tocSbankingtransaction
                          If none specified, the status will be POSTED                            
 
 Key values randomly allocated:
@@ -50,7 +50,7 @@ Key values randomly allocated:
     public generateBankTransactions(account: BankAccountWrapper): any[] | undefined {
         let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;
 
-        let ret: BankingTransactionDetail[] = [];
+        let ret: BankingTransactionDetailV2[] = [];
         for (let i = 0; i < count; i++) {
             const el = this.generateBankTransaction(account);
             if (el) ret.push(el);
@@ -68,7 +68,7 @@ Key values randomly allocated:
         let postingDateTime = Helper.generateRandomDateTimeInRange(valueDateTime, Date());
         
 
-        let transaction: BankingTransactionDetail = {
+        let transaction: BankingTransactionDetailV2 = {
             extendedData: {
                 service: "X2P1.01"  
             },
@@ -80,14 +80,15 @@ Key values randomly allocated:
             status: this.transactionStatus,
             type: this.transactionType
         };
-        if (Math.random() > 0.5) transaction.extendedData.extensionUType = "x2p101Payload";
+        if (Math.random() > 0.5) transaction.extendedData.extensionUType = "nppPayload";
         if (transaction.extendedData?.extensionUType) {
-            transaction.extendedData.x2p101Payload = {
+            transaction.extendedData.nppPayload = {
                 
                 extendedDescription: faker.random.words(6),
                 endToEndId: randomUUID(),
-                // NPP typically uses 4 letter code
-                purposeCode: faker.random.alpha({count: 4, casing: 'upper'})
+                service: RandomEnergy.NppPaymentService(),
+                purposeCode: RandomEnergy.NppPurposeCode(),
+                serviceVersion: "01"
             };
         }
         transaction.transactionId = randomUUID();
