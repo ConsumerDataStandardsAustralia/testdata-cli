@@ -69,9 +69,7 @@ Key values randomly allocated:
         
 
         let transaction: BankingTransactionDetailV2 = {
-            extendedData: {
-                service: "X2P1.01"  
-            },
+            extendedData: {},
             accountId: account.account.accountId,
             amount: this.generateTransactionAmount(this.transactionType),
             description: faker.finance.transactionDescription(),
