@@ -73,6 +73,9 @@ factories[CreateBankingAccounts.id] = (options: any): Factory => { return new Cr
 import { CreateBankingTransactions} from './banking/createBankingTransactions';
 factories[CreateBankingTransactions.id] = (options: any): Factory => { return new CreateBankingTransactions(options)}
 
+import { CreateBankingTransactionsV2} from './banking/createBankingTransactionsV2';
+factories[CreateBankingTransactionsV2.id] = (options: any): Factory => { return new CreateBankingTransactionsV2(options)}
+
 import { CreateDirectDebits} from './banking/createBankingDirectDebits';
 factories[CreateDirectDebits.id] = (options: any): Factory => { return new CreateDirectDebits(options)}
 

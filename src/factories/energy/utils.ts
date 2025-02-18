@@ -173,7 +173,7 @@ function generatePlanTariffPeriod(pricingModel: PricingModel, planTariffCnt: num
             startDate: Helper.randomDateTimeInThePast()
         }
 
-        if (Math.random() > 0.5) planTariffPeriod.dailySupplyCharges = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
+        if (Math.random() > 0.5) planTariffPeriod.dailySupplyCharge = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
         if (Math.random() > 0.5) planTariffPeriod.timeZone = RandomEnergy.TariffPeriodTimezone();
 
         if (planTariffPeriod.rateBlockUType == RateBlockUTypeForTariff.singleRate) {
