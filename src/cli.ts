@@ -14,7 +14,7 @@ const argv = yargs
     f: 'factory',
     fs: 'factories',
     g: 'generate',
-    s: 'schema',
-    vd: 'validate'
+    s: 'schema'
+    // vd: 'validate', TODO: This needs to be implemented
   })
   .argv;
