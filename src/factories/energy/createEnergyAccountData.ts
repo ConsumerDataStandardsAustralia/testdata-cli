@@ -1,10 +1,10 @@
-import { EnergyAccountDetailV2, EnergyAccountDetailV3, EnergyAccountDetailV4} from 'consumer-data-standards/energy';
-import { CustomerWrapper, EnergyAccountWrapper } from '../../logic/schema/cdr-test-data-schema';
+import { EnergyAccountDetailV3, EnergyAccountDetailV4} from 'consumer-data-standards/energy';
+import { CustomerWrapper, EnergyAccountWrapper } from '../../schema/cdr-test-data-schema';
 import { EnergyOpenStatus,FuelType, PricingModel, RandomEnergy } from '../../random-generators';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { v4 as uuidv4 } from 'uuid';
 import { faker } from '@faker-js/faker';
-import { generateContract, generateContractV2, generateContractV3, generatePlanDetails, generatePlanOverview } from './utils';
+import { generateContractV3, generatePlanDetails, generatePlanOverview } from './utils';
 
 const factoryId: string = "create-energy-account-data";
 
@@ -53,9 +53,9 @@ Key values randomly allocated:
         if (this.detailVersion == 3) {
             energyAccount = this.energyAccountDetailV3(customer)
         }
-        if (this.detailVersion == 2) {
-            energyAccount = this.energyAccountDetailV2(customer)
-        }
+        // if (this.detailVersion == 2) {
+        //     energyAccount = this.energyAccountDetailV2(customer)
+        // }
         let result: EnergyAccountWrapper = {
             account: energyAccount,
             balance: Helper.generateRandomDecimalInRange(-500, 5000)
@@ -194,18 +194,18 @@ Key values randomly allocated:
                 }
                 let planDetails = generatePlanDetails(planFuelType);
                 if (planFuelType== FuelType.GAS) {
-                    let gasContract = generateContractV2(PricingModel.SINGLE_RATE);
+                    let gasContract = generateContractV3(PricingModel.SINGLE_RATE);
                     planDetails.gasContract = gasContract;
                 }
                 if (planFuelType == FuelType.ELECTRICITY) {
-                    let electricityContract = generateContractV2(RandomEnergy.PricingModel());
+                    let electricityContract = generateContractV3(RandomEnergy.PricingModel());
                     planDetails.electricityContract = electricityContract;
                     plan.servicePointIds = this.getServicePointsForAccount();
                 }
                 if (planFuelType == FuelType.DUAL) {
-                    let gasContract = generateContractV2(PricingModel.SINGLE_RATE);
+                    let gasContract = generateContractV3(PricingModel.SINGLE_RATE);
                     planDetails.gasContract = gasContract;
-                    let electricityContract = generateContractV2(RandomEnergy.PricingModel());
+                    let electricityContract = generateContractV3(RandomEnergy.PricingModel());
                     planDetails.electricityContract = electricityContract;
                     plan.servicePointIds = this.getServicePointsForAccount();
                 }
@@ -220,65 +220,65 @@ Key values randomly allocated:
         return energyAccount;
     }
 
-    private energyAccountDetailV2(customer: CustomerWrapper): EnergyAccountDetailV2{
-        let energyAccount: EnergyAccountDetailV2 = {
-            creationDate: Helper.randomDateTimeInThePast(),
-            plans: [],
-            accountId: uuidv4()
-        };
-        let displayName = Helper.randomBoolean(null) ? RandomEnergy.EnergyAccountName() : null;
-        // 80% probability that an account number exists
-        let accountNumber = Helper.randomBoolean(0.8) ? this.generateRandomEnergyAccountNumber() : null;
-        // create a number of plan object, up to 10
-        let planCount = Math.ceil(Math.random() * 3);
-        let status = this.accountStatus;
+    // private energyAccountDetailV2(customer: CustomerWrapper): EnergyAccountDetailV2{
+    //     let energyAccount: EnergyAccountDetailV2 = {
+    //         creationDate: Helper.randomDateTimeInThePast(),
+    //         plans: [],
+    //         accountId: uuidv4()
+    //     };
+    //     let displayName = Helper.randomBoolean(null) ? RandomEnergy.EnergyAccountName() : null;
+    //     // 80% probability that an account number exists
+    //     let accountNumber = Helper.randomBoolean(0.8) ? this.generateRandomEnergyAccountNumber() : null;
+    //     // create a number of plan object, up to 10
+    //     let planCount = Math.ceil(Math.random() * 3);
+    //     let status = this.accountStatus;
 
-        if (status) energyAccount.openStatus = status;
-        if (displayName) energyAccount.displayName = displayName;
-        if (accountNumber) energyAccount.accountNumber = accountNumber;
-        if (energyAccount?.openStatus == EnergyOpenStatus.OPEN || Math.random() > 0.5) energyAccount.creationDate = Helper.randomDateTimeInThePast();
-        for (let cnt = 0; cnt < planCount; cnt++) {
-            let plan: any = {};
-            let nickname = Helper.randomBoolean(null) ? "nickname" : null;
-            if (nickname) plan.nickname = nickname;
-            plan.servicePointIds = [];
-            if (energyAccount?.openStatus == EnergyOpenStatus.OPEN) {
-                // create a plan overview object
-                let planOverview = generatePlanOverview();
-                plan.planOverview = planOverview;
-            }
-            if (energyAccount?.openStatus == EnergyOpenStatus.OPEN || energyAccount?.openStatus == undefined || Math.random() > 0.5) {
-                var planFuelType : FuelType = RandomEnergy.FuelType();
-                if (this.fuelType != FuelType.DUAL) {
-                    planFuelType = this.fuelType;
-                }
-                let planDetails = generatePlanDetails(planFuelType);
-                if (planFuelType== FuelType.GAS) {
-                    let gasContract = generateContract(PricingModel.SINGLE_RATE);
-                    planDetails.gasContract = gasContract;
-                }
-                if (planFuelType == FuelType.ELECTRICITY) {
-                    let electricityContract = generateContract(RandomEnergy.PricingModel());
-                    planDetails.electricityContract = electricityContract;
-                    plan.servicePointIds = this.getServicePointsForAccount();
-                }
-                if (planFuelType == FuelType.DUAL) {
-                    let gasContract = generateContract(PricingModel.SINGLE_RATE);
-                    planDetails.gasContract = gasContract;
-                    let electricityContract = generateContract(RandomEnergy.PricingModel());
-                    planDetails.electricityContract = electricityContract;
-                    plan.servicePointIds = this.getServicePointsForAccount();
-                }
-                plan.planDetail = planDetails;
-            }
-            if (Math.random() > 0.5) {
-                let contactCount: number = Math.ceil(Math.random() * 3);
-                plan.authorisedContacts = this.generateAuthorisedContacts(contactCount);
-            }
-            energyAccount.plans.push(plan);
-        }
-        return energyAccount;
-    }
+    //     if (status) energyAccount.openStatus = status;
+    //     if (displayName) energyAccount.displayName = displayName;
+    //     if (accountNumber) energyAccount.accountNumber = accountNumber;
+    //     if (energyAccount?.openStatus == EnergyOpenStatus.OPEN || Math.random() > 0.5) energyAccount.creationDate = Helper.randomDateTimeInThePast();
+    //     for (let cnt = 0; cnt < planCount; cnt++) {
+    //         let plan: any = {};
+    //         let nickname = Helper.randomBoolean(null) ? "nickname" : null;
+    //         if (nickname) plan.nickname = nickname;
+    //         plan.servicePointIds = [];
+    //         if (energyAccount?.openStatus == EnergyOpenStatus.OPEN) {
+    //             // create a plan overview object
+    //             let planOverview = generatePlanOverview();
+    //             plan.planOverview = planOverview;
+    //         }
+    //         if (energyAccount?.openStatus == EnergyOpenStatus.OPEN || energyAccount?.openStatus == undefined || Math.random() > 0.5) {
+    //             var planFuelType : FuelType = RandomEnergy.FuelType();
+    //             if (this.fuelType != FuelType.DUAL) {
+    //                 planFuelType = this.fuelType;
+    //             }
+    //             let planDetails = generatePlanDetails(planFuelType);
+    //             if (planFuelType== FuelType.GAS) {
+    //                 let gasContract = generateContract(PricingModel.SINGLE_RATE);
+    //                 planDetails.gasContract = gasContract;
+    //             }
+    //             if (planFuelType == FuelType.ELECTRICITY) {
+    //                 let electricityContract = generateContract(RandomEnergy.PricingModel());
+    //                 planDetails.electricityContract = electricityContract;
+    //                 plan.servicePointIds = this.getServicePointsForAccount();
+    //             }
+    //             if (planFuelType == FuelType.DUAL) {
+    //                 let gasContract = generateContract(PricingModel.SINGLE_RATE);
+    //                 planDetails.gasContract = gasContract;
+    //                 let electricityContract = generateContract(RandomEnergy.PricingModel());
+    //                 planDetails.electricityContract = electricityContract;
+    //                 plan.servicePointIds = this.getServicePointsForAccount();
+    //             }
+    //             plan.planDetail = planDetails;
+    //         }
+    //         if (Math.random() > 0.5) {
+    //             let contactCount: number = Math.ceil(Math.random() * 3);
+    //             plan.authorisedContacts = this.generateAuthorisedContacts(contactCount);
+    //         }
+    //         energyAccount.plans.push(plan);
+    //     }
+    //     return energyAccount;
+    // }
 }
 
 

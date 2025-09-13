@@ -1,7 +1,7 @@
-import { BankAccountWrapper, HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
-import { ContraintType, DepositRateType, EligibilityType, FeatureType, FeeType, LendingRateType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
+import { BankAccountWrapper, HolderWrapper } from '../../schema/cdr-test-data-schema';
+import { ContraintType, DepositRateType, EligibilityType, FeatureType, FeeType, FeeTypeV2, LendingRateType, ProductCategory, RandomBanking } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
-import { BankingAuthorisedEntity, BankingDirectDebit, BankingProductCategory } from 'consumer-data-standards/banking';
+import { BankingAuthorisedEntity, BankingDirectDebit, BankingProductCategoryV2 } from 'consumer-data-standards/banking';
 import { faker } from "@faker-js/faker";
 import { generateABN, generateACN } from './utils';
 
@@ -50,7 +50,7 @@ Key values randomly allocated:
   
     private generatePayee(accounts: BankAccountWrapper[]): BankingDirectDebit {
         let account: BankAccountWrapper = faker.helpers.arrayElement(accounts);
-        let entity: BankingAuthorisedEntity = this.createAuthorisedEntity(account?.account.productCategory as BankingProductCategory);
+        let entity: BankingAuthorisedEntity = this.createAuthorisedEntity(account?.account.productCategory as BankingProductCategoryV2);
         
         let randomAccountId = account?.account.accountId
         let ret: BankingDirectDebit = {
@@ -63,7 +63,7 @@ Key values randomly allocated:
     }
 
 
-  private createAuthorisedEntity(category: BankingProductCategory): BankingAuthorisedEntity {
+  private createAuthorisedEntity(category: BankingProductCategoryV2): BankingAuthorisedEntity {
     // select a random bank as an institution
      let institution = RandomBanking.SelectBaseBrandInfo();
      // financial institution is required is NOT credit card

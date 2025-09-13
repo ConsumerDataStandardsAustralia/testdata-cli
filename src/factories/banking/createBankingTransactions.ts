@@ -1,7 +1,7 @@
 
 import { BankingTransactionDetail } from "consumer-data-standards/banking";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
-import { BankAccountWrapper } from "../../logic/schema/cdr-test-data-schema";
+import { BankAccountWrapper } from "../../schema/cdr-test-data-schema";
 import { RandomBanking, TransactionStatus, TransactionType, generateRandomDecimalInRangeFormatted } from "../../random-generators";
 
 import { randomUUID } from "crypto";

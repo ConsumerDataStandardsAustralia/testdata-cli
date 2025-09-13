@@ -45,89 +45,98 @@
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "CRED_AND_CHRG_CARDS"
+                                        "productCategory": "CRED_AND_CHRG_CARDS",
+                                        "productVersion": 6
                                     }
                                 },
                                 {
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "BUSINESS_LOANS"
+                                        "productCategory": "BUSINESS_LOANS",
+                                        "productVersion": 6
                                     }
                                 },
                                 {
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "TERM_DEPOSITS"
+                                        "productCategory": "TERM_DEPOSITS",
+                                        "productVersion": 6
                                     }
                                 },
                                 {
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "TRANS_AND_SAVINGS_ACCOUNTS"
+                                        "productCategory": "TRANS_AND_SAVINGS_ACCOUNTS",
+                                        "productVersion": 6
                                     }
                                 } ,
                                 {
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "MARGIN_LOANS"
+                                        "productCategory": "MARGIN_LOANS",
+                                        "productVersion": 6
                                     }
                                 },
                                 {
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "OVERDRAFTS"
+                                        "productCategory": "OVERDRAFTS",
+                                        "productVersion": 6
                                     }
                                 },
                                 {
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "PERS_LOANS"
+                                        "productCategory": "PERS_LOANS",
+                                        "productVersion": 6
                                     }
                                 },
                                 {
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "REGULATED_TRUST_ACCOUNTS"
+                                        "productCategory": "REGULATED_TRUST_ACCOUNTS",
+                                        "productVersion": 6
                                     }
                                 },
                                 {
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "RESIDENTIAL_MORTGAGES"
+                                        "productCategory": "RESIDENTIAL_MORTGAGES",
+                                        "productVersion": 6
                                     }
                                 },
                                 {
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "TRADE_FINANCE"
+                                        "productCategory": "TRADE_FINANCE",
+                                        "productVersion": 6
                                     }
                                 },
                                 {
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
-                                        "productCategory": "TRAVEL_CARDS"
+                                        "productCategory": "TRAVEL_CARDS",
+                                        "productVersion": 6
                                     }
                                 }                                                     
                             ]
-                        } 
-    
-    
+                        }  
                     }
                 },
                 "authenticated": {
                     "customers": [
                         {
-                            "count": 2,
+                            "count": 1,
                             "customerFactory": {
                                 "id": "create-customers",
                                 "options": {
@@ -267,7 +276,8 @@
                                     {
                                         "count": 10,
                                         "accountFactory": {
-                                            "id": "create-banking-accounts"
+                                            "id": "create-banking-accounts",
+                                            "version": 4
                                         },
                                         "transactionsFactory": {
                                             "sequence": [
@@ -379,6 +389,260 @@
                                 }
                             }
                         },
+                        {
+                            "count": 1,
+                            "customerFactory": {
+                                "id": "create-customers",
+                                "options": {
+                                    "type": "person"
+                                }
+                            },
+                            "energy": {
+                                "accounts": [
+                                    {
+                                        "count": 1,
+                                        "accountFactory": {
+                                            "sequence": [
+                                                {
+                                                    "id": "create-energy-account-data",
+                                                    "options": {
+                                                        "count": 10,
+                                                        "fuelType": "ELECTRICITY",
+                                                        "status": "OPEN",
+                                                        "version": 4
+                                                    }
+                                                },
+                                                {
+                                                    "id": "create-energy-account-data",
+                                                    "options": {
+                                                        "count": 10,
+                                                        "fuelType": "GAS",
+                                                        "status": "CLOSED",
+                                                        "version": 4
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "invoicesFactory": {
+                                            "id": "create-energy-invoice-data",
+                                            "options": {
+                                                "count": 5,
+                                                "minInvoiceAmount": 10,
+                                                "maxInvoiceAmount": 10000
+                                            }
+                                        },
+                                        "transactionsFactory" : {
+                                            "count": 100,
+                                            "weighted": [
+                                                {   
+                                                    "weighting": 50,
+                                                    "factory": {
+                                                        "id": "create-energy-transactions-v3",
+                                                        "options": {
+                                                            "transactionUType": "usage"
+                                                      }
+                                                    }
+
+                                                },
+                                                {
+                                                      "weighting": 50,
+                                                      "factory": {
+                                                        "id": "create-energy-transactions-v3",
+                                                        "options": {
+                                                            "transactionUType": "demand"
+                                                        }
+                                                      }
+                                                  }
+                                              ]
+                                        },
+                                        "balanceFactory" : {
+                                            "id": "create-energy-transactions-v3"
+                                        },
+                                        "concessionsFactory": {
+                                            "id": "create-energy-concessions",
+                                            "options": {
+                                                "count": 5,
+                                                "calculationType": "FIXED_PERCENTAGE"
+                                            }
+                                        },
+                                        "paymentScheduleFactory": {
+                                            "sequence": [
+                                              {
+                                                "id": "create-energy-payment-schedules",
+                                                "options": {
+                                                    "count": 1,
+                                                    "paymentScheduleUType": "cardDebit"
+                                                }
+                                              },
+                                              {
+                                                "id": "create-energy-payment-schedules",
+                                                "options": {
+                                                    "count": 1,
+                                                    "paymentScheduleUType": "directDebit"
+                                                }
+                                              },
+                                              {
+                                                "id": "create-energy-payment-schedules",
+                                                "options": {
+                                                    "count": 1,
+                                                    "paymentScheduleUType": "digitalWallet"
+                                                }
+                                              },
+                                              {
+                                                "id": "create-energy-payment-schedules",
+                                                "options": {
+                                                    "count": 1,
+                                                    "paymentScheduleUType": "manualPayment"
+                                                }
+                                              }
+                                            ]
+                                      }
+                                    }
+                                ],
+                                "servicePoints": [
+                                    {
+                                        "count": 10,    
+                                        "servicePointFactory": {
+                                            "id": "create-energy-service-points",
+                                            "options": {
+                                                    "customerType": "organisation",
+                                                    "consumerProfile": "BUSINESS",
+                                                    "numberOfMeters": 2,
+                                                    "servicePointStatus": "ACTIVE"
+                                                }
+                                            },
+                                        "derFactory": {
+                                            "id": "create-der-data"
+                                        },
+                                        "usageFactory": {
+                                            "id": "create-energy-usage",
+                                            "options": {
+                                                "count": 30,
+                                                "readUType": "intervalRead",
+                                                "intervalReadCount": 10
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "banking": {
+                                "accounts": [
+                                    {
+                                        "count": 10,
+                                        "accountFactory": {
+                                            "id": "create-banking-accounts",
+                                            "version": 5
+                                        },
+                                        "transactionsFactory": {
+                                            "sequence": [
+                                                {
+                                                    "id": "create-banking-transactions-v2",
+                                                    "options": {
+                                                        "count": 10
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "balanceFactory": {
+                                            "id": "create-banking-balances"
+                                        }
+          
+                                    }
+                                ],
+                                "payeesFactory": {
+                                    "sequence": [
+                                        {
+                                            "id": "create-banking-payees",
+                                            "options": {
+                                                "count": 2,
+                                                "type": "DIGITAL_WALLET"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payees",
+                                            "options": {
+                                                "count": 2,
+                                                "type": "DOMESTIC"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payees",
+                                            "options": {
+                                                "count": 2,
+                                                "type": "BILLER"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payees",
+                                            "options": {
+                                                "count": 2,
+                                                "type": "INTERNATIONAL"
+                                            }
+                                        }                                                                                
+                                    ]
+                                },
+                                "scheduledPaymentsFactory": {
+                                    "sequence": [
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "ACTIVE",
+                                                "recurrence": "eventBased"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "ACTIVE",
+                                                "recurrence": "intervalSchedule"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "ACTIVE",
+                                                "recurrence": "lastWeekDay"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "ACTIVE",
+                                                "recurrence": "onceOff"
+                                            }
+                                        },                                                                                                                        
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "INACTIVE"
+                                            }
+                                        },
+                                        {
+                                            "id": "create-banking-payments",
+                                            "options": {
+                                                "count": 2,
+                                                "status": "SKIP"
+                                            }
+                                        }                                                                              
+                                    ]
+                                },
+                                "directDebitsFactory": {
+                                    "sequence": [
+                                        {
+                                            "id": "create-banking-direct-debits",
+                                            "options": {
+                                                "count": 2
+                                            }
+                                        }                                                                            
+                                    ]
+                                }
+                            }
+                        },                        
                         {
                             "count": 1,
                             "customerFactory": {

@@ -19,6 +19,7 @@
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
+                                        "productVersion": 6,
                                         "productCategory": "CRED_AND_CHRG_CARDS"
                                     }
                                 },
@@ -26,6 +27,7 @@
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
+                                        "productVersion": 5,
                                         "productCategory": "BUSINESS_LOANS"
                                     }
                                 },
@@ -33,6 +35,7 @@
                                     "id": "create-products",
                                     "options": {
                                         "count": 5,
+                                        "productVersion": 7,
                                         "productCategory": "TERM_DEPOSITS"
                                     }
                                 },
@@ -139,7 +142,8 @@
                                     {
                                         "count": 10,
                                         "accountFactory": {
-                                            "id": "create-banking-accounts"
+                                            "id": "create-banking-accounts",
+                                            "version": 4
                                         },
                                         "transactionsFactory": {
                                             "sequence": [

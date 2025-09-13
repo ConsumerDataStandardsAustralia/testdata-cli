@@ -1,10 +1,10 @@
-import { EnergyPlan, EnergyPlanContractFullV2, EnergyPlanDetail, EnergyPlanDetailV2, EnergyPlanDetailV3} from "consumer-data-standards/energy";
+import { EnergyPlan, EnergyPlanContractFullV2, EnergyPlanDetailV2, EnergyPlanDetailV3} from "consumer-data-standards/energy";
 import { CustomerType, FuelType, PlanTermType, PlanType, PricingModel, RandomEnergy } from "../../random-generators";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { randomUUID } from "crypto";
 import { faker } from "@faker-js/faker";
-import { generateContract, generateContractV2, generateContractV3 } from "./utils";
-import { Customer } from "../../logic/schema/cdr-test-data-schema";
+import { generateContractV3 } from "./utils";
+import { Customer } from "../../schema/cdr-test-data-schema";
 import { generatISODuration } from "../banking/utils";
 
 const factoryId: string = "create-energy-plan-data";
@@ -47,12 +47,9 @@ Key values randomly allocated:
     public canCreateEnergyPlans(): boolean {return true}
 
 
-    public generateEnergyPlans(): EnergyPlanDetail[] | EnergyPlanDetailV2[] | EnergyPlanDetailV3[] | undefined  {
+    public generateEnergyPlans(): EnergyPlanDetailV2[] | EnergyPlanDetailV3[] | undefined  {
 
         var energyPlans: any;
-        if (this.detailVersion == 1) {
-            energyPlans = this.energyPlanDetail()
-        }
         if (this.detailVersion == 2) {
             energyPlans = this.energyPlanDetailV2()
         }
@@ -64,13 +61,14 @@ Key values randomly allocated:
 
     private generateGasContract(): any {
         let gasContract: any = {};
-        if (this.detailVersion == 1) {
-            gasContract = generateContract(PricingModel.SINGLE_RATE);
-        } else if (this.detailVersion == 2) {
-            gasContract = generateContractV2(PricingModel.SINGLE_RATE);
-        } else {
-            gasContract = generateContractV3(PricingModel.SINGLE_RATE);
-        }
+        // if (this.detailVersion == 1) {
+        //     gasContract = generateContract(PricingModel.SINGLE_RATE);
+        // } else if (this.detailVersion == 2) {
+        //     gasContract = generateContractV2(PricingModel.SINGLE_RATE);
+        // } else {
+        //     gasContract = generateContractV3(PricingModel.SINGLE_RATE);
+        // }
+        gasContract = generateContractV3(PricingModel.SINGLE_RATE);
         gasContract.termType = RandomEnergy.PlanTermType();
         if (this.planType == PlanType.MARKET) gasContract.coolingOffDays = Helper.generateRandomIntegerInRange(7,35);
         if (gasContract.termType == PlanTermType.ONGOING) gasContract.benefitPeriod = "Description for the benefit period";
@@ -82,69 +80,20 @@ Key values randomly allocated:
     private generateElectricitContract(): any {
         let pricingModel = RandomEnergy.PricingModel();
         let electricityContract: any = {};
-        if (this.detailVersion == 1) {
-            electricityContract = generateContract(pricingModel);
-        } else if (this.detailVersion == 2) {
-            electricityContract = generateContractV2(pricingModel);
-        } else {
-            electricityContract = generateContractV3(pricingModel);
-        }
+        // if (this.detailVersion == 1) {
+        //     electricityContract = generateContract(pricingModel);
+        // } else if (this.detailVersion == 2) {
+        //     electricityContract = generateContractV2(pricingModel);
+        // } else {
+        //     electricityContract = generateContractV3(pricingModel);
+        // }
+        electricityContract = generateContractV3(pricingModel);
         electricityContract.termType = RandomEnergy.PlanTermType();
         if (this.planType == PlanType.MARKET) electricityContract.coolingOffDays = Helper.generateRandomIntegerInRange(7,35);
         if (electricityContract.termType == PlanTermType.ONGOING) electricityContract.benefitPeriod = "Description for the benefit period";
         if (Math.random() > 0.25) electricityContract.terms = "Free text description of the terms for the contract";
         electricityContract.billFrequency = [generatISODuration()];
         return electricityContract;
-    }
-
-    private energyPlanDetail(): EnergyPlanDetail[] {
-        let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;
-        let ret: EnergyPlanDetail[] = [];
-        for (let i = 0; i < count; i++) {
-            const plan: EnergyPlanDetail = {
-                brand:  RandomEnergy.Brand(),
-                brandName: RandomEnergy.Brand(),
-                fuelType: this.fuelType,
-                lastUpdated: Helper.randomTimeInThePast(),
-                planId: randomUUID(),
-                type: this.planType
-            };
-            plan.effectiveFrom = Helper.randomDateTimeInTheFuture();
-            plan.effectiveTo= Helper.randomDateTimeAfterDateString(plan.effectiveFrom);
-            plan.displayName = `Energy Plan ${i}`;
-            plan.description = "Energy plan optional description";
-            plan.applicationUri = faker.internet.url();
-            plan.customerType = this.customerType;
-            let additionalInfo : any = {};
-            if (Math.random() > 0.5) additionalInfo.overviewUri = faker.internet.url();
-            if (Math.random() > 0.5) additionalInfo.termsUri = faker.internet.url();
-            if (Math.random() > 0.5) additionalInfo.eligibilityUri = faker.internet.url();
-            if (Math.random() > 0.5) additionalInfo.pricingUri = faker.internet.url();
-            if (Math.random() > 0.5) additionalInfo.bundleUri = faker.internet.url();
-            if (Math.random() > 0.5) plan.additionalInformation = additionalInfo;
-
-            let geography: any = {};
-            if (Math.random() > 0.25) geography.excludedPostcodes = ["6023", "2000"];
-            if (Math.random() > 0.25) geography.includedPostcodes = ["3000-3999"];
-            geography.distributors = [faker.company.name(), faker.company.name()];
-            if (Math.random() > 0.25) plan.geography = geography;
-            let includeCharges = Helper.randomBoolean(0.95);
-            if (includeCharges) {
-                let meteringCharges: any = [];
-                let charge: any = {};
-                charge.displayName = 'Metering Display Name';
-                charge.description = 'Optional description for metering charges';
-                charge.minimumValue = Math.ceil(Math.random() * 100).toString();
-                charge.maximumValue = '999999';
-                charge.period = 'P3Y6M4DT12H30M5S';        
-                meteringCharges.push(charge);
-                plan.meteringCharges = meteringCharges;
-            }
-            if (this.fuelType == FuelType.GAS || this.fuelType == FuelType.DUAL) plan.gasContract = this.generateGasContract();
-            if (this.fuelType == FuelType.ELECTRICITY || this.fuelType == FuelType.DUAL) plan.electricityContract = this.generateElectricitContract();
-            ret.push(plan);
-        }
-        return ret;  
     }
 
     private energyPlanDetailV2(): EnergyPlanDetailV2[] {
@@ -196,7 +145,6 @@ Key values randomly allocated:
         }
         return ret;  
     }
-
 
     private energyPlanDetailV3(): EnergyPlanDetailV3[] {
         let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;

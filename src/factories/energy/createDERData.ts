@@ -1,7 +1,7 @@
 import { EnergyDerRecord, EnergyPlan } from 'consumer-data-standards/energy';
 import { RandomEnergy } from '../../random-generators';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
-import { EnergyServicePointWrapper } from '../../logic/schema/cdr-test-data-schema';
+import { EnergyServicePointWrapper } from '../../schema/cdr-test-data-schema';
 import { AcEquipmentType, DerDeviceType } from '../../random-generators';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -53,7 +53,7 @@ Key values randomly allocated:
             availablePhasesCount: availablePhases,
             installedPhasesCount: installedPhases,
             islandableInstallation: false,
-            servicePointId: servicePoint.servicePoint.servicePointId
+            servicePointId: servicePoint?.servicePoint?.servicePointId as string
         }
 
         if (Math.random() > 0.25) der.hasCentralProtectionControl = this.hasCentralProtectionControl;

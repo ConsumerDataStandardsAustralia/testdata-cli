@@ -384,15 +384,26 @@ export enum ContraintType {
 }
 
 export enum FeeType {
-    DEPOSIT =  "DEPOSIT"
+    DEPOSIT = "DEPOSIT", EVENT = "EVENT", EXIT = "EXIT", PAYMENT = "PAYMENT", PERIODIC = "PERIODIC", PURCHASE = "PURCHASE",
+    TRANSACTION = "TRANSACTION", UPFRONT = "UPFRONT", VARIABLE = "VARIABLE", WITHDRAWAL ="WITHDRAWAL"
+}
+
+export enum FeeTypeV2 {
+    CASH_ADVANCE =  "CASH_ADVANCE"
+    , DEPOSIT = "DEPOSIT"
+    , DISHONOUR = "DISHONOUR"
+    , ENQUIRY = "ENQUIRY"
     , EVENT = "EVENT"
     , EXIT = "EXIT"
+    , LATE_PAYMENT = "LATE_PAYMENT"
+    , OTHER = "OTHER"
     , PAYMENT = "PAYMENT"
     , PERIODIC = "PERIODIC"
     , PURCHASE = "PURCHASE"
     , TRANSACTION = "TRANSACTION"
     , UPFRONT = "UPFRONT"
-    , VARIABLE = "VARIABLE"
+    , UPFRONT_PER_PLAN = "UPFRONT_PER_PLAN"
+    , VARIATION = "VARIATION"
     , WITHDRAWAL = "WITHDRAWAL"
 }
 
@@ -401,7 +412,8 @@ export enum DepositRateType {
 }
 
 export enum LendingRateType {
-    BUNDLE_DISCOUNT_FIXED = "BUNDLE_DISCOUNT_FIXED"
+    BALANCE_TRANSFER = "BALANCE_TRANSFER"
+    , BUNDLE_DISCOUNT_FIXED = "BUNDLE_DISCOUNT_FIXED"
     , BUNDLE_DISCOUNT_VARIABLE ="BUNDLE_DISCOUNT_VARIABLE"
     , CASH_ADVANCE ="CASH_ADVANCE"
     , DISCOUNT ="DISCOUNT"
@@ -415,7 +427,19 @@ export enum LendingRateType {
 }
 
 export enum RepaymentType {
-    "INTEREST_ONLY" , "PRINCIPAL_AND_INTEREST",  null
+    "INTEREST_ONLY" , "PRINCIPAL_AND_INTEREST",  "OTHER", "UNCONSTRAINED"
+}
+
+export enum InterestPaymentDueType {
+    "IN_ADVANCE" , "IN_ARREARS",  null
+}
+
+export enum BankingProductCardScheme {
+    AMEX = "AMEX", EFTPOS = "EFTPOS", MASTERCARD = "MASTERCARD", VISA = "VISA", OTHER = "OTHER"
+}
+
+export enum BankingProductCardType {
+    CHARGE = "CHARGE", CREDIT = "CREDIT", DEBIT = "DEBIT"
 }
 
 export enum TransactionType {
@@ -430,11 +454,17 @@ export enum TransactionType {
 }
 
 export enum LoanPurpose {
-    "INVESTMENT" , "OWNER_OCCUPIED",  null
+    "INVESTMENT" , "OWNER_OCCUPIED", "UNCONSTRAINED"
 }
 
 export enum DiscountType {
     BALANCE =  "BALANCE" , DEPOSITS = "DEPOSITS" , ELIGIBILITY_ONLY = "ELIGIBILITY_ONLY" , FEE_CAP = "FEE_CAP" , PAYMENTS = "PAYMENTS"
+}
+
+export enum RateApplicationType {
+    MIN_DEPOSITS = "MIN_DEPOSITS", MIN_DEPOSIT_AMOUNT = "MIN_DEPOSIT_AMOUNT", DEPOSIT_BALANCE_INCREASED = "DEPOSIT_BALANCE_INCREASED", EXISTING_CUST = "EXISTING_CUST",
+    NEW_ACCOUNTS = "NEW_ACCOUNTS", NEW_CUSTOMER = "NEW_CUSTOMER", NEW_CUSTOMER_TO_GROUP = "NEW_CUSTOMER_TO_GROUP", ONLINE_ONLY = "ONLINE_ONLY", "OTHER" = "OTHER",
+    MIN_PURCHASES = "MIN_PURCHASES", MAX_WITHDRAWALS = "MAX_WITHDRAWALS", MAX_WITHDRAWAL_AMOUNT = "MAX_WITHDRAWAL_AMOUNT"
 }
 
 export enum DiscountEligibilityType {
@@ -463,6 +493,18 @@ export enum AccountOwnership {
 
 export enum Currency {
     AUD = "AUD", GBP = "GBP", USD = "USD"
+}
+
+export enum DiscountMethodUType {
+    fixedAmount = "fixedAmount", rateBased = "rateBased"
+}
+
+export enum ProductApplicationType {
+    "MATURITY", "PERIODIC", "UPFRONT"
+}
+
+export enum FeeMethodUType {
+    fixedAmount = "fixedAmount", rateBased = "rateBased", variable = "variable"
 }
 
 export class RandomBanking {
@@ -498,10 +540,13 @@ export class RandomBanking {
         return this.GetRandomValue(ContraintType)
     }
 
-    public static FeeType(): any {
-        return this.GetRandomValue(FeeType)
+    public static FeeTypeV2(): any {
+        return this.GetRandomValue(FeeTypeV2)
     }
 
+    public static FeeType(): any {
+        return this.GetRandomValue(FeeType)
+    }    
     public static DepositRateType(): any {
         return this.GetRandomValue(DepositRateType)
     }
@@ -518,8 +563,37 @@ export class RandomBanking {
         return this.GetRandomValue(RepaymentType)
     }
 
+    public static InterestPaymentDueType(): any {
+        return this.GetRandomValue(InterestPaymentDueType)
+    }
+
+    public static BankingProductCardScheme(): any {
+        return this.GetRandomValue(BankingProductCardScheme)
+    }
+
+    public static BankingProductCardType(): any {
+        return this.GetRandomValue(BankingProductCardType)
+    }
+
+
     public static DiscountType(): any {
         return this.GetRandomValue(DiscountType)
+    }
+
+    public static RateApplicationType(): any {
+        return this.GetRandomValue(RateApplicationType)
+    }
+
+    public static DiscountMethodUType(): any {
+        return this.GetRandomValue(DiscountMethodUType)
+    }
+
+    public static ProductApplicationType(): any {
+        return this.GetRandomValue(ProductApplicationType)
+    }
+
+    public static FeeMethodUType(): any {
+        return this.GetRandomValue(FeeMethodUType)
     }
 
     public static DiscountEligibilityType(): any {

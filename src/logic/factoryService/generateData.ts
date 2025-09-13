@@ -14,7 +14,7 @@ import {
   OptionsWeighted,
   OptionsSequence
 } from '../options';
-import { Authenticated, BankAccountWrapper, ConsumerDataRightTestDataJSONSchema, CustomerWrapper, EnergyAccountWrapper, EnergyServicePointWrapper, Holder, HolderWrapper, Unauthenticated } from '../schema/cdr-test-data-schema';
+import { Authenticated, BankAccountWrapper, ConsumerDataRightTestDataJSONSchema, CustomerWrapper, EnergyAccountWrapper, EnergyServicePointWrapper, Holder, HolderWrapper, Unauthenticated } from '../../schema/cdr-test-data-schema';
 import { toASCII } from 'punycode';
 
 export const generateData = (options: Options, dst: string, verbose: boolean): number => {
@@ -205,7 +205,7 @@ function generateDetailedHolders(options: Options, holderOptions: any, data: Con
 }
 
 function updateExistingDataHolders(options: Options, holderOptions: any, data: ConsumerDataRightTestDataJSONSchema) {
-  data.holders?.forEach(holder => {
+  data.holders?.forEach((holder: any) => {
     if (holder.holderId != null) {
       if (!holder.holder) {
         let h: Holder = {
@@ -751,7 +751,7 @@ function generateDetailedBankAccounts(options: Options, accountOptions: any, cus
 function getServicePointsForAllAcounts(accounts: EnergyAccountWrapper[]): string[] {
   let sp: string[] = [];
   accounts?.forEach(account => {
-    let electricitySp = account.account.plans.find(x => x.planDetail?.electricityContract)?.servicePointIds;
+    let electricitySp = account.account.plans.find((x:any) => x.planDetail?.electricityContract)?.servicePointIds;
     if (electricitySp != undefined) { sp.push(...electricitySp) }
   })
   return sp;
@@ -788,7 +788,7 @@ function generateCustomerEnergyData(options: Options, energyOptions: any, custom
   let activeServicePoints: string[] = getServicePointsForAllAcounts(result.accounts as EnergyAccountWrapper[]);
   result?.accounts?.forEach((acc: EnergyAccountWrapper) => {
     if (acc.account.openStatus == OpenStatus.OPEN) {
-      acc.account.plans.forEach((p: any) => {
+      acc.account?.plans.forEach((p: any) => {
         if (p?.servicePointsIds?.length > 0)
           activeServicePoints.push(...p.servicePointsIds);
       })

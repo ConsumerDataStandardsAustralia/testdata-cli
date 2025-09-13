@@ -1,6 +1,6 @@
 
 import { OptionsGeneral } from '../options';
-import { AdminOutage, AdminStatus, BankAccountWrapper, Client, ConsumerDataRightTestDataJSONSchema, CustomerWrapper, EnergyAccountWrapper, EnergyServicePointWrapper, Holders, HolderWrapper } from '../schema/cdr-test-data-schema';
+import { AdminOutage, AdminStatus, BankAccountWrapper, Client, ConsumerDataRightTestDataJSONSchema, CustomerWrapper, EnergyAccountWrapper, EnergyServicePointWrapper, Holders, HolderWrapper } from '../../schema/cdr-test-data-schema';
 
 export interface FactoryOptions {
   general?: OptionsGeneral,

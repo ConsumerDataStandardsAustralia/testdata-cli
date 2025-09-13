@@ -1,5 +1,5 @@
 import { EnergyBillingDemandTransactionV2, EnergyBillingOnceOffTransaction, EnergyBillingOtherTransaction, EnergyBillingPaymentTransaction, EnergyBillingTransactionV2, EnergyBillingUsageTransactionV2} from "consumer-data-standards/energy";
-import { EnergyAccountWrapper, EnergyServicePointWrapper } from "../../logic/schema/cdr-test-data-schema";
+import { EnergyAccountWrapper, EnergyServicePointWrapper } from "../../schema/cdr-test-data-schema";
 import { TransactionUType } from "../../random-generators";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { RandomEnergy } from '../../random-generators';
@@ -165,14 +165,14 @@ Key values randomly allocated:
     }
 
 
-    private getServicePointId(): string | null {
+    private getServicePointId(): string | undefined {
         let cnt = this.servicePointWrapper ? this.servicePointWrapper.length : 0;
         if (cnt > 0) {
             let randomIdx = Helper.generateRandomIntegerInRange(0, cnt-1);
             if (this.servicePointWrapper)
                 return this.servicePointWrapper[randomIdx]?.servicePoint?.servicePointId;
         }
-        return null;
+        return undefined;
     }
 
     private getInvoiceNumber(): string | null {

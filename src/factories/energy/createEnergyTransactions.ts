@@ -1,5 +1,5 @@
-import { EnergyBillingDemandTransaction, EnergyBillingOnceOffTransaction, EnergyBillingOtherTransaction, EnergyBillingPaymentTransaction, EnergyBillingTransaction, EnergyBillingUsageTransaction, EnergyPlan, EnergyPlanDetailV2} from "consumer-data-standards/energy";
-import { EnergyAccountWrapper, EnergyServicePointWrapper } from "../../logic/schema/cdr-test-data-schema";
+import { EnergyBillingDemandTransactionV3, EnergyBillingOnceOffTransaction, EnergyBillingOtherTransaction, EnergyBillingPaymentTransaction, EnergyBillingTransactionV3, EnergyBillingUsageTransactionV2, EnergyPlan, EnergyPlanDetailV2} from "consumer-data-standards/energy";
+import { EnergyAccountWrapper, EnergyServicePointWrapper } from "../../schema/cdr-test-data-schema";
 import { TransactionUType } from "../../random-generators";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { RandomEnergy } from '../../random-generators';
@@ -40,14 +40,14 @@ Key values randomly allocated:
     } 
 
     public canCreateEnergyTransaction(): boolean { return true; };
-    public generateEnergyTransaction(account: EnergyAccountWrapper, servicePoints: EnergyServicePointWrapper[]): EnergyBillingTransaction | undefined 
+    public generateEnergyTransaction(account: EnergyAccountWrapper, servicePoints: EnergyServicePointWrapper[]): EnergyBillingTransactionV3 | undefined 
     { 
         this.accountWrapper = account;
         this.servicePointWrapper = servicePoints;
 
         let id = this.accountWrapper.account.accountId;
         
-        let transaction : EnergyBillingTransaction = {
+        let transaction : EnergyBillingTransactionV3 = {
             accountId: account.account.accountId,
             executionDateTime: "",
             transactionUType: this.transactionUType
@@ -65,7 +65,7 @@ Key values randomly allocated:
     public canCreateEnergyTransactions(): boolean { return true; };
     public generateEnergyTransactions(account: EnergyAccountWrapper, servicePoints: EnergyServicePointWrapper[] ): any[] | undefined { 
         let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;
-        let ret: EnergyBillingTransaction[] = [];
+        let ret: EnergyBillingTransactionV3[] = [];
         for (let i = 0; i < count; i++) {
             const el = this.generateEnergyTransaction(account, servicePoints);
             if (el) ret.push(el);
@@ -73,8 +73,8 @@ Key values randomly allocated:
         return ret;
     }
 
-    private generateBillingUsage(): EnergyBillingUsageTransaction {
-        let ret: EnergyBillingUsageTransaction = {
+    private generateBillingUsage(): EnergyBillingUsageTransactionV2 {
+        let ret: EnergyBillingUsageTransactionV2 = {
             amount: Helper.generateRandomDecimalInRange(-100, 100, 2),
             endDate: Helper.randomDateTimeInTheFuture(),
             startDate: Helper.randomDateTimeInThePast(),
@@ -97,8 +97,8 @@ Key values randomly allocated:
         return ret;
     }
 
-    private generateBillingDemand(): EnergyBillingDemandTransaction {
-        let ret: EnergyBillingDemandTransaction = {
+    private generateBillingDemand(): EnergyBillingDemandTransactionV3 {
+        let ret: EnergyBillingDemandTransactionV3 = {
             endDate: Helper.randomDateTimeInTheFuture(),
             startDate: Helper.randomDateTimeInThePast(),
             timeOfUseType: RandomEnergy.TimeOfUseType(),
@@ -165,14 +165,14 @@ Key values randomly allocated:
     }
 
 
-    private getServicePointId(): string | null {
+    private getServicePointId(): string | undefined {
         let cnt = this.servicePointWrapper ? this.servicePointWrapper.length : 0;
         if (cnt > 0) {
             let randomIdx = Helper.generateRandomIntegerInRange(0, cnt-1);
             if (this.servicePointWrapper)
                 return this.servicePointWrapper[randomIdx]?.servicePoint?.servicePointId;
         }
-        return null;
+        return undefined;
     }
 
     private getInvoiceNumber(): string | null {

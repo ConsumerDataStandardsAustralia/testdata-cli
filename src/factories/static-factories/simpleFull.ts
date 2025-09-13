@@ -1,5 +1,5 @@
 import { Factory, Helper, FactoryOptions } from '../../logic/factoryService'
-import { AdminOutage, AdminStatus, BankAccountWrapper, Client, CustomerWrapper, EnergyAccountWrapper, EnergyServicePointWrapper, HolderWrapper } from '../../logic/schema/cdr-test-data-schema';
+import { AdminOutage, AdminStatus, BankAccountWrapper, Client, CustomerWrapper, EnergyAccountWrapper, EnergyServicePointWrapper, HolderWrapper } from '../../schema/cdr-test-data-schema';
 
 const factoryId: string = "simple-full";
 
@@ -17,7 +17,7 @@ export class SimpleFull extends Factory {
 
   public get detailedDescription(): string {
     return '' +
-`This factory supports all types of generation but will only generate
+      `This factory supports all types of generation but will only generate
 simple payloads with all fields populated with schema compliant content.
 The payloads generated will be schema compliant but will not be semantically
 useful.
@@ -66,7 +66,7 @@ This factory supports the follow option fields:
 
     let ret: Client[] = [];
     for (let i = 0; i < count; i++) {
-      ret.push ({
+      ret.push({
         clientId: Helper.randomId(),
         legalEntityId: Helper.randomId(),
         orgId: Helper.randomId(),
@@ -111,7 +111,7 @@ This factory supports the follow option fields:
 
     let ret: any[] = [];
     for (let i = 0; i < count; i++) {
-      ret.push ({
+      ret.push({
         legalEntityId: Helper.randomId(),
         legalEntityName: "Legal entity name",
         accreditationNumber: "1234",
@@ -182,7 +182,7 @@ This factory supports the follow option fields:
           lastUpdateTime: Helper.randomDateTimeInThePast(),
           firstName: "First",
           lastName: "Last",
-          middleNames: [ "Middle" ],
+          middleNames: ["Middle"],
           prefix: "Sir",
           suffix: "PHD",
           occupationCode: "2613",
@@ -370,6 +370,7 @@ This factory supports the follow option fields:
         depositRates: [
           {
             depositRateType: "VARIABLE",
+            applicationType: "MATURITY",
             rate: "0.025",
             calculationFrequency: "P1D",
             applicationFrequency: "P1M",
@@ -379,16 +380,18 @@ This factory supports the follow option fields:
         features: [
           {
             featureType: "ADDITIONAL_CARDS",
-            additionalValue: "5",
-            isActivated: true
+            additionalValue: "5"
           }
         ],
         fees: [
           {
             name: "A fee",
             feeType: "PERIODIC",
-            amount: "10.00",
+            fixedAmount:  {
+              amount: "10.00"
+            },
             additionalValue: "P1Y",
+            feeMethodUType: "fixedAmount"
           }
         ],
         addresses: [
@@ -761,57 +764,57 @@ This factory supports the follow option fields:
           classification: "RESIDENTIAL",
           threshold: "LOW"
         },
-        distributionLossFactor: {
-          code: "DLF Code",
-          description: "DLF Description",
-          lossValue: "DLF Value"
-        },
-        relatedParticipants: [
-          {
-            party: "ACME Retailer",
-            role: "FRMP"
-          }
-        ],
-        location: {
-          addressUType: "simple",
-          simple: {
-            mailingName: "Mailing name",
-            addressLine1: "Address line 1",
-            addressLine2: "Address line 2",
-            addressLine3: "Address line 3",
-            postcode: "3999",
-            city: "Gotham",
-            state: "VIC",
-            country: "AUS"
-          }
-        },
-        meters: [
-          {
-            meterId: Helper.randomId(),
-            specifications: {
-              status: "CURRENT",
-              installationType: "BASIC",
-              manufacturer: "Manifacturer",
-              model: "Model",
-              readType: "MV1A",
-              nextScheduledReadDate: Helper.randomDateTimeInTheFuture()
-            },
-            registers: [
-              {
-                registerId: Helper.randomId(),
-                registerSuffix: Helper.randomId(),
-                averagedDailyLoad: 0,
-                registerConsumptionType: "INTERVAL",
-                networkTariffCode: "Network tariff code",
-                unitOfMeasure: "KWH",
-                timeOfDay: "ALLDAY",
-                multiplier: 0,
-                controlledLoad: false,
-                consumptionType: "ACTUAL"
-              }
-            ]
-          }
-        ]
+        // distributionLossFactor: {
+        //   code: "DLF Code",
+        //   description: "DLF Description",
+        //   lossValue: "DLF Value"
+        // },
+        // relatedParticipants: [
+        //   {
+        //     party: "ACME Retailer",
+        //     role: "FRMP"
+        //   }
+        // ],
+        // location: {
+        //   addressUType: "simple",
+        //   simple: {
+        //     mailingName: "Mailing name",
+        //     addressLine1: "Address line 1",
+        //     addressLine2: "Address line 2",
+        //     addressLine3: "Address line 3",
+        //     postcode: "3999",
+        //     city: "Gotham",
+        //     state: "VIC",
+        //     country: "AUS"
+        //   }
+        // },
+        // meters: [
+        //   {
+        //     meterId: Helper.randomId(),
+        //     specifications: {
+        //       status: "CURRENT",
+        //       installationType: "BASIC",
+        //       manufacturer: "Manifacturer",
+        //       model: "Model",
+        //       readType: "MV1A",
+        //       nextScheduledReadDate: Helper.randomDateTimeInTheFuture()
+        //     },
+        //     registers: [
+        //       {
+        //         registerId: Helper.randomId(),
+        //         registerSuffix: Helper.randomId(),
+        //         averagedDailyLoad: 0,
+        //         registerConsumptionType: "INTERVAL",
+        //         networkTariffCode: "Network tariff code",
+        //         unitOfMeasure: "KWH",
+        //         timeOfDay: "ALLDAY",
+        //         multiplier: 0,
+        //         controlledLoad: false,
+        //         consumptionType: "ACTUAL"
+        //       }
+        //     ]
+        //   }
+        // ]
       }
     }
   }
@@ -832,57 +835,57 @@ This factory supports the follow option fields:
   public generateEnergyDER(servicePoint: EnergyServicePointWrapper): any | undefined {
     let count = Helper.isPositiveInteger(this.options.options?.count) ? (this.options.options?.count as number) : 1;
 
-    let ret: any = 
-      {
-        servicePointId: servicePoint.servicePoint?.servicePointId,
-        approvedCapacity: 0,
-        availablePhasesCount: 1,
-        installedPhasesCount: 1,
-        islandableInstallation: true,
-        hasCentralProtectionControl: true,
-        protectionMode: {
-          exportLimitKva: 0,
-          underFrequencyProtection: 0,
-          underFrequencyProtectionDelay: 0,
-          overFrequencyProtection: 0,
-          overFrequencyProtectionDelay: 0,
-          underVoltageProtection: 0,
-          underVoltageProtectionDelay: 0,
-          overVoltageProtection: 0,
-          overVoltageProtectionDelay: 0,
-          sustainedOverVoltage: 0,
-          sustainedOverVoltageDelay: 0,
-          frequencyRateOfChange: 0,
-          voltageVectorShift: 0,
-          interTripScheme: "Inter trip scheme",
-          neutralVoltageDisplacement: 0
-        },
-        acConnections: [
-          {
-            connectionIdentifier: 1,
-            count: 0,
-            equipmentType: "INVERTER",
-            manufacturerName: "Manufacturer",
-            inverterSeries: "string",
-            inverterModelNumber: "Inverter model number",
-            commissioningDate: Helper.randomDateTimeInThePast(),
-            status: "ACTIVE",
-            inverterDeviceCapacity: 0,
-            derDevices: [
-              {
-                deviceIdentifier: 1,
-                count: 0,
-                manufacturer: "Manufacturer",
-                modelNumber: "Device model number",
-                status: "ACTIVE",
-                type: "FOSSIL",
-                subtype: "other",
-                nominalRatedCapacity: 0,
-                nominalStorageCapacity: 0
-              }
-            ]
-          }
-        ]
+    let ret: any =
+    {
+      servicePointId: servicePoint.servicePoint?.servicePointId,
+      approvedCapacity: 0,
+      availablePhasesCount: 1,
+      installedPhasesCount: 1,
+      islandableInstallation: true,
+      hasCentralProtectionControl: true,
+      protectionMode: {
+        exportLimitKva: 0,
+        underFrequencyProtection: 0,
+        underFrequencyProtectionDelay: 0,
+        overFrequencyProtection: 0,
+        overFrequencyProtectionDelay: 0,
+        underVoltageProtection: 0,
+        underVoltageProtectionDelay: 0,
+        overVoltageProtection: 0,
+        overVoltageProtectionDelay: 0,
+        sustainedOverVoltage: 0,
+        sustainedOverVoltageDelay: 0,
+        frequencyRateOfChange: 0,
+        voltageVectorShift: 0,
+        interTripScheme: "Inter trip scheme",
+        neutralVoltageDisplacement: 0
+      },
+      acConnections: [
+        {
+          connectionIdentifier: 1,
+          count: 0,
+          equipmentType: "INVERTER",
+          manufacturerName: "Manufacturer",
+          inverterSeries: "string",
+          inverterModelNumber: "Inverter model number",
+          commissioningDate: Helper.randomDateTimeInThePast(),
+          status: "ACTIVE",
+          inverterDeviceCapacity: 0,
+          derDevices: [
+            {
+              deviceIdentifier: 1,
+              count: 0,
+              manufacturer: "Manufacturer",
+              modelNumber: "Device model number",
+              status: "ACTIVE",
+              type: "FOSSIL",
+              subtype: "other",
+              nominalRatedCapacity: 0,
+              nominalStorageCapacity: 0
+            }
+          ]
+        }
+      ]
     }
     return ret;
   }
@@ -1053,7 +1056,7 @@ This factory supports the follow option fields:
                     displayName: "Display name",
                     startDate: Helper.randomDateTimeInThePast(),
                     endDate: Helper.randomDateTimeInThePast(),
-                    dailySupplyCharges: "10.00",
+                    dailySupplyCharge: "10.00",
                     timeZone: "LOCAL",
                     rateBlockUType: "singleRate",
                     singleRate: {
