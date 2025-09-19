@@ -287,7 +287,7 @@ export enum UnitOfMeasure {
 }
 
 export enum RateApplicationMethod {
-    "PER_TIER" , "WHOLE_BALANCE" , null
+    PER_TIER = "PER_TIER" , WHOLE_BALANCE = "WHOLE_BALANCE" 
 }
 
 export enum SpecificAccountUType {
@@ -427,11 +427,11 @@ export enum LendingRateType {
 }
 
 export enum RepaymentType {
-    "INTEREST_ONLY" , "PRINCIPAL_AND_INTEREST",  "OTHER", "UNCONSTRAINED"
+    INTEREST_ONLY = "INTEREST_ONLY" , PRINCIPAL_AND_INTEREST = "PRINCIPAL_AND_INTEREST",  OTHER = "OTHER", UNCONSTRAINED = "UNCONSTRAINED"
 }
 
 export enum InterestPaymentDueType {
-    "IN_ADVANCE" , "IN_ARREARS",  null
+    IN_ADVANCE = "IN_ADVANCE" , IN_ARREARS = "IN_ARREARS"
 }
 
 export enum BankingProductCardScheme {
@@ -454,7 +454,7 @@ export enum TransactionType {
 }
 
 export enum LoanPurpose {
-    "INVESTMENT" , "OWNER_OCCUPIED", "UNCONSTRAINED"
+    INVESTMENT = "INVESTMENT" , OWNER_OCCUPIED = "OWNER_OCCUPIED", UNCONSTRAINED = "UNCONSTRAINED"
 }
 
 export enum DiscountType {
@@ -500,7 +500,7 @@ export enum DiscountMethodUType {
 }
 
 export enum ProductApplicationType {
-    "MATURITY", "PERIODIC", "UPFRONT"
+   MATURITY = "MATURITY", PERIODIC = "PERIODIC", UPFRONT = "UPFRONT"
 }
 
 export enum FeeMethodUType {

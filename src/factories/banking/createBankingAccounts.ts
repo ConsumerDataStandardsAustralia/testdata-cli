@@ -2,12 +2,13 @@ import { BankingAccountDetailV3, BankingAccountDetailV4, BankingAccountDetailV5,
     BankingTermDepositAccount, CommonPhysicalAddress, BankingBalance, BankingLoanAccountV2 } from "consumer-data-standards/banking";
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
 import { CustomerWrapper, BankAccountWrapper } from "../../schema/cdr-test-data-schema";
-import { AccountOwnership, OpenStatus, ProductCategory, RandomBanking, SpecificAccountUType } from '../../random-generators/random-banking'
+import { AccountOwnership, Currency, OpenStatus, ProductCategory, RandomBanking, SpecificAccountUType } from '../../random-generators/random-banking'
 import { generateDepositRateArray,generateDepositRateArrayV2, generateLendingRateArrayV2, generateLendingRateArrayV3, 
      generateBankingProductFeaturesV2, generateBankingProductFeaturesV3, generateBankingProductFeaturesV4, generateBankingProductFeeArray, generateBankingProductFeeArrayV2 } from "./utils";
 import Utils from "../common/utils";
 import { faker } from "@faker-js/faker";
 import { randomUUID } from "crypto";
+import { BankingBalancePurse } from "consumer-data-standards/banking";
 
 const factoryId: string = "create-banking-accounts";
 
@@ -74,14 +75,35 @@ Key values randomly allocated:
         if (this.detailVersion == 3) {
             bankingAccount = this.generateBankingAccountDetailsV3(customer)
         }
-        let balance: BankingBalance
+        let bal = this.generateBankingAccountBalance(bankingAccount.accountId);
         let result: BankAccountWrapper = {
             account: bankingAccount,
-            balance: Helper.generateRandomDecimalInRange(-500, 5000)
+            balance: bal
         };
         return result;
     }
 
+    private generateBankingAccountBalance(accountId: string): BankingBalance {
+        let purses: BankingBalancePurse[] = [];
+        let purseCount = Helper.generateRandomIntegerInRange(0, 3);
+        for (let i = 0; i < purseCount; i++) {
+            let purse: BankingBalancePurse = {
+                amount:  Helper.generateRandomDecimalInRange(10, 10000, 2)
+            }
+            if (Math.random() > 0.5) purse.currency =  RandomBanking.Currency();
+            purses.push(purse)
+        }
+
+        let balance: BankingBalance = {
+            accountId: accountId,
+            currentBalance: Helper.generateRandomDecimalInRange(-5000, 1000000, 2),
+            availableBalance: Helper.generateRandomDecimalInRange(0, 1000000, 2)
+        }
+        if (Math.random() > 0.5) balance.purses =  purses;
+        if (Math.random() > 0.5) balance.creditLimit =  Helper.generateRandomDecimalInRange(5000, 1000000, 2);
+        if (Math.random() > 0.5) balance.amortisedLimit =  Helper.generateRandomDecimalInRange(5000, 1000000, 2);;
+        return balance
+    }
 
     private generateBankingAccountDetailsV3(customer: CustomerWrapper) : BankingAccountDetailV3{
 
@@ -135,12 +157,11 @@ Key values randomly allocated:
         }
         if (Math.random() > 0.5) bankingAccount.fees = generateBankingProductFeeArray(baseUrl);
         if (Math.random() > 0.5) { 
-            customer.customer.customerUType
             let addresses: CommonPhysicalAddress[] = [];
             // create either 1 or two addresses
             let cnt = Helper.generateRandomIntegerInRange(1,2);
             for (let i = 0; i < cnt; i++) {
-                let address = Utils.createCommPhysicalAddress(customer.customer.customerUType);
+                let address = Utils.createCommPhysicalAddress(customer.customer.customerUType as string);
                 addresses.push(address)       
             }
             bankingAccount.addresses = addresses;
@@ -205,7 +226,7 @@ Key values randomly allocated:
             // create either 1 or two addresses
             let cnt = Helper.generateRandomIntegerInRange(1,2);
             for (let i = 0; i < cnt; i++) {
-                let address = Utils.createCommPhysicalAddress(customer.customer.customerUType);
+                let address = Utils.createCommPhysicalAddress(customer.customer.customerUType as string);
                 addresses.push(address)       
             }
             bankingAccount.addresses = addresses;
@@ -268,7 +289,7 @@ Key values randomly allocated:
             // create either 1 or two addresses
             let cnt = Helper.generateRandomIntegerInRange(1,2);
             for (let i = 0; i < cnt; i++) {
-                let address = Utils.createCommPhysicalAddress(customer.customer.customerUType);
+                let address = Utils.createCommPhysicalAddress(customer.customer.customerUType as string);
                 addresses.push(address)       
             }
             bankingAccount.addresses = addresses;

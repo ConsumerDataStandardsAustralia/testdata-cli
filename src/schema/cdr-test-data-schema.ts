@@ -677,6 +677,16 @@ export type EnergyConcession = {
    */
   type: "FIXED_AMOUNT" | "FIXED_PERCENTAGE" | "VARIABLE";
 };
+export type CommonPhysicalAddress1 = {
+  [k: string]: unknown;
+} & {
+  /**
+   * The type of address object present.
+   */
+  addressUType: "paf" | "simple";
+  paf?: CommonPAFAddress1;
+  simple?: CommonSimpleAddress1;
+};
 export type EnergyUsageRead = {
   [k: string]: unknown;
 } & {
@@ -1102,7 +1112,7 @@ export interface CustomerWrapper {
  * A customer object aligned to the current version of the data standards
  */
 export interface Customer {
-  customerUType: string;
+  customerUType?: "organisation" | "person";
   person?: CommonPerson & {
     /**
      * Array is mandatory but may be empty if no phone numbers are held.
@@ -1418,10 +1428,10 @@ export interface CommonOrganisation {
  * A wrapper for a single bank account to contain all of the data related to the account
  */
 export interface BankAccountWrapper {
-  account: BankingAccountV3 | any & {
+  account: BankingAccountV3 & {
     [k: string]: unknown;
   };
-  balance?: BankingBalance | any;
+  balance?: BankingBalance;
   /**
    * An array of transactions for the account
    */
@@ -2284,7 +2294,6 @@ export interface EnergyPlanGreenPowerCharges {
    * Array of charge tiers based on the percentage of green power used for the period implied by the type. Array is in order of increasing percentage of green power.
    */
   tiers: {
-
     /**
      * The amount of the charge if the type implies the application of a fixed amount.
      */
@@ -2856,13 +2865,161 @@ export interface EnergyBillingUsageTransactionV2 {
  * An energy for a single service point (metering site) to contain all of the data related to the service point
  */
 export interface EnergyServicePointWrapper {
-  servicePoint?: EnergyServicePointV2;
+  servicePoint?: EnergyServicePointDetailV2;
   der?: EnergyDerRecord;
   /**
    * An array of reads for the service point
    */
   usage?: EnergyUsageRead[];
 }
+
+
+/* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
+
+export type EnergyServicePointDetailV2 = EnergyServicePointV2 & {
+  distributionLossFactor: {
+    /**
+     * A code used to identify data loss factor for the service point values. Refer to AEMO distribution loss factor documents for each financial year to interpret.
+     */
+    code: string;
+    /**
+     * Description of the data loss factor code and value.
+     */
+    description: string;
+    /**
+     * The value associated with the loss factor code.
+     */
+    lossValue: string;
+  };
+  relatedParticipants: {
+    /**
+     * The name of the party/organisation related to this service point.
+     */
+    party: string;
+    /**
+     * The role performed by this participant in relation to the service point. Note the details of enumeration values below: <ul><li>`FRMP`: Financially Responsible Market Participant</li><li>`LNSP`: Local Network Service Provider or Embedded Network Manager for child connection points</li><li>`DRSP`: wholesale Demand Response and/or market ancillary Service Provider and note that where it is not relevant for a NMI it will not be included.</li></ul>
+     */
+    role: "FRMP" | "LNSP" | "DRSP";
+  }[];
+  /**
+   * Location of the servicepoint.
+   */
+  location: CommonPhysicalAddress;
+  /**
+   * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point.
+   */
+  meters?: {
+    /**
+     * The meter ID uniquely identifies a meter for a given service point. It is unique in the context of the service point. It is not globally unique.
+     */
+    meterId: string;
+    /**
+     * Technical characteristics of the meter.
+     */
+    specifications: {
+      /**
+       * A code to denote the status of the meter. Note the details of enumeration values below: <ul><li>`CURRENT`: Applies when a meter is current and not disconnected</li><li>`DISCONNECTED`: Applies when a meter is present but has been remotely disconnected.</li></ul>
+       */
+      status: "CURRENT" | "DISCONNECTED";
+      /**
+       * The metering Installation type code indicates whether the metering installation has to be manually read. Note the details of enumeration values below: <ul><li>`BASIC`: Accumulation Meter – Type 6</li><li>`COMMS1`: Interval Meter with communications – Type 1</li><li>`COMMS2`: Interval Meter with communications – Type 2</li><li>`COMMS3`: Interval Meter with communications – Type 3</li><li>`COMMS4`: Interval Meter with communications – Type 4</li><li>`COMMS4C`: CT connected metering installation that meets the minimum services specifications</li><li>`COMMS4D`: Whole current metering installation that meets the minimum services specifications</li><li>`MRAM`: Small customer metering installation – Type 4A</li><li>`MRIM`: Manually Read Interval Meter – Type 5</li><li>`UMCP`: Unmetered Supply – Type 7</li><li>`VICAMI`: A relevant metering installation as defined in clause 9.9C of the NER</li><li>`NCONUML`: Non-contestable unmeter load - Introduced as part of Global Settlement.</li></ul>
+       */
+      installationType:
+        | "BASIC"
+        | "COMMS1"
+        | "COMMS2"
+        | "COMMS3"
+        | "COMMS4"
+        | "COMMS4C"
+        | "COMMS4D"
+        | "MRAM"
+        | "MRIM"
+        | "PROF"
+        | "SAMPLE"
+        | "UMCP"
+        | "VICAMI"
+        | "NCOLNUML";
+      /**
+       * Free text field to identify the manufacturer of the installed meter.
+       */
+      manufacturer?: string;
+      /**
+       * Free text field to identify the meter manufacturer's designation for the meter model.
+       */
+      model?: string;
+      /**
+       * Code to denote the method and frequency of Meter Reading. The value is formatted as follows: <ul><li>First Character = Remote (`R`) or Manual (`M`)</li><li>Second Character = Mode: `T` = telephone, `W` = wireless, `P` = powerline, `I` = infra-red, `G` = galvanic, `V` = visual</li><li>Third Character = Frequency of Scheduled Meter Readings: `1` = Twelve times per year, `2` = Six times per year, `3` = Four times per year, `D` = Daily or weekly</li><li>Optional Fourth Character = to identify what interval length the meter is capable of reading. This includes five, 15 and 30 minute granularity as the following: `A` = 5 minute, `B` = 15 minute, `C` = 30 minute, `D` = Cannot convert to 5 minute (i.e. due to metering installation de-energised), `M` = Manually Read Accumulation Meter.</li></ul>For example, <ul><li>`MV3` = Manual, Visual, Quarterly</li><li>`MV3M` = Manual, Visual, Quarterly, Manually Read Accumulation Meter</li><li>`RWDC` = Remote, Wireless, Daily, 30 minutes interval.</li></ul>
+       */
+      readType?: string;
+      /**
+       * This date is the next scheduled meter read date (NSRD) if a manual Meter Reading is required.
+       */
+      nextScheduledReadDate?: string;
+    };
+    /**
+     * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point.
+     */
+    registers?: {
+      /**
+       * Unique identifier of the register within this service point. Is not globally unique.
+       */
+      registerId: string;
+      /**
+       * Register suffix of the meter register where the meter reads are obtained.
+       */
+      registerSuffix?: string;
+      /**
+       * The energy delivered through a connection point or metering point over an extended period normalised to a 'per day' basis (kWh). This value is calculated annually.
+       */
+      averagedDailyLoad?: number;
+      /**
+       * Indicates the consumption type of register.
+       */
+      registerConsumptionType:
+        | "INTERVAL"
+        | "BASIC"
+        | "PROFILE_DATA"
+        | "ACTIVE_IMPORT"
+        | "ACTIVE"
+        | "REACTIVE_IMPORT"
+        | "REACTIVE";
+      /**
+       * The Network Tariff Code is a free text field containing a code supplied and published by the local network service provider.
+       */
+      networkTariffCode?: string;
+      /**
+       * The unit of measure for data held in this register.
+       */
+      unitOfMeasure?: string;
+      /**
+       * Code to identify the time validity of register contents.
+       */
+      timeOfDay?:
+        | "ALLDAY"
+        | "INTERVAL"
+        | "PEAK"
+        | "BUSINESS"
+        | "SHOULDER"
+        | "EVENING"
+        | "OFFPEAK"
+        | "CONTROLLED"
+        | "DEMAND";
+      /**
+       * Multiplier required to take a register value and turn it into a value representing billable energy.
+       */
+      multiplier?: number;
+      /**
+       * Indicates whether the energy recorded by this register is created under a Controlled Load regime.
+       */
+      controlledLoad?: boolean;
+      /**
+       * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>`ACTUAL`: implies volume of energy actually metered between two dates</li><li>`CUMULATIVE`: indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates.</li></ul>
+       */
+      consumptionType?: "ACTUAL" | "CUMULATIVE";
+    }[];
+  }[];
+};
+
 export interface EnergyServicePointV2 {
   consumerProfile?: {
     /**
@@ -2918,6 +3075,136 @@ export interface EnergyServicePointV2 {
    * The latest start date from which the constituent data sets of this service point became valid.
    */
   validFromDate: string;
+}
+/**
+ * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). Required if _addressUType_ is set to `paf`.
+ */
+export interface CommonPAFAddress1 {
+  /**
+   * Building/Property name 1.
+   */
+  buildingName1?: string | null;
+  /**
+   * Building/Property name 2.
+   */
+  buildingName2?: string | null;
+  /**
+   * Unique identifier for an address as defined by Australia Post. Also known as Delivery Point Identifier.
+   */
+  dpid?: string | null;
+  /**
+   * Unit number (including suffix, if applicable).
+   */
+  flatUnitNumber?: string | null;
+  /**
+   * Type of flat or unit for the address.
+   */
+  flatUnitType?: string | null;
+  /**
+   * Floor or level number (including alpha characters).
+   */
+  floorLevelNumber?: string | null;
+  /**
+   * Type of floor or level for the address.
+   */
+  floorLevelType?: string | null;
+  /**
+   * Full name of locality.
+   */
+  localityName: string;
+  /**
+   * Allotment number for the address.
+   */
+  lotNumber?: string | null;
+  /**
+   * Postal delivery number if the address is a postal delivery type.
+   */
+  postalDeliveryNumber?: number | null;
+  /**
+   * Postal delivery number prefix related to the postal delivery number.
+   */
+  postalDeliveryNumberPrefix?: string | null;
+  /**
+   * Postal delivery number suffix related to the postal delivery number.
+   */
+  postalDeliveryNumberSuffix?: string | null;
+  /**
+   * Postal delivery type. (e.g., PO BOX). Valid enumeration defined by Australia Post PAF code file.
+   */
+  postalDeliveryType?: string | null;
+  /**
+   * Postcode for the locality.
+   */
+  postcode: string;
+  /**
+   * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
+   */
+  state: string;
+  /**
+   * The name of the street.
+   */
+  streetName?: string | null;
+  /**
+   * The street type suffix. Valid enumeration defined by Australia Post PAF code file.
+   */
+  streetSuffix?: string | null;
+  /**
+   * The street type. Valid enumeration defined by Australia Post PAF code file.
+   */
+  streetType?: string | null;
+  /**
+   * Thoroughfare number for a property (first number in a property ranged address).
+   */
+  thoroughfareNumber1?: number | null;
+  /**
+   * Suffix for the thoroughfare number. Only relevant if _thoroughfareNumber1_ is populated.
+   */
+  thoroughfareNumber1Suffix?: string | null;
+  /**
+   * Second thoroughfare number (only used if the property has a ranged address e.g., 23-25).
+   */
+  thoroughfareNumber2?: number | null;
+  /**
+   * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
+   */
+  thoroughfareNumber2Suffix?: string | null;
+}
+/**
+ * Required if _addressUType_ is set to `simple`.
+ */
+export interface CommonSimpleAddress1 {
+  /**
+   * First line of the standard address object.
+   */
+  addressLine1: string;
+  /**
+   * Second line of the standard address object.
+   */
+  addressLine2?: string | null;
+  /**
+   * Third line of the standard address object.
+   */
+  addressLine3?: string | null;
+  /**
+   * Name of the city or locality.
+   */
+  city: string;
+  /**
+   * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (`AUS`) is assumed if country is not present.
+   */
+  country?: string | null;
+  /**
+   * Name of the individual or business formatted for inclusion in an address used for physical mail.
+   */
+  mailingName?: string | null;
+  /**
+   * Mandatory for Australian addresses.
+   */
+  postcode?: string | null;
+  /**
+   * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
+   */
+  state: string;
 }
 export interface EnergyDerRecord {
   acConnections: {

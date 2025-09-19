@@ -764,58 +764,58 @@ This factory supports the follow option fields:
           classification: "RESIDENTIAL",
           threshold: "LOW"
         },
-        // distributionLossFactor: {
-        //   code: "DLF Code",
-        //   description: "DLF Description",
-        //   lossValue: "DLF Value"
-        // },
-        // relatedParticipants: [
-        //   {
-        //     party: "ACME Retailer",
-        //     role: "FRMP"
-        //   }
-        // ],
-        // location: {
-        //   addressUType: "simple",
-        //   simple: {
-        //     mailingName: "Mailing name",
-        //     addressLine1: "Address line 1",
-        //     addressLine2: "Address line 2",
-        //     addressLine3: "Address line 3",
-        //     postcode: "3999",
-        //     city: "Gotham",
-        //     state: "VIC",
-        //     country: "AUS"
-        //   }
-        // },
-        // meters: [
-        //   {
-        //     meterId: Helper.randomId(),
-        //     specifications: {
-        //       status: "CURRENT",
-        //       installationType: "BASIC",
-        //       manufacturer: "Manifacturer",
-        //       model: "Model",
-        //       readType: "MV1A",
-        //       nextScheduledReadDate: Helper.randomDateTimeInTheFuture()
-        //     },
-        //     registers: [
-        //       {
-        //         registerId: Helper.randomId(),
-        //         registerSuffix: Helper.randomId(),
-        //         averagedDailyLoad: 0,
-        //         registerConsumptionType: "INTERVAL",
-        //         networkTariffCode: "Network tariff code",
-        //         unitOfMeasure: "KWH",
-        //         timeOfDay: "ALLDAY",
-        //         multiplier: 0,
-        //         controlledLoad: false,
-        //         consumptionType: "ACTUAL"
-        //       }
-        //     ]
-        //   }
-        // ]
-      }
+        distributionLossFactor: {
+          code: "DLF Code",
+          description: "DLF Description",
+          lossValue: "DLF Value"
+        },
+        relatedParticipants: [
+          {
+            party: "ACME Retailer",
+            role: "FRMP"
+          }
+        ],
+        location: {
+          addressUType: "simple",
+          simple: {
+            mailingName: "Mailing name",
+            addressLine1: "Address line 1",
+            addressLine2: "Address line 2",
+            addressLine3: "Address line 3",
+            postcode: "3999",
+            city: "Gotham",
+            state: "VIC",
+            country: "AUS"
+          }
+        },
+        meters: [
+          {
+            meterId: Helper.randomId(),
+            specifications: {
+              status: "CURRENT",
+              installationType: "BASIC",
+              manufacturer: "Manifacturer",
+              model: "Model",
+              readType: "MV1A",
+              nextScheduledReadDate: Helper.randomDateTimeInTheFuture()
+            },
+            registers: [
+              {
+                registerId: Helper.randomId(),
+                registerSuffix: Helper.randomId(),
+                averagedDailyLoad: 0,
+                registerConsumptionType: "INTERVAL",
+                networkTariffCode: "Network tariff code",
+                unitOfMeasure: "KWH",
+                timeOfDay: "ALLDAY",
+                multiplier: 0,
+                controlledLoad: false,
+                consumptionType: "ACTUAL"
+              }
+            ]
+          }
+        ]
+     }
     }
   }
 
@@ -1008,11 +1008,13 @@ This factory supports the follow option fields:
                     tiers: [
                       {
                         percentGreen: "0.1",
-                        amount: "10.00"
+                        amount: "10.00",
+                        rate: "2.09"
                       },
                       {
                         percentGreen: "0.2",
-                        amount: "20.00"
+                        amount: "20.00",
+                        rate: "1.09"
                       }
                     ]
                   }

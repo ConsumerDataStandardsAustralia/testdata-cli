@@ -46,7 +46,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "CRED_AND_CHRG_CARDS",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 },
                                 {
@@ -54,7 +54,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "BUSINESS_LOANS",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 },
                                 {
@@ -62,7 +62,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "TERM_DEPOSITS",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 },
                                 {
@@ -70,7 +70,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "TRANS_AND_SAVINGS_ACCOUNTS",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 } ,
                                 {
@@ -78,7 +78,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "MARGIN_LOANS",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 },
                                 {
@@ -86,7 +86,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "OVERDRAFTS",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 },
                                 {
@@ -94,7 +94,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "PERS_LOANS",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 },
                                 {
@@ -102,7 +102,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "REGULATED_TRUST_ACCOUNTS",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 },
                                 {
@@ -110,7 +110,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "RESIDENTIAL_MORTGAGES",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 },
                                 {
@@ -118,7 +118,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "TRADE_FINANCE",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 },
                                 {
@@ -126,7 +126,7 @@
                                     "options": {
                                         "count": 5,
                                         "productCategory": "TRAVEL_CARDS",
-                                        "productVersion": 6
+                                        "productVersion": 7
                                     }
                                 }                                                     
                             ]

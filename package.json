@@ -17,7 +17,7 @@
   "author": "Data Standards Body",
   "license": "MIT",
   "devDependencies": {
-    "@types/consumer-data-standards": "file:../DefinitelyTyped/types/consumer-data-standards",
+    "@types/consumer-data-standards": "^7.4.0",
     "@types/lodash": "^4.17.20",
     "@types/node": "^17.0.26",
     "@types/uuid": "^9.0.0",
