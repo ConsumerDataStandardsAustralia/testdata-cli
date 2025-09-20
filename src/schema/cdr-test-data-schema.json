@@ -296,7 +296,14 @@
           "items": {
             "$ref": "#/defs/bankTransaction"
           }
-        }
+        },
+        "installments": {
+          "type": "array",
+          "description": "An array of installments for the account",
+          "items": {
+            "$ref": "#/defs/bankInstallments"
+          }
+        }        
       }
     },
     "bankAccount": {
@@ -308,6 +315,9 @@
     "bankTransaction": {
       "$ref": "https://raw.githubusercontent.com/ConsumerDataStandardsAustralia/dsb-schema-tools/main/1.35.0/schemas/banking/BankingTransactionDetailV3.json"
     },
+    "bankInstallments": {
+      "$ref": "https://raw.githubusercontent.com/ConsumerDataStandardsAustralia/dsb-schema-tools/main/1.35.0/schemas/banking/BankingInstalmentPlan.json"
+    },    
     "energyAccountWrapper": {
       "type": "object",
       "description": "A wrapper for a single eenrgy account to contain all of the data related to the account",

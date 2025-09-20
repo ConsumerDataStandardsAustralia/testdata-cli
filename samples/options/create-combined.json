@@ -291,8 +291,13 @@
                                         },
                                         "balanceFactory": {
                                             "id": "create-banking-balances"
-                                        }
-          
+                                        },
+                                        "installmentsFactory": {
+                                            "id": "create-banking-installments",
+                                            "options": {
+                                                "count": 10
+                                            }
+                                        }          
                                     }
                                 ],
                                 "payeesFactory": {

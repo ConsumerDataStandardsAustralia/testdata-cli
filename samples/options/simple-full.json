@@ -64,6 +64,7 @@
   									"count": 10
   								}
   							}
+							
   						}],
   						"directDebitsFactory": {
   							"id": "simple-full",

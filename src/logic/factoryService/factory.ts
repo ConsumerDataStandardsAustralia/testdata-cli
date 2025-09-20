@@ -80,8 +80,14 @@ export abstract class Factory {
   public canCreateBankTransaction(): boolean { return false; };
   public generateBankTransaction(account: BankAccountWrapper): any | undefined { return }
 
+  public canCreateBankInstallment(): boolean { return false; };
+  public generateBankInstallment(account: BankAccountWrapper): any | undefined { return }  
+
   public canCreateBankTransactions(): boolean { return false; };
   public generateBankTransactions(account: BankAccountWrapper): any[] | undefined { return }
+
+  public canCreateBankInstallments(): boolean { return false; };
+  public generateBankInstallments(account: BankAccountWrapper): any[] | undefined { return }
 
   public canCreateBankDirectDebits(): boolean { return false; };
   public generateBankDirectDebits(accounts: BankAccountWrapper[]): any[] | undefined { return }

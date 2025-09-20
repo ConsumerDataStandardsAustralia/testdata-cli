@@ -708,6 +708,18 @@ function generateDetailedBankAccounts(options: Options, accountOptions: any, cus
 
         if (account && account.account) {
           result.push(account);
+          if (accountOptions.installmentsFactory) {
+            Helper.log(`Executing installments factories for bank account`, 1);
+            account.installments = generateArrayOfItems(options, accountOptions.installmentsFactory,
+              (factory) => {
+                return factory.canCreateBankInstallments();
+              },
+              (factory) => {
+                return factory.generateBankInstallments(account);
+              })
+          } else {
+            Helper.log(`No bank account installments factories configured`, 1)
+          }
 
           if (accountOptions.transactionsFactory) {
             Helper.log(`Executing transactions factories for bank account`, 1);
