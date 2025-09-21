@@ -1,4 +1,4 @@
-import { BankAccountWrapper} from '../../logic/schema/cdr-test-data-schema';
+import { BankAccountWrapper} from '../../schema/cdr-test-data-schema';
 import {  PayeeAccountType, PayeeUType,  RandomBanking } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { BankingBillerPayee, BankingDigitalWalletPayee, BankingDomesticPayee, BankingDomesticPayeeAccount, BankingDomesticPayeeCard, BankingDomesticPayeePayId, BankingInternationalPayee, BankingPayeeDetailV2 } from 'consumer-data-standards/banking';

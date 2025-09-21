@@ -1,4 +1,4 @@
-import { BankAccountWrapper } from '../../logic/schema/cdr-test-data-schema';
+import { BankAccountWrapper } from '../../schema/cdr-test-data-schema';
 import {  RandomBanking } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { BankingBalance, BankingBalancePurse, BankingTransaction } from 'consumer-data-standards/banking';

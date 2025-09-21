@@ -1,4 +1,4 @@
-import { BankAccountWrapper } from '../../logic/schema/cdr-test-data-schema';
+import { BankAccountWrapper } from '../../schema/cdr-test-data-schema';
 import {  DigitalWalletPayeeType,  PayeeAccountType, RandomBanking, RecurrenceUType, ScheduledPaymentStatusType, ScheduledPaymentToUType } from '../../random-generators/random-banking';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
 import { faker } from "@faker-js/faker";

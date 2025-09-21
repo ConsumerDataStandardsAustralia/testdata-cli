@@ -1,6 +1,6 @@
 import { EnergyInvoice, EnergyInvoiceAccountCharges, EnergyInvoiceElectricityUsageCharges, EnergyInvoiceGasUsageCharges } from "consumer-data-standards/energy";
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
-import { EnergyAccountWrapper } from "../../logic/schema/cdr-test-data-schema";
+import { EnergyAccountWrapper } from "../../schema/cdr-test-data-schema";
 import { RandomEnergy } from "../../random-generators";
 
 const factoryId: string = "create-energy-invoice-data";

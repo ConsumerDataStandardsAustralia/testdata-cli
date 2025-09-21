@@ -1,8 +1,8 @@
 import { EnergyDerRecord, EnergyServicePoint, EnergyUsageRead } from "consumer-data-standards/energy";
-import { EnergyServicePointWrapper } from "../../logic/schema/cdr-test-data-schema";
+import { EnergyServicePointWrapper } from "../../schema/cdr-test-data-schema";
 import { AcEquipmentType, DerDeviceType, OpenStatus, RandomCommon, RandomEnergy, ReadUTYpe, ServicePointConsumerClassification, ServicePointStatus } from '../../random-generators';
 import { Factory, FactoryOptions, Helper } from "../../logic/factoryService";
-import { EnergyServicePointDetail } from "consumer-data-standards/energy_sdh";
+import { EnergyServicePointDetailV2 } from "consumer-data-standards/energy";
 import Utils from "../common/utils";
 import { faker } from "@faker-js/faker";
 import { v4 as uuidv4 } from 'uuid';
@@ -62,7 +62,7 @@ Key values randomly allocated:
         let address = Utils.createCommPhysicalAddress(this.customerType);
         let relatedParticipants: any[] = [];
         let consumerProfile: any = {};
-        let sp: EnergyServicePointDetail = {
+        let sp: EnergyServicePointDetailV2 = {
             jurisdictionCode: RandomEnergy.ServicePointJurisdiction(),
             lastUpdateDateTime: updateTime,
             nationalMeteringId: id,

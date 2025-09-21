@@ -1,6 +1,6 @@
 
 import { OptionsGeneral } from '../options';
-import { AdminOutage, AdminStatus, BankAccountWrapper, Client, ConsumerDataRightTestDataJSONSchema, CustomerWrapper, EnergyAccountWrapper, EnergyServicePointWrapper, Holders, HolderWrapper } from '../schema/cdr-test-data-schema';
+import { AdminOutage, AdminStatus, BankAccountWrapper, Client, ConsumerDataRightTestDataJSONSchema, CustomerWrapper, EnergyAccountWrapper, EnergyServicePointWrapper, Holders, HolderWrapper } from '../../schema/cdr-test-data-schema';
 
 export interface FactoryOptions {
   general?: OptionsGeneral,
@@ -80,8 +80,14 @@ export abstract class Factory {
   public canCreateBankTransaction(): boolean { return false; };
   public generateBankTransaction(account: BankAccountWrapper): any | undefined { return }
 
+  public canCreateBankInstallment(): boolean { return false; };
+  public generateBankInstallment(account: BankAccountWrapper): any | undefined { return }  
+
   public canCreateBankTransactions(): boolean { return false; };
   public generateBankTransactions(account: BankAccountWrapper): any[] | undefined { return }
+
+  public canCreateBankInstallments(): boolean { return false; };
+  public generateBankInstallments(account: BankAccountWrapper): any[] | undefined { return }
 
   public canCreateBankDirectDebits(): boolean { return false; };
   public generateBankDirectDebits(accounts: BankAccountWrapper[]): any[] | undefined { return }

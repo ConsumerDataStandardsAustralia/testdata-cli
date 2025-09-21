@@ -1,7 +1,7 @@
 import { EnergyDerRecord, EnergyPlan, EnergyUsageRead } from 'consumer-data-standards/energy';
 import { RandomEnergy, ReadUTYpe } from '../../random-generators';
 import { Factory, FactoryOptions, Helper } from '../../logic/factoryService'
-import { EnergyServicePointWrapper } from '../../logic/schema/cdr-test-data-schema';
+import { EnergyServicePointWrapper } from '../../schema/cdr-test-data-schema';
 
 
 const factoryId: string = "create-energy-usage";
@@ -54,7 +54,7 @@ Key values randomly allocated:
                 readStartDate: Helper.randomDateTimeInThePast(),
                 readUType: this.readType,
                 registerSuffix: "",
-                servicePointId: servicePoint.servicePoint.servicePointId
+                servicePointId: servicePoint?.servicePoint?.servicePointId as string
             }
             if (this.readType == ReadUTYpe.basicRead){
                 usage.basicRead = {

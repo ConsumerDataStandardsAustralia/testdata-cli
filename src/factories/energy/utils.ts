@@ -1,4 +1,4 @@
-import { EnergyPlanContract, EnergyPlanContractV2,  EnergyPlanContractV3,  EnergyPlanControlledLoad, EnergyPlanDiscounts, EnergyPlanEligibility, EnergyPlanFees, EnergyPlanGreenPowerCharges, EnergyPlanIncentives, EnergyPlanSolarFeedInTariff, EnergyPlanSolarFeedInTariffV2, EnergyPlanSolarFeedInTariffV3, EnergyPlanTariffPeriod } from "consumer-data-standards/energy";
+import {  EnergyPlanContractV3,  EnergyPlanControlledLoadV2, EnergyPlanDiscounts, EnergyPlanEligibility, EnergyPlanFees, EnergyPlanGreenPowerCharges, EnergyPlanIncentives, EnergyPlanSolarFeedInTariffV3, EnergyPlanTariffPeriodV2 } from "consumer-data-standards/energy";
 import { Helper } from "../../logic/factoryService";
 import { Days, EnergyDiscountType, FeeTerm, FuelType, generateRandomDecimalInRangeFormatted, generateRandomNumericInRangeFormatted, MethodUType, PowerChargeType, PricingModel, RandomEnergy, RateBlockUTypeControlledLoad, RateBlockUTypeForTariff, SolarFeedDays, SolarTariffUType } from "../../random-generators";
 
@@ -7,10 +7,10 @@ export function generateContract(pricingModel: PricingModel): any {
     let isFixed: boolean = Math.random() > 0.5 ? true : false;
     let paymentOtion = RandomEnergy.PaymentOption();
     let planTariffCnt: number = Math.ceil(Math.random() * 3);
-    let tarrifPeriod: EnergyPlanTariffPeriod[] = generatePlanTariffPeriod(pricingModel, planTariffCnt);
+    let tarrifPeriod: EnergyPlanTariffPeriodV2[] = generatePlanTariffPeriod(pricingModel, planTariffCnt);
 
     // For gas contracts this must be single rate
-    let contract: EnergyPlanContract = {
+    let contract: EnergyPlanContractV3 = {
         isFixed: isFixed,
         paymentOption: [paymentOtion],
         pricingModel: pricingModel,
@@ -43,59 +43,59 @@ export function generateContract(pricingModel: PricingModel): any {
     let feeCnt: number = Math.ceil(Math.random() * 3);
     if (Math.random() > 0.5) contract.fees = generatePlanFees(feeCnt);
     let solarCnt: number = Math.ceil(Math.random() * 3);
-    if (Math.random() > 0.5) contract.solarFeedInTariff = generateSolarFeedInTariffs(solarCnt);
+    if (Math.random() > 0.5) contract.solarFeedInTariff = generateSolarFeedInTariffsV3(solarCnt);
     return contract;
 }
 
-export function generateContractV2(pricingModel: PricingModel): any {
-    let isFixed: boolean = Math.random() > 0.5 ? true : false;
-    let paymentOtion = RandomEnergy.PaymentOption();
-    let planTariffCnt: number = Math.ceil(Math.random() * 3);
-    let tarrifPeriod: EnergyPlanTariffPeriod[] = generatePlanTariffPeriod(pricingModel, planTariffCnt);
+// export function generateContractV2(pricingModel: PricingModel): any {
+//     let isFixed: boolean = Math.random() > 0.5 ? true : false;
+//     let paymentOtion = RandomEnergy.PaymentOption();
+//     let planTariffCnt: number = Math.ceil(Math.random() * 3);
+//     let tarrifPeriod: EnergyPlanTariffPeriod[] = generatePlanTariffPeriod(pricingModel, planTariffCnt);
 
-    // For gas contracts this must be single rate
-    let contract: EnergyPlanContractV2 = {
-        isFixed: isFixed,
-        paymentOption: [paymentOtion],
-        pricingModel: pricingModel,
-        tariffPeriod: tarrifPeriod
-    };
-    let additionalFeeInfo = Helper.randomBoolean(null) ? RandomEnergy.AdditionalFeeInformation() : null;
-    if (additionalFeeInfo) contract.additionalFeeInformation = additionalFeeInfo;
+//     // For gas contracts this must be single rate
+//     let contract: EnergyPlanContractV2 = {
+//         isFixed: isFixed,
+//         paymentOption: [paymentOtion],
+//         pricingModel: pricingModel,
+//         tariffPeriod: tarrifPeriod
+//     };
+//     let additionalFeeInfo = Helper.randomBoolean(null) ? RandomEnergy.AdditionalFeeInformation() : null;
+//     if (additionalFeeInfo) contract.additionalFeeInformation = additionalFeeInfo;
 
-    // time zone is optional in this case
-    if (pricingModel == PricingModel.TIME_OF_USE) contract.timeZone = RandomEnergy.TariffPeriodTimezone();
-    if (contract.isFixed == false) {
-        contract.variation = "Variation details for this contract"
-    }
-    if (Math.random() > 0.5) contract.onExpiryDescription = 'This is what happens when prior to expiry of contract';
-    if (Math.random() > 0.5) contract.intrinsicGreenPower = { "greenPercentage": generateRandomDecimalInRangeFormatted(0.3, 4.0, 2) }
-    if (contract.pricingModel == PricingModel.SINGLE_RATE_CONT_LOAD ||
-        contract.pricingModel == PricingModel.TIME_OF_USE_CONT_LOAD ||
-        contract.pricingModel == PricingModel.FLEXIBLE_CONT_LOAD) {
-        let cnt: number = Math.ceil(Math.random() * 3);
-        contract.controlledLoad = generatePlanControlledLoad(cnt);
-    }
-    let incentiveCnt: number = Math.ceil(Math.random() * 3);
-    if (Math.random() > 0.5) contract.incentives = generatePlanIncentives(incentiveCnt);
-    let discountCnt: number = Math.ceil(Math.random() * 3);
-    if (Math.random() > 0.5) contract.discounts = generatePlanDiscounts(discountCnt);
-    let greenCnt: number = Math.ceil(Math.random() * 3);
-    if (Math.random() > 0.5) contract.greenPowerCharges = generateGreenPowerCharges(greenCnt);
-    let eligibilityCnt: number = Math.ceil(Math.random() * 3);
-    if (Math.random() > 0.5) contract.eligibility = generatePlanEligibility(eligibilityCnt);
-    let feeCnt: number = Math.ceil(Math.random() * 3);
-    if (Math.random() > 0.5) contract.fees = generatePlanFees(feeCnt);
-    let solarCnt: number = Math.ceil(Math.random() * 3);
-    if (Math.random() > 0.5) contract.solarFeedInTariff = generateSolarFeedInTariffsV2(solarCnt);
-    return contract;
-}
+//     // time zone is optional in this case
+//     if (pricingModel == PricingModel.TIME_OF_USE) contract.timeZone = RandomEnergy.TariffPeriodTimezone();
+//     if (contract.isFixed == false) {
+//         contract.variation = "Variation details for this contract"
+//     }
+//     if (Math.random() > 0.5) contract.onExpiryDescription = 'This is what happens when prior to expiry of contract';
+//     if (Math.random() > 0.5) contract.intrinsicGreenPower = { "greenPercentage": generateRandomDecimalInRangeFormatted(0.3, 4.0, 2) }
+//     if (contract.pricingModel == PricingModel.SINGLE_RATE_CONT_LOAD ||
+//         contract.pricingModel == PricingModel.TIME_OF_USE_CONT_LOAD ||
+//         contract.pricingModel == PricingModel.FLEXIBLE_CONT_LOAD) {
+//         let cnt: number = Math.ceil(Math.random() * 3);
+//         contract.controlledLoad = generatePlanControlledLoad(cnt);
+//     }
+//     let incentiveCnt: number = Math.ceil(Math.random() * 3);
+//     if (Math.random() > 0.5) contract.incentives = generatePlanIncentives(incentiveCnt);
+//     let discountCnt: number = Math.ceil(Math.random() * 3);
+//     if (Math.random() > 0.5) contract.discounts = generatePlanDiscounts(discountCnt);
+//     let greenCnt: number = Math.ceil(Math.random() * 3);
+//     if (Math.random() > 0.5) contract.greenPowerCharges = generateGreenPowerCharges(greenCnt);
+//     let eligibilityCnt: number = Math.ceil(Math.random() * 3);
+//     if (Math.random() > 0.5) contract.eligibility = generatePlanEligibility(eligibilityCnt);
+//     let feeCnt: number = Math.ceil(Math.random() * 3);
+//     if (Math.random() > 0.5) contract.fees = generatePlanFees(feeCnt);
+//     let solarCnt: number = Math.ceil(Math.random() * 3);
+//     if (Math.random() > 0.5) contract.solarFeedInTariff = generateSolarFeedInTariffsV2(solarCnt);
+//     return contract;
+// }
 
 export function generateContractV3(pricingModel: PricingModel): any {
     let isFixed: boolean = Math.random() > 0.5 ? true : false;
     let paymentOtion = RandomEnergy.PaymentOption();
     let planTariffCnt: number = Math.ceil(Math.random() * 3);
-    let tarrifPeriod: EnergyPlanTariffPeriod[] = generatePlanTariffPeriod(pricingModel, planTariffCnt);
+    let tarrifPeriod: EnergyPlanTariffPeriodV2[] = generatePlanTariffPeriod(pricingModel, planTariffCnt);
 
     // For gas contracts this must be single rate
     let contract: EnergyPlanContractV3 = {
@@ -163,10 +163,10 @@ export function generatePlanDetails(fuelType: FuelType): any {
     return planDetails;
 }
 
-function generatePlanTariffPeriod(pricingModel: PricingModel, planTariffCnt: number): EnergyPlanTariffPeriod[] {
-    let result: EnergyPlanTariffPeriod[] = [];
+function generatePlanTariffPeriod(pricingModel: PricingModel, planTariffCnt: number): EnergyPlanTariffPeriodV2[] {
+    let result: EnergyPlanTariffPeriodV2[] = [];
     for (let cnt = 0; cnt <= planTariffCnt; cnt++) {
-        let planTariffPeriod: EnergyPlanTariffPeriod = {
+        let planTariffPeriod: EnergyPlanTariffPeriodV2 = {
             displayName: 'Energy Tarrif Period Display Name',
             endDate: Helper.randomDateTimeInTheFuture(),
             rateBlockUType: RandomEnergy.RateBlockUTypeForTariff(),
@@ -257,12 +257,12 @@ function generateRates(rateCount: number): any {
     return rates;
 }
 
-function generatePlanControlledLoad(controlledLoadCnt: number): EnergyPlanControlledLoad[] {
-    let result: EnergyPlanControlledLoad[] = [];
+function generatePlanControlledLoad(controlledLoadCnt: number): EnergyPlanControlledLoadV2[] {
+    let result: EnergyPlanControlledLoadV2[] = [];
 
     for (let i = 0; i < controlledLoadCnt; i++) {
         let rateBlockUType = RandomEnergy.RateBlockUTypeControlledLoad()
-        let controlledLoad: EnergyPlanControlledLoad = {
+        let controlledLoad: EnergyPlanControlledLoadV2 = {
             displayName: `Display name for controlled load ${i}`,
             rateBlockUType: rateBlockUType
         }
@@ -301,7 +301,7 @@ function generatePlanControlledLoad(controlledLoadCnt: number): EnergyPlanContro
                     x.startTime = Helper.randomDateTimeInThePast();
                     x.endTime = Helper.randomDateTimeInTheFuture();
                     if (Math.random() > 0.5) x.additionalInfoUri = 'http://moreinfo';
-                    if (elem.startTime == null || elem.endTime == null || elem.additionalInfoUri != null) x.additionalInfo = 'Additional info for Time of Use'
+                    if ( x.additionalInfoUri != null) x.additionalInfo = 'Additional info for Time of Use'
                 })
 
                 elem.timeOfUse = timeOfUse;
@@ -358,111 +358,111 @@ function generatePlanFees(cnt: number): EnergyPlanFees[] {
     return result;
 }
 
-function generateSolarFeedInTariffs(cnt: number): EnergyPlanSolarFeedInTariff[] {
-    let result: EnergyPlanSolarFeedInTariff[] = [];
-    for (let i = 0; i < cnt; i++) {
-        let tariffUtype = RandomEnergy.SolarTariffUType();
-        let tariff: EnergyPlanSolarFeedInTariff = {
-            displayName: 'Mandatory display name for Solar Feed Tariff',
-            payerType: RandomEnergy.SolarPayerType(),
-            scheme: RandomEnergy.SolarScheme(),
-            tariffUType: tariffUtype
-        }
-        if (Math.random() > 0.5) tariff.description = 'Optional description for Solar Feed Tariff';
-        if (tariffUtype == SolarTariffUType.singleTariff) {
-            tariff.singleTariff = {
-                amount : Helper.generateRandomDecimalInRange(0.15, 2.45, 2)
-            };
-        }
-        if (tariffUtype == SolarTariffUType.timeVaryingTariffs) {
-            tariff.timeVaryingTariffs = {
-                amount : Helper.generateRandomDecimalInRange(0.15, 2.45, 2),
-                type: RandomEnergy.SolarFeedType(),
-                timeVariations: []
-            };
-            let cnt: number = Math.ceil(Math.random() * 3);
-            for(let i = 0; i < cnt; i++){
-                let solarDays: SolarFeedDays[] = [];
-                var obj: any = {
-                    days: solarDays
-                }
-                tariff.timeVaryingTariffs.timeVariations.push(obj);
-            }
-            tariff.timeVaryingTariffs.timeVariations.forEach(variation => {
-                if (Math.random() > 0.5) variation.startTime = Helper.randomDateTimeInThePast();
-                if (Math.random() > 0.5) variation.endTime = Helper.randomDateTimeInTheFuture();
-                let days: SolarFeedDays[] = [];
-                let dayCount: number = Math.ceil(Math.random() * 5);
-                for(let i = 0; i < dayCount; i++) days.push(RandomEnergy.SolarFeedDays());                   
-                variation.days = days;
-            })
+// function generateSolarFeedInTariffs(cnt: number): EnergyPlanSolarFeedInTariff[] {
+//     let result: EnergyPlanSolarFeedInTariff[] = [];
+//     for (let i = 0; i < cnt; i++) {
+//         let tariffUtype = RandomEnergy.SolarTariffUType();
+//         let tariff: EnergyPlanSolarFeedInTariff = {
+//             displayName: 'Mandatory display name for Solar Feed Tariff',
+//             payerType: RandomEnergy.SolarPayerType(),
+//             scheme: RandomEnergy.SolarScheme(),
+//             tariffUType: tariffUtype
+//         }
+//         if (Math.random() > 0.5) tariff.description = 'Optional description for Solar Feed Tariff';
+//         if (tariffUtype == SolarTariffUType.singleTariff) {
+//             tariff.singleTariff = {
+//                 amount : Helper.generateRandomDecimalInRange(0.15, 2.45, 2)
+//             };
+//         }
+//         if (tariffUtype == SolarTariffUType.timeVaryingTariffs) {
+//             tariff.timeVaryingTariffs = {
+//                 amount : Helper.generateRandomDecimalInRange(0.15, 2.45, 2),
+//                 type: RandomEnergy.SolarFeedType(),
+//                 timeVariations: []
+//             };
+//             let cnt: number = Math.ceil(Math.random() * 3);
+//             for(let i = 0; i < cnt; i++){
+//                 let solarDays: SolarFeedDays[] = [];
+//                 var obj: any = {
+//                     days: solarDays
+//                 }
+//                 tariff.timeVaryingTariffs.timeVariations.push(obj);
+//             }
+//             tariff.timeVaryingTariffs.timeVariations.forEach(variation => {
+//                 if (Math.random() > 0.5) variation.startTime = Helper.randomDateTimeInThePast();
+//                 if (Math.random() > 0.5) variation.endTime = Helper.randomDateTimeInTheFuture();
+//                 let days: SolarFeedDays[] = [];
+//                 let dayCount: number = Math.ceil(Math.random() * 5);
+//                 for(let i = 0; i < dayCount; i++) days.push(RandomEnergy.SolarFeedDays());                   
+//                 variation.days = days;
+//             })
             
-        }
-        result.push(tariff);
-    }
-    return result;
-}
+//         }
+//         result.push(tariff);
+//     }
+//     return result;
+// }
 
-function generateSolarFeedInTariffsV2(cnt: number): EnergyPlanSolarFeedInTariffV2[] {
-    let result: EnergyPlanSolarFeedInTariffV2[] = [];
-    for (let i = 0; i < cnt; i++) {
-        let tariffUtype = RandomEnergy.SolarTariffUType();
-        let tariff: EnergyPlanSolarFeedInTariffV2 = {
-            displayName: 'Mandatory display name for Solar Feed Tariff',
-            payerType: RandomEnergy.SolarPayerType(),
-            scheme: RandomEnergy.SolarScheme(),
-            tariffUType: tariffUtype
-        }
-        if (Math.random() > 0.5) tariff.description = 'Optional description for Solar Feed Tariff';
-        if (tariffUtype == SolarTariffUType.singleTariff) {
-            let single: any = {};
-            tariff.singleTariff = single;
-            if (tariff.singleTariff != null){
-                let rates: any[] = [];
-                let cnt: number = Math.ceil(Math.random() * 3);
-                for (let i = 0; i < cnt; i++) {
-                    let rate: any = {};
-                    rate.unitPrice = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
-                    if(Math.random() > 0.5) rate.measureUnit = RandomEnergy.MeasureUnit();
-                    if(Math.random() > 0.5) rate.volume = generateRandomNumericInRangeFormatted(10, 1000, 2);
-                    rates.push(rate);
-                }             
-                tariff.singleTariff.rates = rates;
-            }
-        }
-        if (tariffUtype == SolarTariffUType.timeVaryingTariffs) {
-            let timeVarying: any = {};
-            tariff.timeVaryingTariffs = timeVarying;
-            if (tariff.timeVaryingTariffs != null) {
+// function generateSolarFeedInTariffsV2(cnt: number): EnergyPlanSolarFeedInTariffV2[] {
+//     let result: EnergyPlanSolarFeedInTariffV2[] = [];
+//     for (let i = 0; i < cnt; i++) {
+//         let tariffUtype = RandomEnergy.SolarTariffUType();
+//         let tariff: EnergyPlanSolarFeedInTariffV2 = {
+//             displayName: 'Mandatory display name for Solar Feed Tariff',
+//             payerType: RandomEnergy.SolarPayerType(),
+//             scheme: RandomEnergy.SolarScheme(),
+//             tariffUType: tariffUtype
+//         }
+//         if (Math.random() > 0.5) tariff.description = 'Optional description for Solar Feed Tariff';
+//         if (tariffUtype == SolarTariffUType.singleTariff) {
+//             let single: any = {};
+//             tariff.singleTariff = single;
+//             if (tariff.singleTariff != null){
+//                 let rates: any[] = [];
+//                 let cnt: number = Math.ceil(Math.random() * 3);
+//                 for (let i = 0; i < cnt; i++) {
+//                     let rate: any = {};
+//                     rate.unitPrice = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
+//                     if(Math.random() > 0.5) rate.measureUnit = RandomEnergy.MeasureUnit();
+//                     if(Math.random() > 0.5) rate.volume = generateRandomNumericInRangeFormatted(10, 1000, 2);
+//                     rates.push(rate);
+//                 }             
+//                 tariff.singleTariff.rates = rates;
+//             }
+//         }
+//         if (tariffUtype == SolarTariffUType.timeVaryingTariffs) {
+//             let timeVarying: any = {};
+//             tariff.timeVaryingTariffs = timeVarying;
+//             if (tariff.timeVaryingTariffs != null) {
 
-                let rates: any[] = [];
-                tariff.timeVaryingTariffs.type = RandomEnergy.SolarFeedType();
-                let cnt: number = Math.ceil(Math.random() * 3);
-                for (let i = 0; i < cnt; i++) {
-                    let rate: any = {};
-                    rate.unitPrice = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
-                    if(Math.random() > 0.5) rate.measureUnit = RandomEnergy.MeasureUnit();
-                    if(Math.random() > 0.5) rate.volume = generateRandomNumericInRangeFormatted(10, 1000, 2);
-                    rates.push(rate);
-                }             
-                tariff.timeVaryingTariffs.rates = rates;        
-                let timeVariations: any[] = []
-                for(let i = 0; i < cnt; i++) timeVariations.push({});
-                tariff.timeVaryingTariffs.timeVariations = timeVariations;
-                tariff.timeVaryingTariffs.timeVariations.forEach(variation => {
-                    if (Math.random() > 0.5) variation.startTime = Helper.randomDateTimeInThePast();
-                    if (Math.random() > 0.5) variation.endTime = Helper.randomDateTimeInTheFuture();
-                    let days: SolarFeedDays[] = [];
-                    let dayCount: number = Math.ceil(Math.random() * 5);
-                    for(let i = 0; i < dayCount; i++) days.push(RandomEnergy.SolarFeedDays());                   
-                    variation.days = days;
-                })
-            }
-        }
-        result.push(tariff);
-    }
-    return result;
-}
+//                 let rates: any[] = [];
+//                 tariff.timeVaryingTariffs.type = RandomEnergy.SolarFeedType();
+//                 let cnt: number = Math.ceil(Math.random() * 3);
+//                 for (let i = 0; i < cnt; i++) {
+//                     let rate: any = {};
+//                     rate.unitPrice = generateRandomDecimalInRangeFormatted(0.5, 1.5, 2);
+//                     if(Math.random() > 0.5) rate.measureUnit = RandomEnergy.MeasureUnit();
+//                     if(Math.random() > 0.5) rate.volume = generateRandomNumericInRangeFormatted(10, 1000, 2);
+//                     rates.push(rate);
+//                 }             
+//                 tariff.timeVaryingTariffs.rates = rates;        
+//                 let timeVariations: any[] = []
+//                 for(let i = 0; i < cnt; i++) timeVariations.push({});
+//                 tariff.timeVaryingTariffs.timeVariations = timeVariations;
+//                 tariff.timeVaryingTariffs.timeVariations.forEach(variation => {
+//                     if (Math.random() > 0.5) variation.startTime = Helper.randomDateTimeInThePast();
+//                     if (Math.random() > 0.5) variation.endTime = Helper.randomDateTimeInTheFuture();
+//                     let days: SolarFeedDays[] = [];
+//                     let dayCount: number = Math.ceil(Math.random() * 5);
+//                     for(let i = 0; i < dayCount; i++) days.push(RandomEnergy.SolarFeedDays());                   
+//                     variation.days = days;
+//                 })
+//             }
+//         }
+//         result.push(tariff);
+//     }
+//     return result;
+// }
 
 function generateSolarFeedInTariffsV3(cnt: number): EnergyPlanSolarFeedInTariffV3[] {
     let result: EnergyPlanSolarFeedInTariffV3[] = [];
